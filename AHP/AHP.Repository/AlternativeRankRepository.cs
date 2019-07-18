@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Class1
+namespace AHP.Repository
 {
-	public Class1()
+	class AlternativeRankRepository
 	{
+        //Body of class
 	}
 }

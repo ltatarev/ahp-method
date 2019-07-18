@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AHP.Repository
 {
-    public class Class1
-    {
-
-    }
+	class AlternativeRepository
+	{
+        //Body of class
+	}
 }

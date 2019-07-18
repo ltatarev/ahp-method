@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AHP.Model.Common;
 
 namespace AHP.Repository.Common
 {
 	public interface ICriteriaRepository
 	{
+        //Interface body
         #region Methods
 
-        List<ICriteria> Get();
+        //Methods for interface
 
-        #endregion
+        #endregion Methods
     }
 }

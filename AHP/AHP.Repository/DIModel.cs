@@ -1,13 +1,13 @@
 ﻿using System;
-using AHP.DAL;
-using AHP.Model;
-using AHP.Model.Common;
-using AHP.Repository.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AHP.Repository
 {
-    public class DIModel
-    {
-
-    }
+	class DIModel
+	{
+        //Body of class
+	}
 }
