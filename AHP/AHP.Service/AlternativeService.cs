@@ -15,7 +15,7 @@ namespace AHP.Service
             /// </summary>
             /// <param name="vector">Input vector that needs to be normalized</param>
             /// <returns>
-            /// Normalized vector.
+            /// Normalized vector out of given vector.
             /// </returns>
 
             int len = vector.Length;
