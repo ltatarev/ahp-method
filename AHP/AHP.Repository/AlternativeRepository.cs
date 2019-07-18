@@ -8,5 +8,6 @@ namespace AHP.Repository
 {
     public class Class1
     {
+
     }
 }
