@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AHP.DAL.Entities
+{
+    public class AlternativeRank
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AlternativeRankId { get; set; }
+        public int Alternative1 { get; set; }
+        public int Alternative2 { get; set; }
+        public float Preference { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
+
+
+        public int CriteriaId { get; set; }
+        public Criteria Criteria { get; set; }
+    }
+}
