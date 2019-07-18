@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AHP.Service
 {
-    public class Class1
+    public class Service
     {
     }
 }
