@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AHP.Service.Common
+namespace AHP.Service
 {
-    public class Class1
+    class ProjectService
     {
     }
 }
