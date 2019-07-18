@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AHP.DAL
 {
-    public interface IAhpContext
+    public interface IAHPContext
     {
          DbSet<Project> Projects { get; set; }
          DbSet<Alternative> Alternatives { get; set; }

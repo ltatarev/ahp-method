@@ -4,9 +4,9 @@ using System.Data.Entity;
 
 namespace AHP.DAL
 {
-     public class AhpContext : DbContext
+    public class AHPContext : DbContext, IAHPContext
     {
-        public AhpContext() : base("Server=praksa.database.windows.net;" +
+        public AHPContext() : base("Server=praksa.database.windows.net;" +
             "Database=AHPContextDb;" +
             "User ID=jakovsudar;" +
             "Password=Praksa123;" +
@@ -16,6 +16,7 @@ namespace AHP.DAL
         {
 
         }
+
         public DbSet<Project> Projects { get; set; }
         public DbSet<Alternative> Alternatives { get; set; }
         public DbSet<Criteria> Criterias { get; set; }

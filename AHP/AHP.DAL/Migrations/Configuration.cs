@@ -7,14 +7,14 @@ namespace AHP.DAL.Migrations
     using System.Linq;
     using AHP.DAL.Entities;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AHP.DAL.AhpContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AHP.DAL.AHPContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(AHP.DAL.AhpContext context)
+        protected override void Seed(AHP.DAL.AHPContext context)
         {
             //  This method will be called after migrating to the latest version.
             var Project = new Project

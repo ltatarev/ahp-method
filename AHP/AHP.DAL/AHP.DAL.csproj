@@ -48,12 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AhpContext.cs" />
+    <Compile Include="AHPContext.cs" />
     <Compile Include="Entities\Alternative.cs" />
     <Compile Include="Entities\AlternativeRank.cs" />
     <Compile Include="Entities\Criteria.cs" />
     <Compile Include="Entities\CriteriaRank.cs" />
     <Compile Include="Entities\Project.cs" />
+    <Compile Include="IAHPContext.cs" />
     <Compile Include="Migrations\201907171946055_Initial.cs" />
     <Compile Include="Migrations\201907171946055_Initial.Designer.cs">
       <DependentUpon>201907171946055_Initial.cs</DependentUpon>
