@@ -21,6 +21,7 @@ namespace AHP.DAL.Entities
         public int ProjectId { get; set; }
         public Project Project { get; set; }
         public virtual ICollection<AlternativeRank> AlternativeRanks { get; set; }
+        public virtual ICollection<CriteriaRank> CriteriaRanks{ get; set; }
 
     }
 }
