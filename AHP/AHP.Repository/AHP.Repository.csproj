@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AhpRepository.cs" />
     <Compile Include="AlternativeRankRepository.cs" />
     <Compile Include="AlternativeRepository.cs" />
     <Compile Include="CriteriaRankRepository.cs" />

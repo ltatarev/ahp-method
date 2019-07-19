@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAlternativeRankRepository.cs" />
     <Compile Include="IAlternativeRepository.cs" />
+    <Compile Include="ICriteriaRankRepository.cs" />
     <Compile Include="ICriteriaRepository.cs" />
     <Compile Include="IProjectRepositroy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
