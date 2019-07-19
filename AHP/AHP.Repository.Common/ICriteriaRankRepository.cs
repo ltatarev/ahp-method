@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AHP.Repository.Common
 {
-    class ICriteriaRankRepository
+    public interface ICriteriaRankRepository
     {
         //Interface body
         #region Methods
