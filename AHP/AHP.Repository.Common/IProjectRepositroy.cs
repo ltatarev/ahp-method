@@ -18,6 +18,8 @@ namespace AHP.Repository.Common
         //Methods for getting project
         //Example for checking if first project was added
 
+        //int AddProject(int projectId, string username);
+
         #endregion Methods
     }
 }

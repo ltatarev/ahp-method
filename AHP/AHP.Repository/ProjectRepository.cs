@@ -35,7 +35,11 @@ namespace AHP.Repository
 
         //Methods in interface needs to be initialized
 
-        
+        //public int AddProject(int projectId, string username)
+        //{
+            
+        //    return projectId;
+        //}
 
         #endregion Methods
 	}
