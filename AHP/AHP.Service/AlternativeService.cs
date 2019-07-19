@@ -3,11 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AHP.Service.Common;
+using AHP.Repository.Common;
 
 namespace AHP.Service
 {
-    class AlternativeService
+    public class AlternativeService : IAlternativeService
     {
+        #region Constructors
+        public AlternativeService(IAlternativeRepository repository)
+        {
+            this.Repository = repository;
+        }
+        #endregion Constructors
+
+        #region Properties
+        protected IAlternativeRepository Repository { get; private set; }
+        #endregion Properties
+
+        #region Methods
         public double[] NormalizeVector(double[] vector)
         {
             /// <summary>
@@ -15,7 +29,7 @@ namespace AHP.Service
             /// </summary>
             /// <param name="vector">Input vector that needs to be normalized</param>
             /// <returns>
-            /// Normalized vector out of given vector.
+            /// Normalized vector.
             /// </returns>
 
             int len = vector.Length;
@@ -159,4 +173,5 @@ namespace AHP.Service
             return NormalizeVector(FinalDecision);
         }
     }
+    #endregion Methods
 }

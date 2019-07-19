@@ -48,5 +48,15 @@
     <Compile Include="ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AHP.Repository.Common\AHP.Repository.Common.csproj">
+      <Project>{515c59cf-af01-4a28-9586-1a66297569cb}</Project>
+      <Name>AHP.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Service.Common\AHP.Service.Common.csproj">
+      <Project>{4aeee877-ae10-412e-92f9-60d0a4166013}</Project>
+      <Name>AHP.Service.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
