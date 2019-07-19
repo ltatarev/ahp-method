@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AHP.Repository.Common;
 
 namespace AHP.Repository
 {
-	class CriteriaRepository
+	class CriteriaRepository : ICriteriaRankRepository
 	{
          //Body of class
 
          #region Constructor
 
-    //        public CriteriaRepository(ICriteriaContext context)
-    //    {
-    //        this.context = context;
-    //    }
+            public CriteriaRepository(ICriteriaRepository context)
+        {
+            this.Context = context;
+        }
 
         #endregion Constructor
 
@@ -23,7 +24,7 @@ namespace AHP.Repository
 
         //Context was protected
 
-    //    private ICriteriaRepository Context { get; private set; }
+        private ICriteriaRepository Context { get; set; }
 
         #endregion Properties
 

@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AHP.Repository.Common;
 
 namespace AHP.Repository
 {
-	class ProjectRepository
+	class ProjectRepository : IProjectRepository
 	{
-         //Body of class
+        //Body of class
 
          #region Constructor
 
-    //        public ProjectRepository(IProjectContext context)
-    //    {
-    //        this.context = context;
-    //    }
+            public ProjectRepository(IProjectRepository context)
+        {
+            this.Context = context;
+        }
 
         #endregion Constructor
 
@@ -23,7 +24,7 @@ namespace AHP.Repository
 
         //Context was protected
 
-    //    private IProjectRepository Context { get; private set; }
+        private IProjectRepository Context { get;  set; }
 
         #endregion Properties
 

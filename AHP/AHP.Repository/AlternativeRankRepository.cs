@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AHP.Repository.Common;
 
 namespace AHP.Repository
 {
-	class AlternativeRankRepository
+	class AlternativeRankRepository : IAlternativeRankRepository
 	{
         //Body of class
 
         #region Constructor
 
-    //        public AlternativeRankRepository(IAlternativeRankContext context)
-    //    {
-    //        this.context = context;
-    //    }
+            public AlternativeRankRepository(IAlternativeRankRepository context)
+        {
+            this.Context = context;
+        }
 
         #endregion Constructor
 
@@ -23,7 +24,7 @@ namespace AHP.Repository
 
         //Context was protected
 
-    //    private IAlternativeRankRepository Context { get; private set; }
+        private IAlternativeRankRepository Context { get; set; }
 
         #endregion Properties
 

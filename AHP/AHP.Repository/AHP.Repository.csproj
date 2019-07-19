@@ -49,5 +49,11 @@
     <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AHP.Repository.Common\AHP.Repository.Common.csproj">
+      <Project>{515c59cf-af01-4a28-9586-1a66297569cb}</Project>
+      <Name>AHP.Repository.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
