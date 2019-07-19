@@ -11,7 +11,7 @@ namespace AHP.DAL.Entities
     {
         [Key]
         public int CriteriaRankId { get; set; }        
-        public int column { get; set; }
+        public int Column { get; set; }
         public float Priority { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }

@@ -38,19 +38,19 @@ namespace AHP.DAL.Migrations
                 };
             var criteriaRanks = new List<CriteriaRank>
                  {
-                     new CriteriaRank{Criteria1=1,Criteria2=2,Priority=5,DateCreated = DateTime.Now,
+                     new CriteriaRank{Column=2,Priority=5,DateCreated = DateTime.Now,
                 DateUpdated = DateTime.Now   },
-                     new CriteriaRank{Criteria1=1,Criteria2=3,Priority=4,DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now   },
-
-                     new CriteriaRank{Criteria1=2,Criteria2=1,Priority=1/5f,DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now   },
-                     new CriteriaRank{Criteria1=2,Criteria2=3,Priority=2,DateCreated = DateTime.Now,
+                     new CriteriaRank{Column=3,Priority=4,DateCreated = DateTime.Now,
                 DateUpdated = DateTime.Now   },
 
-                     new CriteriaRank{Criteria1=3,Criteria2=1,Priority=1/4,DateCreated = DateTime.Now,
+                     new CriteriaRank{Column=1,Priority=1/5f,DateCreated = DateTime.Now,
                 DateUpdated = DateTime.Now   },
-                     new CriteriaRank{Criteria1=3,Criteria2=2,Priority=1/2f,DateCreated = DateTime.Now,
+                     new CriteriaRank{Column=3,Priority=2,DateCreated = DateTime.Now,
+                DateUpdated = DateTime.Now   },
+
+                     new CriteriaRank{Column=1,Priority=1/4,DateCreated = DateTime.Now,
+                DateUpdated = DateTime.Now   },
+                     new CriteriaRank{Column=2,Priority=1/2f,DateCreated = DateTime.Now,
                 DateUpdated = DateTime.Now   }
                  };
             var alternatives = new List<Alternative>
