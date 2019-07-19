@@ -210,6 +210,14 @@
       <Project>{a8e24914-3505-42f8-8107-0de22129e61e}</Project>
       <Name>AHP.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AHP.Repository\AHP.Repository.csproj">
+      <Project>{b26cc01b-184f-43ef-baab-f28a89e85270}</Project>
+      <Name>AHP.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Service\AHP.Service.csproj">
+      <Project>{eba47e6b-d9b0-4612-aeab-69e80dc9d817}</Project>
+      <Name>AHP.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

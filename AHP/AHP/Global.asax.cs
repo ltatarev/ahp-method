@@ -17,7 +17,9 @@ namespace AHP
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<DAL.AHPContext>();
+            builder.RegisterModule(new DAL.DIModule());
+            builder.RegisterModule(new Repository.DIModule());
+            builder.RegisterModule(new Service.DIModule());
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             var container = builder.Build();
