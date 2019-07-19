@@ -50,6 +50,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AHP.DAL\AHP.DAL.csproj">
+      <Project>{a8e24914-3505-42f8-8107-0de22129e61e}</Project>
+      <Name>AHP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Model.Common\AHP.Model.Common.csproj">
+      <Project>{59a56bbc-72e7-4d07-b218-bda9d97ed662}</Project>
+      <Name>AHP.Model.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AHP.Repository.Common\AHP.Repository.Common.csproj">
       <Project>{515c59cf-af01-4a28-9586-1a66297569cb}</Project>
       <Name>AHP.Repository.Common</Name>

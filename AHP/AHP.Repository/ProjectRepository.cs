@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AHP.DAL;
+using AHP.Model;
+using AHP.Model.Common;
 using AHP.Repository.Common;
 
 namespace AHP.Repository
@@ -13,7 +16,7 @@ namespace AHP.Repository
 
          #region Constructor
 
-            public ProjectRepository(IProjectRepository context)
+            public ProjectRepository(IAHPContext context)
         {
             this.Context = context;
         }
@@ -24,13 +27,15 @@ namespace AHP.Repository
 
         //Context was protected
 
-        private IProjectRepository Context { get;  set; }
+        private IAHPContext Context { get;  set; }
 
         #endregion Properties
 
         #region Methods
 
-      //-----CRUD needs to be added-----
+        //Methods in interface needs to be initialized
+
+        
 
         #endregion Methods
 	}
