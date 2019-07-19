@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AHP.Service.Common
 {
-    class IProjectService
+    public interface IProjectService
     {
     }
 }
