@@ -8,40 +8,68 @@ namespace AHP.Service
 {
     public class Service
     {
-        public double[,] KreiranjeMatrice(int[] polje, int dimenzija)
+        public double[] NormalizeVector(double[] vector)
         {
             /// <summary>
-            /// Metoda za kreiranje matrice od prosljeđenih elemenata gornjeg trokuta matrice.
-            /// Vrijednost elemenata na dijagonali je 1, a ispod dijagonale se nalaze recipročne vrijednosti
-            /// elemenata gornjeg trokuta.
+            /// Method for normalizing vector.
             /// </summary>
-            /// <param name="polje">Polje elemenata od kojeg konstruiramo matricu.</param>
-            /// <param name="dimenzija">Dimenzija matrice</param>
+            /// <param name="vector">Input vector that needs to be normalized</param>
             /// <returns>
-            /// Matricu veličine dimenzija x dimenzija.
+            /// Normalized vector.
             /// </returns>
 
-            int d = dimenzija;
+            int len = vector.Length;
+            double sum = 0;
 
-            double[,] Matrica = new double[dimenzija, dimenzija];
+            double[] NormalizedVector = new double[len];
 
-            if (polje.Length == (d * d - d) / 2)
+            for (int i = 0; i < len; i++)
             {
+                sum += vector[i];
+            }
+
+            for (int i = 0; i < len; i++)
+            {
+                NormalizedVector[i] = vector[i] / sum;
+            }
+
+            return NormalizedVector;
+        }
+        public double[,] CreateMatrix(int[] array, int dimension)
+        {
+            /// <summary>
+            /// Method for creating square matrix out of a given array.
+            /// </summary>
+            /// <param name="array">Desired array for matrix</param>
+            /// <param name="dimension">Desired matrix dimension</param>
+            /// <returns>
+            /// Matrix (dimension x dimension) with array elements as upper triangle, ones on diagonal 
+            /// and lower triangle with values symmetrically reciprocal to upper triangle.
+            /// </returns>
+
+            int d = dimension;
+
+            double[,] Matrix = new double[dimension, dimension];
+
+            // Number of elements in upper triangle has to be (d * d - d) / 2
+            if (array.Length == (d * d - d) / 2)
+            {
+                int k = 0;
                 for (int i = 0; i < d; i++)
                 {
-                    Matrica[i, i] = 1;
+                    Matrix[i, i] = 1;
                     for (int j = 0; j < d; j++)
                     {
-                        int k = 0;
                         if (j > i)
                         {
-                            Matrica[i, j] = polje[k];
+
+                            Matrix[i, j] = array[k];
                             k++;
-                            Matrica[j, i] = 1 / Matrica[i, j];
+                            Matrix[j, i] = 1 / Matrix[i, j];
                         }
                     }
                 }
-                return Matrica;
+                return Matrix;
             }
             else
             {
@@ -49,98 +77,83 @@ namespace AHP.Service
             }
         }
 
-        public double[] IzracunPrioriteta(double[,] Matrica)
+        public double[] CalculatePriority(double[,] Matrix)
         {
             /// <summary>
-            /// Metoda za izračun prioriteta parametara koristeći geometrijsku sredinu redova matrice.
+            /// Method for calculating priorities of given parameters (criterion or alternatives).
             /// </summary>
-            /// <param name="Matrica">Kvadratna matrica parametara kojoj računamo prioritete.</param>
+            /// <param name="Matrix">Square parameter matrix.</param>
             /// <returns>
-            /// Polje prioriteta parametra.
+            /// Array of priorities.
             /// </returns>
 
-            // veličina prosljeđene matrice
-            int len = Matrica.GetLength(0);
+            // Matrix size
+            int len = Matrix.GetLength(0);
 
-            // Polje geometrijskih sredina
-            double[] GS = new double[len];
-
-            // Polje prioriteta (normirano polje geometrijskih sredina)
-            double[] Prioritet = new double[len];
+            // Array of geometric means
+            double[] GeoMeans = new double[len];
 
             double sum = 0;
-
             for (int i = 0; i < len; i++)
             {
                 double prod = 1;
                 for (int j = 0; j < len; j++)
                 {
-                    prod *= Matrica[i, j];
+                    prod *= Matrix[i, j];
                 }
-                GS[i] = Math.Pow(prod, (1 / len));
-                sum += GS[i];
+                GeoMeans[i] = Math.Pow(prod, (1 / (float)len));
+                sum += GeoMeans[i];
             }
 
-            // Normiranje vektora GS
-            for (int i = 0; i < len; i++)
-            {
-                GS[i] = GS[i] / sum;
-            }
-
-            return Prioritet;
+            return NormalizeVector(GeoMeans);
         }
 
-        public void KonacniPoredak(int m, int n)
+        public double[] AHPMethod(int[] CriteriaPreference, int[][] AlternativePreferences)
         {
             /// <summary>
-            /// Metoda za izračun konačnog poretka alternativa.
+            /// Method for calculating final decision using AHP method, with given criteria preferences and alternative preference for every criterion.
             /// </summary>
-            /// <param name="m">Broj kriterija</param>
-            /// <param name="n">Broj alternativa</param>
+            /// <param name="CriteriaPreference">Array of criterion preferences</param>
+            /// <param name="AlternativePreferences">Jagged array of alternative preferences for every criterion</param>
             /// <returns>
-            /// Polje prioriteta alternativa.
+            /// Array of priorities for every alternative.
             /// </returns>
 
-            ///////////// Poredak kriterija
-            // Polje preferenca kriterija iz baze RangKriterija. (gornji trokut matrice)
-            int[] Kriterij = new int[(m * m - m) / 2];
+            int numberOfCriterions = CriteriaPreference.Length;
+            int numberOfAlternatives = AlternativePreferences.Length;
 
-            double[] PrioritetKriterija = new double[m];
-            PrioritetKriterija = IzracunPrioriteta(KreiranjeMatrice(Kriterij, m));
+            double[] CriteriaPriority = new double[numberOfCriterions];
+            CriteriaPriority = CalculatePriority(CreateMatrix(CriteriaPreference, numberOfCriterions));
 
-            ///////////// Prioritet alternativa za sve kriterije
-            // Matrica prioriteta alternativa u odnosu na kriterij
-            double[,] W = new double[n, m];
+            // Matrix containing final weights
+            // w_{i,j} = priority of i-th alternative considering j-th criterion
+            double[,] W = new double[numberOfAlternatives, numberOfCriterions];
 
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i < numberOfCriterions; i++)
             {
-                // dohvatiti polje preferenca alternativa iz baze RangAlternativa uz uvjet kriterij == i
-                int[] Alternative = new int[(n * n - n) / 2];
+                // Array of Alternative preferences considering i-th criterion
+                int[] currentAlternatives = AlternativePreferences[i];
 
-                // Prioritet svih alternativa u odnosu na i-ti kriterij
-                double[] PrioritetAlternative = IzracunPrioriteta(KreiranjeMatrice(Alternative, n));
+                // Array of priorities considering i-th criterion
+                double[] AlternativePriority = CalculatePriority(CreateMatrix(currentAlternatives, numberOfAlternatives));
 
-                for (int j = 0; j < m; j++)
+                for (int j = 0; j < numberOfAlternatives; j++)
                 {
-                    // Kriteriji iteriraju po stupcima, rezultate spremamo u i-ti stupac matrice W
-                    W[j, i] = PrioritetAlternative[j];
+                    // Setting i-th column of matrix W to priorities of all alternatives
+                    W[j, i] = AlternativePriority[j];
                 }
             }
 
-            // Konačni poredak
-            double[] KonacniPoredakAlt = new double[n];
+            double[] FinalDecision = new double[numberOfAlternatives];
 
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i < numberOfAlternatives; i++)
             {
-                for (int j = 0; j < m; j++)
+                for (int j = 0; j < numberOfCriterions; j++)
                 {
-                    KonacniPoredakAlt[i] = W[i, j] * PrioritetKriterija[j];
+                    FinalDecision[i] += W[i, j] * CriteriaPriority[j];
                 }
             }
-
-            // spremanje vektora KonacniPoredakAlt u bazu Rezultat
-
-            return;
+            return NormalizeVector(FinalDecision);
         }
 
     }
