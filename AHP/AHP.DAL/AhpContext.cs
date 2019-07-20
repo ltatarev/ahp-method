@@ -1,18 +1,14 @@
 ﻿
 using AHP.DAL.Entities;
 using System.Data.Entity;
+using System.Configuration;
 
 namespace AHP.DAL
 {
     public class AHPContext : DbContext, IAHPContext
     {
-        public AHPContext() : base("Server=praksa.database.windows.net;" +
-            "Database=AHPContextDb;" +
-            "User ID=jakovsudar;" +
-            "Password=Praksa123;" +
-            "Trusted_Connection=False;" +
-            "Encrypt=True;" +
-            "PersistSecurityInfo=True")
+        public AHPContext()
+            : base ("Name=AHPContextDb")
         {
 
         }
