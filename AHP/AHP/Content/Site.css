@@ -22,10 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
-
 /* 
 BLUE: #03aad6
-DARK-BLUE: #03aad6
+DARK-BLUE: #2477ab
 GREEN: afc74b
 ORANGE: dd5c46
 
@@ -45,13 +44,14 @@ font-family: 'Nunito', sans-serif;
 }
 
 body {
-    background: linear-gradient(91deg, #03aad6, #03aad6);
+    background: linear-gradient(91deg, #03aad6, #116196);
     background-size: 400% 400%;
     -webkit-animation: background 12s ease infinite;
     -moz-animation: background 12s ease infinite;
     -o-animation: background 12s ease infinite;
     animation: background 12s ease infinite;
     font-family: 'Fira Sans', sans-serif;
+    font-size: 25px;
 }
 
 @-webkit-keyframes background {
@@ -140,10 +140,22 @@ body {
     height: 110%;
 }
 
+#SubTitle {
+    margin-top: 40px;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 80px;
+    letter-spacing: 5px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 .row {
     font-family: 'Fira Sans', sans-serif;
     color: white;
-    padding: 25px;
+    padding: 15px;
+    /* border: 2px solid white; */
 }
 
 .form-control {
@@ -155,3 +167,101 @@ body {
 .btn {
     border-radius: 15px;
 }
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 9.25px 0;
+}
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 12px;
+        cursor: pointer;
+        box-shadow: 5.5px 5.5px 4.4px rgba(0, 0, 0, 0.06), 0px 0px 5.5px rgba(13, 13, 13, 0.06);
+        background: rgba(136, 204, 241, 0.87);
+        border-radius: 0px;
+        border: 8.1px solid rgba(164, 255, 255, 0);
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        box-shadow: 5.9px 5.9px 7.6px rgba(0, 0, 0, 0), 0px 0px 5.9px rgba(13, 13, 13, 0);
+        border: 0px solid #ff0000;
+        height: 36px;
+        width: 23px;
+        border-radius: 36px;
+        background: #213ca8;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -17.35px;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: rgba(145, 208, 242, 0.87);
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 17.5px;
+        cursor: pointer;
+        box-shadow: 5.5px 5.5px 4.4px rgba(0, 0, 0, 0.06), 0px 0px 5.5px rgba(13, 13, 13, 0.06);
+        background: rgba(136, 204, 241, 0.87);
+        border-radius: 0px;
+        border: 8.1px solid rgba(164, 255, 255, 0);
+    }
+
+    input[type=range]::-moz-range-thumb {
+        box-shadow: 5.9px 5.9px 7.6px rgba(0, 0, 0, 0), 0px 0px 5.9px rgba(13, 13, 13, 0);
+        border: 0px solid #ff0000;
+        height: 36px;
+        width: 23px;
+        border-radius: 36px;
+        background: #213ca8;
+        cursor: pointer;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 17.5px;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: rgba(127, 200, 240, 0.87);
+        border: 8.1px solid rgba(164, 255, 255, 0);
+        border-radius: 0px;
+        box-shadow: 5.5px 5.5px 4.4px rgba(0, 0, 0, 0.06), 0px 0px 5.5px rgba(13, 13, 13, 0.06);
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: rgba(136, 204, 241, 0.87);
+        border: 8.1px solid rgba(164, 255, 255, 0);
+        border-radius: 0px;
+        box-shadow: 5.5px 5.5px 4.4px rgba(0, 0, 0, 0.06), 0px 0px 5.5px rgba(13, 13, 13, 0.06);
+    }
+
+    input[type=range]::-ms-thumb {
+        box-shadow: 5.9px 5.9px 7.6px rgba(0, 0, 0, 0), 0px 0px 5.9px rgba(13, 13, 13, 0);
+        border: 0px solid #ff0000;
+        height: 36px;
+        width: 23px;
+        border-radius: 36px;
+        background: #213ca8;
+        cursor: pointer;
+        height: 17.5px;
+    }
+
+    input[type=range]:focus::-ms-fill-lower {
+        background: rgba(136, 204, 241, 0.87);
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        background: rgba(145, 208, 242, 0.87);
+    }
