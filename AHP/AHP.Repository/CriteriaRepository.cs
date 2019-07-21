@@ -10,7 +10,7 @@ using AHP.Repository.Common;
 
 namespace AHP.Repository
 {
-	class CriteriaRepository : ICriteriaRankRepository
+	class CriteriaRepository : ICriteriaRepository
 	{
          //Body of class
 
