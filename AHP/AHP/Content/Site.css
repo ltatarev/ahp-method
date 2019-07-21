@@ -22,3 +22,136 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* 
+BLUE: #03aad6
+DARK-BLUE: #03aad6
+GREEN: afc74b
+ORANGE: dd5c46
+
+font-family: 'Montserrat', sans-serif;
+font-family: 'Nunito', sans-serif;
+*/
+
+::selection {
+    background: #afc74b;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid white; */
+}
+
+body {
+    background: linear-gradient(91deg, #03aad6, #03aad6);
+    background-size: 400% 400%;
+    -webkit-animation: background 12s ease infinite;
+    -moz-animation: background 12s ease infinite;
+    -o-animation: background 12s ease infinite;
+    animation: background 12s ease infinite;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+@-webkit-keyframes background {
+    0% {
+        background-position: 100% 0%
+    }
+
+    50% {
+        background-position: 0% 100%
+    }
+
+    100% {
+        background-position: 100% 0%
+    }
+}
+
+@-moz-keyframes background {
+    0% {
+        background-position: 100% 0%
+    }
+
+    50% {
+        background-position: 0% 100%
+    }
+
+    100% {
+        background-position: 100% 0%
+    }
+}
+
+@-o-keyframes background {
+    0% {
+        background-position: 100% 0%
+    }
+
+    50% {
+        background-position: 0% 100%
+    }
+
+    100% {
+        background-position: 100% 0%
+    }
+}
+
+@keyframes background {
+    0% {
+        background-position: 100% 0%
+    }
+
+    50% {
+        background-position: 0% 100%
+    }
+
+    100% {
+        background-position: 100% 0%
+    }
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    font-size: 80%;
+}
+
+:-moz-placeholder {
+    font-style: italic;
+    font-size: 80%;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+    font-size: 80%;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+    font-size: 80%;
+}
+
+#MainTitle {
+    margin-top: 40px;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 120px;
+    letter-spacing: 10px;
+    height: 110%;
+}
+
+.row {
+    font-family: 'Fira Sans', sans-serif;
+    color: white;
+    padding: 25px;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 15px;
+    border: none;
+}
+
+.btn {
+    border-radius: 15px;
+}
