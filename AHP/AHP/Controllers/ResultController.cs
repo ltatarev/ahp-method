@@ -6,12 +6,13 @@ using System.Web.Mvc;
 
 namespace AHP.Controllers
 {
-    public class HomeController : Controller
+    public class ResultController : Controller
     {
-        public ActionResult Index()
+        // GET: Result/FinalResult
+        public ActionResult FinalResult()
         {
+
             return View();
         }
-
     }
 }
