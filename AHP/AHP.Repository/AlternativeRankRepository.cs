@@ -34,7 +34,7 @@ namespace AHP.Repository
 
         #region Methods
 
-        //Methods in interface needs to be initialized
+        //Methods for AlternativeRank class
 
         public IEnumerable<AlternativeRank> GetAlternativeRanks()
         {
@@ -48,31 +48,31 @@ namespace AHP.Repository
 
         //Method for cheching if projectId in criteria is same as projectId in project
 
-        //public void GetAlternativeByProjectId(int ProjectId)
-        //{
-
-        //    Project projectId = Context.Projects.Find(ProjectId);
-        //    Alternative alternativeProjectId = Context.Alternatives.Find(ProjectId);
-
-        //    // project.Equals(criteriaProjectId); -- checks if objects are same
-
-        //    if (projectId.Equals(alternativeProjectId))
-        //    {
-        //        Context.Criterias.Find(alternativeProjectId);
-        //    }
-        //}
+     //   public void GetAlternativeByProjectId(int ProjectId)
+     //   {
+     //
+     //       Project projectId = Context.Projects.Find(ProjectId);
+     //       Alternative alternativeProjectId = Context.Alternatives.Find(ProjectId);
+     //
+     //       // project.Equals(criteriaProjectId); -- checks if objects are same
+     //
+     //       if (projectId.Equals(alternativeProjectId))
+     //       {
+     //          Context.Criterias.Find(alternativeProjectId);
+     //       }
+     //   }
 
         public void InsertAlternativeRank(AlternativeRank AlternativeRank)
         {
             Context.AlternativeRanks.Add(AlternativeRank);
-            //    Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void DeleteAlternativeRank(int AlternativeRankId)
         {
             AlternativeRank alternativeRank = Context.AlternativeRanks.Find(AlternativeRankId);
             Context.AlternativeRanks.Remove(alternativeRank);
-            //   Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         #endregion Methods

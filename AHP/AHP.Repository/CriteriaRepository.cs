@@ -13,9 +13,9 @@ namespace AHP.Repository
 {
 	class CriteriaRepository : ICriteriaRepository
 	{
-         //Body of class
+        //Body of class
 
-         #region Constructor
+        #region Constructor
 
             public CriteriaRepository(AHPContext context)
         {
@@ -34,7 +34,7 @@ namespace AHP.Repository
 
         #region Methods
 
-        //Methods in interface needs to be initialized
+        //Methods for Criteria class
 
         public IEnumerable<Criteria> GetCriterias()
         {
@@ -46,7 +46,7 @@ namespace AHP.Repository
             return Context.Criterias.Find(CriteriaId);
         }
 
-        //Method for cheching if projectId in criteria is same as projectId in project
+        //Method for cheching if criteria is from specific project
 
         public IEnumerable<Criteria> GetCritriaByProjectId(int ProjectId)
         {
@@ -60,17 +60,18 @@ namespace AHP.Repository
             return results;
            
         }
+
         public void InsertCriteria(Criteria Criteria)
         {
             Context.Criterias.Add(Criteria);
-        //    Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void DeleteCriteria(int CriteriaId)
         {
             Criteria criteria = Context.Criterias.Find(CriteriaId);
             Context.Criterias.Remove(criteria);
-       //     Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         #endregion Methods

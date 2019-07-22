@@ -15,7 +15,7 @@ namespace AHP.Repository
 	{
         //Body of class
 
-         #region Constructor
+        #region Constructor
 
             public AlternativeRepository(AHPContext context)
         {
@@ -34,7 +34,7 @@ namespace AHP.Repository
 
         #region Methods
 
-        //Methods in interface needs to be initialized
+        //Methods for Alternative class
 
         public IEnumerable<Alternative> GetAlternatives()
         {
@@ -46,7 +46,7 @@ namespace AHP.Repository
             return Context.Alternatives.Find(AlternativeId);
         }
 
-        //Method for cheching if projectId in criteria is same as projectId in project
+        //Method for cheching if Alternative is form specific project
 
         public void GetAlternativeByProjectId(int ProjectId)
         {
@@ -65,14 +65,14 @@ namespace AHP.Repository
         public void InsertAlternative(Alternative alternative)
         {
             Context.Alternatives.Add(alternative);
-        //    Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void DeleteAlternative(int AlternativeId)
         {
             Alternative alternative = Context.Alternatives.Find(AlternativeId);
             Context.Alternatives.Remove(alternative);
-         //   Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         #endregion Methods

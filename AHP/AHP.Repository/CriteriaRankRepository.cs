@@ -13,9 +13,9 @@ namespace AHP.Repository
 {
     class CriteriaRankRepository : ICriteriaRankRepository
     {
-         //Body of class
+        //Body of class
 
-         #region Constructor
+        #region Constructor
 
             public CriteriaRankRepository(AHPContext context)
         {
@@ -34,7 +34,7 @@ namespace AHP.Repository
 
         #region Methods
 
-        //Methods in interface needs to be initialized
+        //Methods for CriteriaRank class
 
         public IEnumerable<CriteriaRank> GetCriteriaRanks()
         {
@@ -65,14 +65,14 @@ namespace AHP.Repository
         public void InsertCriteriaRank(CriteriaRank CriteriaRank)
         {
             Context.CriteriaRanks.Add(CriteriaRank);
-            //    Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void DeleteCriteriaRank(int CriteriaRankId)
         {
             CriteriaRank criteriaRank = Context.CriteriaRanks.Find(CriteriaRankId);
             Context.CriteriaRanks.Remove(criteriaRank);
-            //   Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         #endregion Methods

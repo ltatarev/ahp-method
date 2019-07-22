@@ -15,7 +15,7 @@ namespace AHP.Repository
 	{
         //Body of class
 
-         #region Constructor
+        #region Constructor
 
             public ProjectRepository(AHPContext context)
         {
@@ -34,7 +34,7 @@ namespace AHP.Repository
 
         #region Methods
 
-        //Methods in interface needs to be initialized
+        //Methods for Project class
     
         public IEnumerable<Project> GetProjects()
         {
@@ -49,14 +49,14 @@ namespace AHP.Repository
         public void InsertProject(Project project)
         {
             Context.Projects.Add(project);
-     //       Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void DeleteProject(int ProjectId)
         {
             Project project = Context.Projects.Find(ProjectId);
             Context.Projects.Remove(project);
-     //       Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         #endregion Methods
