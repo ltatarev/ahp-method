@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL;
+using AHP.DAL.Entities;
 using AHP.Model;
 using AHP.Model.Common;
 using AHP.Repository.Common;
