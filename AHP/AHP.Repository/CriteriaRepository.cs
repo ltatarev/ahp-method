@@ -17,7 +17,7 @@ namespace AHP.Repository
 
          #region Constructor
 
-            public CriteriaRepository(IAHPContext context)
+            public CriteriaRepository(AHPContext context)
         {
             this.Context = context;
         }
@@ -28,7 +28,7 @@ namespace AHP.Repository
 
         //Context was protected
 
-        private IAHPContext Context { get; set; }
+        private AHPContext Context { get; set; }
 
         #endregion Properties
 
@@ -48,18 +48,17 @@ namespace AHP.Repository
 
         //Method for cheching if projectId in criteria is same as projectId in project
 
-        public void GetCritriaByProjectId(int ProjectId)
+        public IEnumerable<Criteria> GetCritriaByProjectId(int ProjectId)
         {
-
-            Project projectId = Context.Projects.Find(ProjectId);
-            Criteria criteriaProjectId = Context.Criterias.Find(ProjectId);
-
-            // project.Equals(criteriaProjectId); -- checks if objects are same
-
-            if (projectId.Equals(criteriaProjectId))
+            List<Criteria> criterias = Context.Criterias.ToList();
+            List<Criteria> results = new List<Criteria>();
+            foreach(var crit in criterias)
             {
-                Context.Criterias.Find(criteriaProjectId);
+                if (crit.ProjectId == ProjectId)
+                    results.Add(crit);
             }
+            return results;
+           
         }
         public void InsertCriteria(Criteria Criteria)
         {

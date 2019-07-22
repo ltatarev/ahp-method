@@ -21,7 +21,7 @@ namespace AHP.Repository.Common
 
         IEnumerable<Criteria> GetCriterias();
         Criteria GetCriteriaById(int CriteriaId);
-        void GetCritriaByProjectId(int ProjectId);
+        IEnumerable<Criteria> GetCritriaByProjectId(int ProjectId);
         void InsertCriteria(Criteria criteria);
         void DeleteCriteria(int CriteriaId);
 

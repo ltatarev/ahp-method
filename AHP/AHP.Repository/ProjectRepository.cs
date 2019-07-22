@@ -17,7 +17,7 @@ namespace AHP.Repository
 
          #region Constructor
 
-            public ProjectRepository(IAHPContext context)
+            public ProjectRepository(AHPContext context)
         {
             this.Context = context;
         }
@@ -28,7 +28,7 @@ namespace AHP.Repository
 
         //Context was protected
 
-        private IAHPContext Context { get;  set; }
+        private AHPContext Context { get;  set; }
 
         #endregion Properties
 
