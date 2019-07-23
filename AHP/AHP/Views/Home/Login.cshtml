@@ -1,0 +1,25 @@
+﻿@model AHP.Models.Project
+
+<div class="container mt-5 pl-4 pt-5">
+
+   <h1 id="MainTitle" class="pl-4 mx-auto">AHP METHOD</h1>
+
+   @using (Html.BeginForm("CreateProject", "Home"))
+    {
+    <div class="row">
+        <div class="col">
+            <div class="form-group pt-1">
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required="required"})
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group pt-1">
+                @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", placeholder = "Project name", required="required" })
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-outline-light"><i class="fas fa-check-circle fa-lg"></i></button>
+        </div>
+    </div>
+    }          
+</div>
