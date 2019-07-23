@@ -7,7 +7,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Model.Models
 {
-    class AlternativeModel : IAlternativeModel
+    public class AlternativeModel : IAlternativeModel
     {
 
         public int AlternativeId { get; set; }

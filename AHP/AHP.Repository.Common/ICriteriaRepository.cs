@@ -5,26 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL.Entities;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
 	public interface ICriteriaRepository
 	{
-        //Interface body
+        
+        Task<List<ICriteriaModel>> GetCriteriasAsync(int PageNumber, int PageSize = 10);
+        Task<ICriteriaModel> GetCriteriaByIdAsync(int CriteriaId);
+        Task<List<ICriteriaModel>> GetCriteriasByProjectId(int ProjectId, int PageNumber, int PageSize);
+        ICriteriaModel InsertCriteria(ICriteriaModel criteria);
+        Task<bool> DeleteCriteriaAsync(int CriteriaID);
+        Task<int> SaveAsync();
 
-        #region Methods
-
-        //Methods for interface
-
-        //Methods for getting criteria
-        //Example for checking if first criteria was added
-
-        IEnumerable<Criteria> GetCriterias();
-        Criteria GetCriteriaById(int CriteriaId);
-        IEnumerable<Criteria> GetCritriaByProjectId(int ProjectId);
-        void InsertCriteria(Criteria criteria);
-        void DeleteCriteria(int CriteriaId);
-
-        #endregion Methods
     }
 }

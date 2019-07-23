@@ -5,15 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using AHP.DAL.Entities;
 using AHP.Service.Common;
+using AutoMapper;
 
 namespace AHP.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(IProjectService projectService)
+        public HomeController(IProjectService projectService, IMapper mapper)
         {
+            this._mapper = mapper;
             this.ProjectService = ProjectService;
         }
+        public IMapper _mapper { get; set; }
         public IProjectService ProjectService { get; set; }
 
         public ActionResult Index()
@@ -36,6 +39,7 @@ namespace AHP.Controllers
         {
             // Adding new project
             ProjectService.AddProjectAsync(project);
+
             return RedirectToRoute("AddCriterion");
         }
     }

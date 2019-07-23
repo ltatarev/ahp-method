@@ -7,7 +7,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Model.Models
 {
-    class ProjectModel : IProjectModel
+    public class ProjectModel : IProjectModel
     {
 
         public int ProjectId { get; set; }

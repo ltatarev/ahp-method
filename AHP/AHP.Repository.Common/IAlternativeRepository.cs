@@ -5,26 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL.Entities;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
 	public interface IAlternativeRepository
 	{
-        //Interface body
-
-        #region Methods
-
-        //Methods for interface
-
-        //Methods for getting alternative
-        //Example for checking if first alternative was added
-
-        IEnumerable<Alternative> GetAlternatives();
-        Alternative GetAlternativeById(int AlternativeId);
-        void GetAlternativeByProjectId(int ProjectId);
-        void InsertAlternative(Alternative Alternative);
-        void DeleteAlternative(int AlternativeId);
-
-        #endregion Methods
+        Task<List<IAlternativeModel>> GetAlternativesAsync(int pageNumber, int pageSize);
+        Task<IAlternativeModel> GetAlternativeById(int alternativeId);
+        Task<List<IAlternativeModel>> GetAlternativesByProjectId(int ProjectId, int pageNumber, int pageSize = 10);
+        IAlternativeModel InsertAlternative(IAlternativeModel alternative);
+        Task<bool> DeleteAlternative(int AlternativeId);
+        Task<int> SaveAsync();
     }
 }

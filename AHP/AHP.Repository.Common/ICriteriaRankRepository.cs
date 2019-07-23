@@ -5,26 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL.Entities;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
     public interface ICriteriaRankRepository
     {
-        //Interface body
-
-        #region Methods
-
-        //Methods for interface
-
-        //Methods for getting project
-        //Example for checking if first criteriaRank was added
-
-        IEnumerable<CriteriaRank> GetCriteriaRanks();
-        CriteriaRank GetCriteriaRankById(int CriteriaRankId);
-        // void GetAlternativeRankByProjectId(int ProjectId);
-        void InsertCriteriaRank(CriteriaRank CriteriaRank);
-        void DeleteCriteriaRank(int CriteriaRankId);
-
-        #endregion Methods
+        Task<List<ICriteriaRankModel>> GetCriteriaRanks(int pageNumber, int pageSize);
+        Task<ICriteriaRankModel> GetCriteriaRankById(int criteriaRankId);
+        ICriteriaRankModel InsertCriteriaRank(ICriteriaRankModel criteriaRank);
+        Task<bool> DeleteCriteriaRank(int criterRankId);
+        Task<int> SaveAsync();
     }
 }

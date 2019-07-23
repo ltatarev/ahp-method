@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,73 +8,60 @@ using AHP.DAL;
 using AHP.DAL.Entities;
 using AHP.Model;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 using AHP.Repository.Common;
+using AutoMapper;
 
 namespace AHP.Repository
 {
     class CriteriaRankRepository : ICriteriaRankRepository
     {
-        //Body of class
-
+        
         #region Constructor
-
-            public CriteriaRankRepository(AHPContext context)
+            public CriteriaRankRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
+            this.Mapper = mapper;
         }
-
         #endregion Constructor
-
-        #region Properties
-
-        //Context was protected
-
+        #region Properties        
+        private IMapper Mapper;
         private AHPContext Context { get; set; }
 
         #endregion Properties
 
-        #region Methods
+        #region Methods       
 
-        //Methods for CriteriaRank class
-
-        public IEnumerable<CriteriaRank> GetCriteriaRanks()
+        public async Task<List<ICriteriaRankModel>> GetCriteriaRanks(int pageNumber, int pageSize=10)
         {
-            return Context.CriteriaRanks.ToList();
+            var critRanks = await Context.CriteriaRanks.OrderBy(cr => cr.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return Mapper.Map<List<ICriteriaRankModel>>(critRanks);
         }
 
-        public CriteriaRank GetCriteriaRankById(int CriteriaRankId)
+        public async Task<ICriteriaRankModel> GetCriteriaRankById(int criteriaRankId)
         {
-            return Context.CriteriaRanks.Find(CriteriaRankId);
+            var critRank = await Context.CriteriaRanks.FindAsync(criteriaRankId);
+            return Mapper.Map<ICriteriaRankModel>(critRank);
+        }      
+
+        public ICriteriaRankModel InsertCriteriaRank(ICriteriaRankModel criteriaRank)
+        {
+            var mapped = Mapper.Map<CriteriaRank>(criteriaRank);
+            Context.CriteriaRanks.Add(mapped);
+            return criteriaRank;
         }
-
-        //Method for cheching if projectId in criteria is same as projectId in project
-
-        //public void GetAlternativeByProjectId(int ProjectId)
-        //{
-
-        //    Project projectId = Context.Projects.Find(ProjectId);
-        //    Alternative alternativeProjectId = Context.Alternatives.Find(ProjectId);
-
-        //    // project.Equals(criteriaProjectId); -- checks if objects are same
-
-        //    if (projectId.Equals(alternativeProjectId))
-        //    {
-        //        Context.Criterias.Find(alternativeProjectId);
-        //    }
-        //}
-
-        public void InsertCriteriaRank(CriteriaRank CriteriaRank)
+        public async Task<bool> DeleteCriteriaRank(int criterRankId)
         {
-            Context.CriteriaRanks.Add(CriteriaRank);
-            Context.SaveChanges();
-        }
-
-        public void DeleteCriteriaRank(int CriteriaRankId)
-        {
-            CriteriaRank criteriaRank = Context.CriteriaRanks.Find(CriteriaRankId);
+            var criteriaRank = await Context.CriteriaRanks.FindAsync(criterRankId);
             Context.CriteriaRanks.Remove(criteriaRank);
-            Context.SaveChanges();
+            return true;
         }
+        public async Task<int> SaveAsync()
+        {
+            return await Context.SaveChangesAsync();
+        }
+
+
 
         #endregion Methods
     }
