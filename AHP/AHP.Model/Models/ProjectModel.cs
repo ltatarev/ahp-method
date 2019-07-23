@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Model.Models
 {
-    class ProjectModel
+    class ProjectModel : IProjectModel
     {
 
         public int ProjectId { get; set; }

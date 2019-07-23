@@ -2,7 +2,7 @@
 
 namespace AHP.Model.Common.Model_Interfaces
 {
-    class ICriteriaModel
+    public interface ICriteriaModel
     {
 
         int CriteriaId { get; set; }
@@ -11,6 +11,8 @@ namespace AHP.Model.Common.Model_Interfaces
         float Priority { get; set; }
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
+
+        int ProjectId { get; set; }
 
     }
 }

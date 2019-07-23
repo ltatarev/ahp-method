@@ -2,7 +2,7 @@
 
 namespace AHP.Model.Common.Model_Interfaces
 {
-    class IAlternativeRankModel
+    public interface IAlternativeRankModel
     {
 
         int AlternativeRankId { get; set; }
@@ -11,6 +11,8 @@ namespace AHP.Model.Common.Model_Interfaces
         float Preference { get; set; }
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
+
+        int CriteriaId { get; set; }
 
     }
 }

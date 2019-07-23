@@ -2,7 +2,7 @@
 
 namespace AHP.Model.Common.Model_Interfaces
 {
-    class IProjectModel
+    public interface IProjectModel
     {
 
         int ProjectId { get; set; }
