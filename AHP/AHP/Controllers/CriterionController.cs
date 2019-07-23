@@ -14,7 +14,7 @@ namespace AHP.Controllers
         {
             var criterion = new CriterionView()
             {
-                CriterionName = "Kriterij1"
+                CriteriaName = "Kriterij1"
             };
 
             return View();
@@ -25,7 +25,7 @@ namespace AHP.Controllers
         {
             var criterion = new CriterionView()
             {
-                CriterionName = "Kriterij1"
+                CriteriaName = "Kriterij1"
             };
 
             return View(criterion);

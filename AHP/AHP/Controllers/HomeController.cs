@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AHP.DAL.Entities;
@@ -10,7 +11,7 @@ namespace AHP.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(IProjectService projectService)
+        public HomeController(IProjectService ProjectService)
         {
             this.ProjectService = ProjectService;
         }
@@ -32,10 +33,10 @@ namespace AHP.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateProject(Project project)
+        public async Task<ActionResult> CreateProject(Project project)
         {
             // Adding new project
-            ProjectService.AddProjectAsync(project);
+            await ProjectService.AddProjectAsync(project);
             return RedirectToRoute("AddCriterion");
         }
     }
