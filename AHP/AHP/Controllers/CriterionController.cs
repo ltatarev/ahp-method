@@ -12,7 +12,7 @@ namespace AHP.Controllers
         // GET: Criterion/AddCriterion
         public ActionResult AddCriterion()
         {
-            var criterion = new Criterion()
+            var criterion = new CriterionView()
             {
                 CriterionName = "Kriterij1"
             };
@@ -23,7 +23,7 @@ namespace AHP.Controllers
         // GET: Criterion/EditCriterion
         public ActionResult EditCriteria()
         {
-            var criterion = new Criterion()
+            var criterion = new CriterionView()
             {
                 CriterionName = "Kriterij1"
             };

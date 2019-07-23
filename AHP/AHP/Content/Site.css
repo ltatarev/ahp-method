@@ -7,14 +7,14 @@ ORANGE: dd5c46
 */
 
 ::selection {
-    background: #afc74b;
+    background: #116196;
 }
 
 
 .row {
     font-family: 'Karla', cursive;
-    color: white;
     padding: 15px;
+    font-size: 16px;
 }
 
 /*.row, .container, .col {
@@ -22,12 +22,9 @@ ORANGE: dd5c46
 }*/
 
 #MainTitle {
-    margin-top: 40px;
     font-family: 'Cabin', sans-serif;
-    color: white;
     font-weight: bold;
     font-size: 90px;
-    height: 110%;
 }
 
 #SubTitle {

@@ -12,7 +12,7 @@ namespace AHP.Controllers
         // GET: Alterntive/AddAlternative
         public ActionResult AddAlternative()
         {
-            var alternative = new Alternative()
+            var alternative = new AlternativeView()
             {
                 AlternativeName = "alternativa 1"
             };
@@ -23,7 +23,7 @@ namespace AHP.Controllers
         // GET: Alterntive/EditAlternative
         public ActionResult EditAlternative()
         {
-            var alternative = new Alternative()
+            var alternative = new AlternativeView()
             {
                 AlternativeName = "alternativa 2"
             };
