@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL.Entities;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
@@ -19,12 +20,12 @@ namespace AHP.Repository.Common
         //Methods for getting project
         //Example for checking if first project was added
 
-        Task<List<Project>> GetProjectsAsync(int PageNumber, int PageSize = 10);
-        Task<Project> GetProjectByIdAsync(int ProjectId);
-        void InsertProject(Project project);
-        void DeleteProject(int ProjectId);
+        Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize = 10);
+        Task<IProjectModel> GetProjectByIdAsync(int ProjectId);
+        IProjectModel InsertProject(IProjectModel project);
+        Task<bool> DeleteProject(int ProjectId);
         Task<int> SaveAsync();
-
+        
         #endregion Methods
     }
 }

@@ -1,4 +1,5 @@
 using Autofac;
+using AHP.AutoMapper;
 using Autofac.Integration.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace AHP
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

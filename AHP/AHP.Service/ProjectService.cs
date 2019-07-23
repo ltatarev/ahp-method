@@ -9,7 +9,7 @@ using AHP.DAL.Entities;
 
 namespace AHP.Service
 {
-    public class ProjectService : IProjectService
+    public class ProjectService// : IProjectService
     {
         #region Constructors
         public ProjectService(IProjectRepository projectRepository)
@@ -23,26 +23,28 @@ namespace AHP.Service
         #endregion Properties
 
         #region Methods
+        //Komentirano dok se ne postave ViewModeli
 
-        public async Task<Project> AddProjectAsync(Project project)
-        {
-            project.DateCreated = DateTime.Now;
-            project.DateUpdated = DateTime.Now;
-            ProjectRepository.InsertProject(project);
-            await ProjectRepository.SaveAsync();
-            return project;
+        //public async Task<Project> AddProjectAsync(Project project)
+        //{
+        //    project.DateCreated = DateTime.Now;
+        //    project.DateUpdated = DateTime.Now;
+        //    // ProjectRepository.InsertProject(project);
+        //    //await ProjectRepository.SaveAsync();
+        //    return project;
+            
 
-        }
-        public async Task<List<Project>> GetProjectsAsync(int PageNumber)
-        {
-            var Projects = await ProjectRepository.GetProjectsAsync(PageNumber);
-            return Projects;
-        }
+        //}
+        //public async Task<List<Project>> GetProjectsAsync(int PageNumber)
+        //{
+        //    var projects = await ProjectRepository.getprojectsasync(pagenumber);
+        //    return projects;
+        //}
 
-        public async Task<Project> GetProjectByIdAsync(int id)
-        {
-            return await ProjectRepository.GetProjectByIdAsync(id);
-        }
+        //public async Task<Project> GetProjectByIdAsync(int id)
+        //{
+        //    //return await ProjectRepository.GetProjectByIdAsync(id);
+        //}
 
         #endregion Methods
 

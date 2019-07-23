@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using AutoMapper;
 using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL;
@@ -9,56 +10,55 @@ using AHP.DAL.Entities;
 using AHP.Model;
 using AHP.Model.Common;
 using AHP.Repository.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository
 {
 	class ProjectRepository : IProjectRepository
 	{
-        //Body of class
+               #region Constructor
 
-        #region Constructor
-
-            public ProjectRepository(AHPContext context)
+            public ProjectRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
+            this.Mapper = mapper;
         }
 
         #endregion Constructor
 
         #region Properties
 
-        
+        public IMapper Mapper { get; set; }
         private AHPContext Context { get;  set; }
 
         #endregion Properties
 
-        #region Methods
-        
-    
-        public async Task<List<Project>> GetProjectsAsync(int PageNumber, int PageSize=10)
+        #region Methods          
+        public async Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize=10)
         {
             var projects = await Context.Projects.OrderBy(P => P.DateCreated).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
-            return projects;
+            var mapped = Mapper.Map<List<Project>, List<IProjectModel>>(projects);
+            return mapped;
         }
 
-         public async Task<Project> GetProjectByIdAsync(int ProjectId)
+         public async Task<IProjectModel> GetProjectByIdAsync(int ProjectId)
         {
-            var Project = await Context.Projects.FindAsync(ProjectId);
-            return Project;
-
+            var project = await Context.Projects.FindAsync(ProjectId);
+            return Mapper.Map<Project, IProjectModel>(project);
         }
 
-        public void InsertProject(Project project)
+        public IProjectModel InsertProject(IProjectModel project)
         {
-            Context.Projects.Add(project);
-            Context.SaveChanges();
+            var mapped = Mapper.Map<IProjectModel, Project>(project);
+            Context.Projects.Add(mapped);            
+            return project;
         }
 
-        public void DeleteProject(int ProjectId)
+        public async Task<bool> DeleteProject(int ProjectId)
         {
-            Project project = Context.Projects.Find(ProjectId);
+            var project =await Context.Projects.FindAsync(ProjectId);
             Context.Projects.Remove(project);
-            Context.SaveChanges();
+            return true;
         }
         public async Task<int> SaveAsync()
         {

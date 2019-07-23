@@ -5,26 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL.Entities;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
     public interface IAlternativeRankRepository
     {
-        //Interface body
-
-        #region Methods
-
-        //Methods for interface
-
-        //Methods for getting project
-        //Example for checking if first alternativeRank was added
-
-        IEnumerable<AlternativeRank> GetAlternativeRanks();
-        AlternativeRank GetAlternativeRankById(int AlternativeRankId);
-       // void GetAlternativeRankByProjectId(int ProjectId);
-        void InsertAlternativeRank(AlternativeRank AlternativeRank);
-        void DeleteAlternativeRank(int AlternativeRankId);
-
-        #endregion Methods
+        Task<List<IAlternativeRankModel>> GetAlternativeRanks(int pageNumber, int pageSize);
+        Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(int alterRankId);
+        IAlternativeRankModel InsertAlternativeRank(IAlternativeRankModel alterRank);
+        Task<bool> DeleteAlternativeRank(int alterRankId);
+        Task<int> SaveAsync();
     }
 }
