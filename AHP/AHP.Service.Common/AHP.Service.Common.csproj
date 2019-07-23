@@ -51,5 +51,11 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AHP.DAL\AHP.DAL.csproj">
+      <Project>{A8E24914-3505-42F8-8107-0DE22129E61E}</Project>
+      <Name>AHP.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
