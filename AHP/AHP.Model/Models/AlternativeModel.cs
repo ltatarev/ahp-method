@@ -18,6 +18,7 @@ namespace AHP.Model.Models
         public int FinalPriority { get; set; }
 
         public int ProjectId { get; set; }
+        public IProjectModel Project { get; set; }
 
     }
 }

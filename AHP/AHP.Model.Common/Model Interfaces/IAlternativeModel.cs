@@ -13,6 +13,7 @@ namespace AHP.Model.Common.Model_Interfaces
         int FinalPriority { get; set; }
 
         int ProjectId { get; set; }
+        IProjectModel Project { get; set; }
 
     }
 }

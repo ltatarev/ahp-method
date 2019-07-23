@@ -17,5 +17,8 @@ namespace AHP.Model.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
+        public virtual ICollection<ICriteriaModel> Criterias { get; set; }
+        public virtual ICollection<IAlternativeModel> Alternatives { get; set; }
+
     }
 }

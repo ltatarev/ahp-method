@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AHP.Model.Common.Model_Interfaces
 {
@@ -11,6 +12,9 @@ namespace AHP.Model.Common.Model_Interfaces
         string Description { get; set; }
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
+
+        ICollection<ICriteriaModel> Criterias { get; set; }
+        ICollection<IAlternativeModel> Alternatives { get; set; }
 
     }
 }
