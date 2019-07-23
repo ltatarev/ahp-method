@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AHP.Models;
+using AHP.DAL.Entities;
 using AHP.Service.Common;
 
 namespace AHP.Controllers
@@ -35,7 +35,7 @@ namespace AHP.Controllers
         public ActionResult CreateProject(Project project)
         {
             // Adding new project
-            //ProjectService.insertProject(project);
+            ProjectService.AddProjectAsync(project);
             return RedirectToRoute("AddCriterion");
         }
     }

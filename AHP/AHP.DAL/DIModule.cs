@@ -11,7 +11,7 @@ namespace AHP.DAL
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AHPContext>().As<IAHPContext>().SingleInstance();
+            builder.RegisterType<AHPContext>().As<AHPContext>().SingleInstance();
         }
     }
 }
