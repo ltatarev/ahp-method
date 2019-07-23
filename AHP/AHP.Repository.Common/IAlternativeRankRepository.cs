@@ -22,7 +22,7 @@ namespace AHP.Repository.Common
         Task<List<AlternativeRank>> GetAlternativeRanksAsync();
         Task<AlternativeRank> GetAlternativeRankByIdAsync(int AlternativeRankId);
        // void GetAlternativeRankByProjectId(int ProjectId);
-        void InsertAlternativeRank(AlternativeRank AlternativeRank);
+        void InsertAlternativeRankAsync(AlternativeRank AlternativeRank);
         void DeleteAlternativeRankAsync(int AlternativeRankId);
 
         #endregion Methods

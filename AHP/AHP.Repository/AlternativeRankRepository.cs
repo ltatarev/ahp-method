@@ -63,10 +63,10 @@ namespace AHP.Repository
      //       }
      //   }
 
-        public void InsertAlternativeRank(AlternativeRank AlternativeRank)
+        public async void InsertAlternativeRankAsync(AlternativeRank AlternativeRank)
         {
             Context.AlternativeRanks.Add(AlternativeRank);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async void DeleteAlternativeRankAsync(int AlternativeRankId)

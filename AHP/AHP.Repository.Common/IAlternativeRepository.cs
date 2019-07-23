@@ -22,7 +22,7 @@ namespace AHP.Repository.Common
         Task<List<Alternative>> GetAlternativesAsync();
         Task<Alternative> GetAlternativeByIdAsync(int AlternativeId);
         void GetAlternativeByProjectIdAsync(int ProjectId);
-        void InsertAlternative(Alternative Alternative);
+        void InsertAlternativeAsync(Alternative Alternative);
         void DeleteAlternativeAsync(int AlternativeId);
 
         #endregion Methods

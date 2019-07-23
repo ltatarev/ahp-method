@@ -62,10 +62,10 @@ namespace AHP.Repository
            
         }
 
-        public void InsertCriteria(Criteria Criteria)
+        public async void InsertCriteriaAsync(Criteria Criteria)
         {
             Context.Criterias.Add(Criteria);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async void DeleteCriteriaAsync(int CriteriaId)

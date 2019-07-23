@@ -37,20 +37,23 @@ namespace AHP.Repository
 
         //Methods for Project class
     
-        public async Task<List<Project>> GetProjectsAsync()
+        public async Task<List<Project>> GetProjectsAsync(int PageNumber, int PageSize = 10)
         {
-            return await Context.Projects.ToListAsync();
+            var projects = await Context.Projects.OrderBy(
+                P => P.DateCreated).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
+            return projects;
         }
 
          public async Task<Project> GetProjectByIdAsync(int ProjectId)
         {
-            return await Context.Projects.FindAsync(ProjectId);
+            var projects = await Context.Projects.FindAsync(ProjectId);
+            return projects;
         }
 
-        public void InsertProject(Project project)
+        public async void InsertProjectAsync(Project project)
         {
             Context.Projects.Add(project);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async void DeleteProjectAsync(int ProjectId)
@@ -60,6 +63,11 @@ namespace AHP.Repository
             Context.SaveChanges();
         }
 
+        public async Task<int> SaveAsync()
+        {
+            return await Context.SaveChangesAsync();
+        }
+
         #endregion Methods
-	}
+    }
 }

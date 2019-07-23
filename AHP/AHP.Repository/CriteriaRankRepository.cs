@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,14 +37,14 @@ namespace AHP.Repository
 
         //Methods for CriteriaRank class
 
-        public IEnumerable<CriteriaRank> GetCriteriaRanks()
+        public async Task<List<CriteriaRank>> GetCriteriaRanksAsync()
         {
-            return Context.CriteriaRanks.ToList();
+            return await Context.CriteriaRanks.ToListAsync();
         }
 
-        public CriteriaRank GetCriteriaRankById(int CriteriaRankId)
+        public async Task<CriteriaRank> GetCriteriaRankByIdAsync(int CriteriaRankId)
         {
-            return Context.CriteriaRanks.Find(CriteriaRankId);
+            return await Context.CriteriaRanks.FindAsync(CriteriaRankId);
         }
 
         //Method for cheching if projectId in criteria is same as projectId in project
@@ -62,15 +63,15 @@ namespace AHP.Repository
         //    }
         //}
 
-        public void InsertCriteriaRank(CriteriaRank CriteriaRank)
+        public async void InsertCriteriaRankAsync(CriteriaRank CriteriaRank)
         {
             Context.CriteriaRanks.Add(CriteriaRank);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public void DeleteCriteriaRank(int CriteriaRankId)
+        public async void DeleteCriteriaRankAsync(int CriteriaRankId)
         {
-            CriteriaRank criteriaRank = Context.CriteriaRanks.Find(CriteriaRankId);
+            CriteriaRank criteriaRank = await Context.CriteriaRanks.FindAsync(CriteriaRankId);
             Context.CriteriaRanks.Remove(criteriaRank);
             Context.SaveChanges();
         }

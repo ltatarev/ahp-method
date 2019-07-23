@@ -19,11 +19,11 @@ namespace AHP.Repository.Common
         //Methods for getting project
         //Example for checking if first criteriaRank was added
 
-        IEnumerable<CriteriaRank> GetCriteriaRanks();
-        CriteriaRank GetCriteriaRankById(int CriteriaRankId);
+        Task<List<CriteriaRank>> GetCriteriaRanksAsync();
+        Task<CriteriaRank> GetCriteriaRankByIdAsync(int CriteriaRankId);
         // void GetAlternativeRankByProjectId(int ProjectId);
-        void InsertCriteriaRank(CriteriaRank CriteriaRank);
-        void DeleteCriteriaRank(int CriteriaRankId);
+        void InsertCriteriaRankAsync(CriteriaRank CriteriaRank);
+        void DeleteCriteriaRankAsync(int CriteriaRankId);
 
         #endregion Methods
     }

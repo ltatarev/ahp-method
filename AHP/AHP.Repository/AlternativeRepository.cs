@@ -63,10 +63,10 @@ namespace AHP.Repository
             }
         }
 
-        public void InsertAlternative(Alternative alternative)
+        public async void InsertAlternativeAsync(Alternative alternative)
         {
             Context.Alternatives.Add(alternative);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async void DeleteAlternativeAsync(int AlternativeId)

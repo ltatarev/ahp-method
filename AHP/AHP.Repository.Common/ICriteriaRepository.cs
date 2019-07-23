@@ -22,7 +22,7 @@ namespace AHP.Repository.Common
         Task<List<Criteria>> GetCriteriasAsync();
         Task<Criteria> GetCriteriaByIdAsync(int CriteriaId);
         Task<List<Criteria>> GetCritriaByProjectIdAsync(int ProjectId);
-        void InsertCriteria(Criteria criteria);
+        void InsertCriteriaAsync(Criteria criteria);
         void DeleteCriteriaAsync(int CriteriaId);
 
         #endregion Methods
