@@ -160,6 +160,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Body.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -168,6 +169,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Placeholder.css" />
+    <Content Include="Content\Slider.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -263,6 +266,10 @@
     <ProjectReference Include="..\AHP.Repository\AHP.Repository.csproj">
       <Project>{b26cc01b-184f-43ef-baab-f28a89e85270}</Project>
       <Name>AHP.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Service.Common\AHP.Service.Common.csproj">
+      <Project>{4AEEE877-AE10-412E-92F9-60D0A4166013}</Project>
+      <Name>AHP.Service.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\AHP.Service\AHP.Service.csproj">
       <Project>{eba47e6b-d9b0-4612-aeab-69e80dc9d817}</Project>

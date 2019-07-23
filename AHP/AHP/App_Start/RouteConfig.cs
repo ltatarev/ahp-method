@@ -14,10 +14,10 @@ namespace AHP
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-              name: "AddCriterion",
-              url: "{controller}/{action}",
-              defaults: new { controller = "CriterionController", action = "AddCriterion", id = UrlParameter.Optional }
-          );
+            "AddCriterion", // Route name
+            "Criterion/AddCriterion", // URL 
+            new { controller = "Criterion", action = "AddCriterion" } // Parameter defaults
+            );
 
             routes.MapRoute(
                 name: "Default",

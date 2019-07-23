@@ -17,7 +17,7 @@ namespace AHP.Controllers
                 CriterionName = "Kriterij1"
             };
 
-            return View(criterion);
+            return View();
         }
 
         // GET: Criterion/EditCriterion

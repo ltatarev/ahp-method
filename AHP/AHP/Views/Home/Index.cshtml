@@ -1,20 +1,18 @@
 ﻿
-<div class="container mt-5 pl-4 pt-5">
-    <div class="row">
-        <div class="col">
-            <h1 id="MainTitle">AHP METHOD</h1>
+    <div class="container mt-5 pl-4 pt-5">
+        <div class="row">
+            <div class="col text-center">
+                <h1 id="MainTitle">AHP METHOD</h1>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col pt-1">
+                <!-- should redirect to "Login" -->
+                <input type="button" value="New Project" onclick="location.href=' @Url.Action("Login","Home")'" class="btn btn-outline-light" />
+
+                <!-- should redirect to "AllProjects" -->
+                <input type="button" value="Open existing project" onclick="location.href=' @Url.Action("AllProjects","Home")'" class="btn btn-outline-light" />
+            </div>
         </div>
     </div>
-</div>
-<div class="container pl-4">
-    <div class="row">
-        <div class="col pt-1">
-            <!-- should redirect to "Login" -->
-            <input type="button" value="New Project" onclick="location.href=' @Url.Action("Login","Home")'" class="btn btn-outline-light" />
-
-            <!-- should redirect to "AllProjects" -->
-            <input type="button" value="Open existing project" onclick="location.href=' @Url.Action("AllProjects","Home")'" class="btn btn-outline-light" />
-
-        </div>
-    </div>
-</div>
