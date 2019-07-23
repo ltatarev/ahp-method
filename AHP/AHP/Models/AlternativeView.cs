@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AHP.Models
 {
-    public class Alternative
+    public class AlternativeView
     {
         public int AlternativeId { get; set; }
         public int Order { get; set; }
