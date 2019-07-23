@@ -1,28 +1,20 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-
+﻿
 <div class="container mt-5 pl-4 pt-5">
-    <div class="row mr-auto">
+    <div class="row">
         <div class="col">
             <h1 id="MainTitle">AHP METHOD</h1>
         </div>
     </div>
 </div>
 <div class="container pl-4">
-    <div class="col">
-        <form>
-            <div class="row">
-                <div class="col pt-1">
-                    <input type="text" class="form-control" placeholder="Username">
-                </div>
-                <div class="col pt-1">
-                    <input type="text" class="form-control" placeholder="Project name">
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-outline-light"><i class="fas fa-check-circle fa-lg"></i></button>
-                </div>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col pt-1">
+            <!-- should redirect to "Login" -->
+            <input type="button" value="New Project" onclick="location.href=' @Url.Action("Login","Home")'" class="btn btn-outline-light" />
+
+            <!-- should redirect to "AllProjects" -->
+            <input type="button" value="Open existing project" onclick="location.href=' @Url.Action("AllProjects","Home")'" class="btn btn-outline-light" />
+
+        </div>
     </div>
 </div>
