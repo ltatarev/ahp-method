@@ -19,11 +19,11 @@ namespace AHP.Repository.Common
         //Methods for getting alternative
         //Example for checking if first alternative was added
 
-        IEnumerable<Alternative> GetAlternatives();
-        Alternative GetAlternativeById(int AlternativeId);
-        void GetAlternativeByProjectId(int ProjectId);
+        Task<List<Alternative>> GetAlternativesAsync();
+        Task<Alternative> GetAlternativeByIdAsync(int AlternativeId);
+        void GetAlternativeByProjectIdAsync(int ProjectId);
         void InsertAlternative(Alternative Alternative);
-        void DeleteAlternative(int AlternativeId);
+        void DeleteAlternativeAsync(int AlternativeId);
 
         #endregion Methods
     }

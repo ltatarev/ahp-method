@@ -19,11 +19,11 @@ namespace AHP.Repository.Common
         //Methods for getting project
         //Example for checking if first alternativeRank was added
 
-        IEnumerable<AlternativeRank> GetAlternativeRanks();
-        AlternativeRank GetAlternativeRankById(int AlternativeRankId);
+        Task<List<AlternativeRank>> GetAlternativeRanksAsync();
+        Task<AlternativeRank> GetAlternativeRankByIdAsync(int AlternativeRankId);
        // void GetAlternativeRankByProjectId(int ProjectId);
         void InsertAlternativeRank(AlternativeRank AlternativeRank);
-        void DeleteAlternativeRank(int AlternativeRankId);
+        void DeleteAlternativeRankAsync(int AlternativeRankId);
 
         #endregion Methods
     }

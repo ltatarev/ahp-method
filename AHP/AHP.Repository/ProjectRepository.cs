@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,14 +37,14 @@ namespace AHP.Repository
 
         //Methods for Project class
     
-        public IEnumerable<Project> GetProjects()
+        public async Task<List<Project>> GetProjectsAsync()
         {
-            return Context.Projects.ToList();
+            return await Context.Projects.ToListAsync();
         }
 
-         public Project GetProjectById(int ProjectId)
+         public async Task<Project> GetProjectByIdAsync(int ProjectId)
         {
-            return Context.Projects.Find(ProjectId);
+            return await Context.Projects.FindAsync(ProjectId);
         }
 
         public void InsertProject(Project project)
@@ -52,9 +53,9 @@ namespace AHP.Repository
             Context.SaveChanges();
         }
 
-        public void DeleteProject(int ProjectId)
+        public async void DeleteProjectAsync(int ProjectId)
         {
-            Project project = Context.Projects.Find(ProjectId);
+            Project project = await Context.Projects.FindAsync(ProjectId);
             Context.Projects.Remove(project);
             Context.SaveChanges();
         }

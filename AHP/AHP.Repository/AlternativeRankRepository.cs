@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,14 +37,14 @@ namespace AHP.Repository
 
         //Methods for AlternativeRank class
 
-        public IEnumerable<AlternativeRank> GetAlternativeRanks()
+        public async Task<List<AlternativeRank>> GetAlternativeRanksAsync()
         {
-            return Context.AlternativeRanks.ToList();
+            return await Context.AlternativeRanks.ToListAsync();
         }
 
-        public AlternativeRank GetAlternativeRankById(int AlternativeRankId)
+        public async Task<AlternativeRank> GetAlternativeRankByIdAsync(int AlternativeRankId)
         {
-            return Context.AlternativeRanks.Find(AlternativeRankId);
+            return await Context.AlternativeRanks.FindAsync(AlternativeRankId);
         }
 
         //Method for cheching if projectId in criteria is same as projectId in project
@@ -68,9 +69,9 @@ namespace AHP.Repository
             Context.SaveChanges();
         }
 
-        public void DeleteAlternativeRank(int AlternativeRankId)
+        public async void DeleteAlternativeRankAsync(int AlternativeRankId)
         {
-            AlternativeRank alternativeRank = Context.AlternativeRanks.Find(AlternativeRankId);
+            AlternativeRank alternativeRank = await Context.AlternativeRanks.FindAsync(AlternativeRankId);
             Context.AlternativeRanks.Remove(alternativeRank);
             Context.SaveChanges();
         }

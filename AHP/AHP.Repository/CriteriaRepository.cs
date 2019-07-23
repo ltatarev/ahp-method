@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,21 +37,21 @@ namespace AHP.Repository
 
         //Methods for Criteria class
 
-        public IEnumerable<Criteria> GetCriterias()
+        public async Task<List<Criteria>> GetCriteriasAsync()
         {
-            return Context.Criterias.ToList();
+            return await Context.Criterias.ToListAsync();
         }
 
-        public Criteria GetCriteriaById(int CriteriaId)
+        public async Task<Criteria> GetCriteriaByIdAsync(int CriteriaId)
         {
-            return Context.Criterias.Find(CriteriaId);
+            return await Context.Criterias.FindAsync(CriteriaId);
         }
 
         //Method for cheching if criteria is from specific project
 
-        public IEnumerable<Criteria> GetCritriaByProjectId(int ProjectId)
+        public async Task<List<Criteria>> GetCritriaByProjectIdAsync(int ProjectId)
         {
-            List<Criteria> criterias = Context.Criterias.ToList();
+            List<Criteria> criterias = await Context.Criterias.ToListAsync();
             List<Criteria> results = new List<Criteria>();
             foreach(var crit in criterias)
             {
@@ -67,9 +68,9 @@ namespace AHP.Repository
             Context.SaveChanges();
         }
 
-        public void DeleteCriteria(int CriteriaId)
+        public async void DeleteCriteriaAsync(int CriteriaId)
         {
-            Criteria criteria = Context.Criterias.Find(CriteriaId);
+            Criteria criteria = await Context.Criterias.FindAsync(CriteriaId);
             Context.Criterias.Remove(criteria);
             Context.SaveChanges();
         }

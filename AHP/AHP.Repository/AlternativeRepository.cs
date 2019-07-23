@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,29 +37,29 @@ namespace AHP.Repository
 
         //Methods for Alternative class
 
-        public IEnumerable<Alternative> GetAlternatives()
+        public async Task<List<Alternative>> GetAlternativesAsync()
         {
-            return Context.Alternatives.ToList();
+            return await Context.Alternatives.ToListAsync();
         }
 
-        public Alternative GetAlternativeById(int AlternativeId)
+        public async Task<Alternative> GetAlternativeByIdAsync(int AlternativeId)
         {
-            return Context.Alternatives.Find(AlternativeId);
+            return await Context.Alternatives.FindAsync(AlternativeId);
         }
 
         //Method for cheching if Alternative is form specific project
 
-        public void GetAlternativeByProjectId(int ProjectId)
+        public async void GetAlternativeByProjectIdAsync(int ProjectId)
         {
 
-            Project projectId = Context.Projects.Find(ProjectId);
-            Alternative alternativeProjectId = Context.Alternatives.Find(ProjectId);
+            Project projectId = await Context.Projects.FindAsync(ProjectId);
+            Alternative alternativeProjectId = await Context.Alternatives.FindAsync(ProjectId);
 
             // project.Equals(criteriaProjectId); -- checks if objects are same
 
             if (projectId.Equals(alternativeProjectId))
             {
-                Context.Criterias.Find(alternativeProjectId);
+                await Context.Criterias.FindAsync(alternativeProjectId);
             }
         }
 
@@ -68,9 +69,9 @@ namespace AHP.Repository
             Context.SaveChanges();
         }
 
-        public void DeleteAlternative(int AlternativeId)
+        public async void DeleteAlternativeAsync(int AlternativeId)
         {
-            Alternative alternative = Context.Alternatives.Find(AlternativeId);
+            Alternative alternative = await Context.Alternatives.FindAsync(AlternativeId);
             Context.Alternatives.Remove(alternative);
             Context.SaveChanges();
         }

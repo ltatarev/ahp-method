@@ -19,11 +19,11 @@ namespace AHP.Repository.Common
         //Methods for getting criteria
         //Example for checking if first criteria was added
 
-        IEnumerable<Criteria> GetCriterias();
-        Criteria GetCriteriaById(int CriteriaId);
-        IEnumerable<Criteria> GetCritriaByProjectId(int ProjectId);
+        Task<List<Criteria>> GetCriteriasAsync();
+        Task<Criteria> GetCriteriaByIdAsync(int CriteriaId);
+        Task<List<Criteria>> GetCritriaByProjectIdAsync(int ProjectId);
         void InsertCriteria(Criteria criteria);
-        void DeleteCriteria(int CriteriaId);
+        void DeleteCriteriaAsync(int CriteriaId);
 
         #endregion Methods
     }
