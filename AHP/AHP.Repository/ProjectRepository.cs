@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,24 +27,25 @@ namespace AHP.Repository
 
         #region Properties
 
-        //Context was protected
-
+        
         private AHPContext Context { get;  set; }
 
         #endregion Properties
 
         #region Methods
-
-        //Methods for Project class
+        
     
-        public IEnumerable<Project> GetProjects()
+        public async Task<List<Project>> GetProjectsAsync(int PageNumber, int PageSize=10)
         {
-            return Context.Projects.ToList();
+            var projects = await Context.Projects.OrderBy(P => P.DateCreated).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
+            return projects;
         }
 
-         public Project GetProjectById(int ProjectId)
+         public async Task<Project> GetProjectByIdAsync(int ProjectId)
         {
-            return Context.Projects.Find(ProjectId);
+            var Project = await Context.Projects.FindAsync(ProjectId);
+            return Project;
+
         }
 
         public void InsertProject(Project project)
@@ -57,6 +59,10 @@ namespace AHP.Repository
             Project project = Context.Projects.Find(ProjectId);
             Context.Projects.Remove(project);
             Context.SaveChanges();
+        }
+        public async Task<int> SaveAsync()
+        {
+            return await Context.SaveChangesAsync();
         }
 
         #endregion Methods
