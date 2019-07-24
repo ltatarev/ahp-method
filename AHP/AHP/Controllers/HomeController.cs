@@ -14,11 +14,7 @@ namespace AHP.Controllers
 {
     public class HomeController : Controller
     {
-<<<<<<< HEAD
-        public HomeController(IProjectService ProjectService)
-=======
         public HomeController(IProjectService projectService, IMapper mapper)
->>>>>>> d4f461b96a13e0c0e18feaa201f3f9f307120666
         {
             this._mapper = mapper;
             this.ProjectService = projectService;
@@ -42,20 +38,14 @@ namespace AHP.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProject(Project project)
-<<<<<<< HEAD
-        {
-            // Adding new project
-            await ProjectService.AddProjectAsync(project);
-=======
+        public async Task<ActionResult> CreateProject(ProjectView project)
         {            
-            var mapped = _mapper.Map<Project,IProjectModel>(project);
+            var mapped = _mapper.Map<ProjectView,IProjectModel>(project);
             mapped.DateCreated = DateTime.Now;
             mapped.DateUpdated = DateTime.Now;
             mapped.Description = "default";            
 
             var status = await ProjectService.AddProjectAsync(mapped);            
->>>>>>> d4f461b96a13e0c0e18feaa201f3f9f307120666
             return RedirectToRoute("AddCriterion");
         }
     }

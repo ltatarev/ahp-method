@@ -13,8 +13,8 @@ namespace AHP.AutoMapper
     {
         public MVCMapper()
         {
-            CreateMap<Project, IProjectModel>().ReverseMap();
-            CreateMap<Project, ProjectModel>().ReverseMap();
+            CreateMap<ProjectView, IProjectModel>().ReverseMap();
+            CreateMap<ProjectView, ProjectModel>().ReverseMap();
 
         }
         
