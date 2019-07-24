@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AHP.DAL.Entities;
+using AHP.Model.Common.Model_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace AHP.Service.Common
 {
     public interface ICriteriaService
     {
+        Task<bool> AddCriteriaAsync(ICriteriaModel criteria);
     }
 }

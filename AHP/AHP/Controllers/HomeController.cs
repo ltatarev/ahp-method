@@ -42,10 +42,11 @@ namespace AHP.Controllers
         {            
             var mapped = _mapper.Map<ProjectView,IProjectModel>(project);
             mapped.DateCreated = DateTime.Now;
-            mapped.DateUpdated = DateTime.Now;
-            mapped.Description = "default";            
+            mapped.DateUpdated = DateTime.Now;       
 
-            var status = await ProjectService.AddProjectAsync(mapped);            
+            var status = await ProjectService.AddProjectAsync(mapped);   
+
+           // TO DO: Send ProjectId when redirecting
             return RedirectToRoute("AddCriterion");
         }
     }
