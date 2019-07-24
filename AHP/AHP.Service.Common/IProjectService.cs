@@ -1,4 +1,5 @@
 ﻿using AHP.DAL.Entities;
+using AHP.Model.Common.Model_Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,8 @@ namespace AHP.Service.Common
 {
     public interface IProjectService
     {
-        Task<List<Project>> GetProjectsAsync(int PageNumber);
-        Task<Project> GetProjectByIdAsync(int ProjectId);
-        Task<Project> AddProjectAsync(Project project);      
+        Task<bool> AddProjectAsync(IProjectModel project);
+         
         
     }
 }

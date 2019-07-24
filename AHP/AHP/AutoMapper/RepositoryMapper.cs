@@ -10,15 +10,19 @@ using AHP.DAL.Entities;
 
 namespace AHP.AutoMapper
 {
-    public class AutomapperProfile : Profile
+    public class RepositoryMapper : Profile
     {
-        public AutomapperProfile()
+        public RepositoryMapper()
         {
             CreateMap<IProjectModel,Project>().ReverseMap();
             CreateMap<ICriteriaModel, Criteria>().ReverseMap();
             CreateMap<IAlternativeModel, Alternative>().ReverseMap();
             CreateMap<ICriteriaRankModel, CriteriaRank>().ReverseMap();
             CreateMap<IAlternativeRankModel, AlternativeRank>().ReverseMap();
+
+            CreateMap<AHP.Models.Project, IProjectModel>().ReverseMap();
+
+
 
         }
     }

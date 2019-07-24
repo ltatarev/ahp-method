@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.Service.Common;
 using AHP.Repository.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Service
 {
@@ -172,6 +173,18 @@ namespace AHP.Service
             }
             return NormalizeVector(FinalDecision);
         }
+
+        #endregion Methods
+
+        #region repositoryMethods
+
+        public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(int projectId, int pageNumber, int pageSize = 10)
+        {
+            var criterias = await Repository.GetAlternativesByProjectId(projectId, pageNumber,pageSize);
+            return criterias;
+        }
+
+
+        #endregion repositoryMethods
     }
-    #endregion Methods
 }

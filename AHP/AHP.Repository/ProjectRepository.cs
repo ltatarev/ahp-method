@@ -47,11 +47,11 @@ namespace AHP.Repository
             return Mapper.Map<Project, IProjectModel>(project);
         }
 
-        public IProjectModel InsertProject(IProjectModel project)
+        public bool InsertProject(IProjectModel project)
         {
             var mapped = Mapper.Map<IProjectModel, Project>(project);
             Context.Projects.Add(mapped);            
-            return project;
+            return true;
         }
 
         public async Task<bool> DeleteProject(int ProjectId)

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using AHP.Service.Common;
 using AHP.Repository.Common;
 using AHP.DAL.Entities;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Service
 {
-    public class ProjectService// : IProjectService
+    public class ProjectService : IProjectService
     {
         #region Constructors
         public ProjectService(IProjectRepository projectRepository)
@@ -23,28 +24,18 @@ namespace AHP.Service
         #endregion Properties
 
         #region Methods
-        //Komentirano dok se ne postave ViewModeli
-
-        //public async Task<Project> AddProjectAsync(Project project)
-        //{
-        //    project.DateCreated = DateTime.Now;
-        //    project.DateUpdated = DateTime.Now;
-        //    // ProjectRepository.InsertProject(project);
-        //    //await ProjectRepository.SaveAsync();
-        //    return project;
-            
-
-        //}
-        //public async Task<List<Project>> GetProjectsAsync(int PageNumber)
-        //{
-        //    var projects = await ProjectRepository.getprojectsasync(pagenumber);
-        //    return projects;
-        //}
-
-        //public async Task<Project> GetProjectByIdAsync(int id)
-        //{
-        //    //return await ProjectRepository.GetProjectByIdAsync(id);
-        //}
+        
+       public async Task<bool>AddProjectAsync(IProjectModel project)
+        {
+            ProjectRepository.InsertProject(project);
+            await ProjectRepository.SaveAsync();
+            return true;
+        }
+        public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
+        {
+            var Projects =await ProjectRepository.GetProjectsAsync(pageNumber, pageSize);
+            return Projects;
+        }
 
         #endregion Methods
 

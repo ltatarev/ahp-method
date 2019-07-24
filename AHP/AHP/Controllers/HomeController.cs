@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using AHP.DAL.Entities;
+using AHP.Model.Common.Model_Interfaces;
+using AHP.Model.Models;
+using AHP.Models;
 using AHP.Service.Common;
 using AutoMapper;
 
@@ -14,7 +17,7 @@ namespace AHP.Controllers
         public HomeController(IProjectService projectService, IMapper mapper)
         {
             this._mapper = mapper;
-            this.ProjectService = ProjectService;
+            this.ProjectService = projectService;
         }
         public IMapper _mapper { get; set; }
         public IProjectService ProjectService { get; set; }
@@ -35,11 +38,14 @@ namespace AHP.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateProject(Project project)
-        {
-            // Adding new project
-            ProjectService.AddProjectAsync(project);
+        public async Task<ActionResult> CreateProject(Project project)
+        {            
+            var mapped = _mapper.Map<Project,IProjectModel>(project);
+            mapped.DateCreated = DateTime.Now;
+            mapped.DateUpdated = DateTime.Now;
+            mapped.Description = "default";            
 
+            var status = await ProjectService.AddProjectAsync(mapped);            
             return RedirectToRoute("AddCriterion");
         }
     }

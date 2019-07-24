@@ -150,7 +150,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="AutoMapper\AutomapperProfile.cs" />
+    <Compile Include="AutoMapper\RepositoryMapper.cs" />
+    <Compile Include="AutoMapper\DIModule.cs" />
+    <Compile Include="AutoMapper\MVCMapper.cs" />
     <Compile Include="Controllers\AlternativeController.cs" />
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

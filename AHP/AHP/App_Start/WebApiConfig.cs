@@ -21,15 +21,9 @@ namespace AHP
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );          
+                    
 
-            builder.Register(ctx => new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutomapperProfile());                
-            }));
-
-
-            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>();
-        }
+        } 
     }
 }
