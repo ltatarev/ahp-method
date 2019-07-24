@@ -1,5 +1,5 @@
 ﻿
-@model AHP.Models.Criterion
+@model AHP.Models.CriterionView
 @{
     ViewBag.Title = "EditCriterion";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,26 +12,35 @@
         </div>
     </div>
 </div>
-<form>
-    <div class="container p-5 bg-white">
-        <div class="col-3 text-center">@Model.CriterionName</div>
-        <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
-        <div class="col-3 text-center">Criterion 1</div>
-    </div>
-    <div class="container p-5 bg-white ">
-        <div class="col-3 text-center">Criterion 1</div>
-        <div class="col-6"><input id="slider2" type="range" min="-8" max="9" step="1"></div>
-        <div class="col-3 text-center">Criterion 2</div>
-    </div>
-    <div class="container p-5 bg-white ">
-        <div class="col-3 text-center">Criterion 2</div>
-        <div class="col-6"><input id="slider3" type="range" min="-8" max="9" step="1"></div>
-        <div class="col-3 text-center">Criterion 3</div>
-    </div>
-    <div class="container p-5 bg-white ">
-        <button type="submit" class="btn btn-success btn-lg">
-            Submit
-        </button>
-    </div>
-</form>
+<div class="container justify-content-md-center text-center p-3 pt-5 bg-white">
+    <form>
+        <div class="row p-2">
+            <div class="col-3 text-center">criteria 1</div>
+            <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
+            <div class="col-3 text-center">criteria 2</div>
+        </div>
+        <div class="row p-2">
+            <div class="col-3 text-center">criteria 1</div>
+            <div class="col-6"><input id="slider2" type="range" min="-8" max="9" step="1"></div>
+            <div class="col-3 text-center">criteria 3</div>
+        </div>
+        <div class="row p-2">
+            <div class="col-3 text-center">criteria 2</div>
+            <div class="col-6"><input id="slider3" type="range" min="-8" max="9" step="1"></div>
+            <div class="col-3 text-center">criteria 3</div>
+        </div>
+        <div class="row p-2 text-center">
+            <div class="col">
+                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 
+@section scripts {
+    <script>
+        $('input[type=range]').on("click", () => {
+            console.log($('input[type=range]').val());
+        });
+    </script>
+}

@@ -1,4 +1,10 @@
-﻿
+﻿@model  AHP.Models.AlternativeView
+
+@{
+    ViewBag.Title = "EditAlternative";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div class="container mt-5 pl-4 pt-5">
     <div class="row mr-auto">
         <div class="col">
@@ -6,28 +12,39 @@
         </div>
     </div>
 </div>
-<div class="container p-2 bg-white">
+<div class="container justify-content-md-center text-center p-2 bg-white">
     <h2 class="alert alert-info" role="alert">
         Criterion 1
     </h2>
+
+    <form>
+        <div class="row p-2">
+            <div class="col-3 text-center">Alternative 1</div>
+            <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
+            <div class="col-3 text-center">Alternative 2</div>
+        </div>
+        <div class="row p-2">
+            <div class="col-3 text-center">Alternative 1</div>
+            <div class="col-6"><input id="slider2" type="range" min="-8" max="9" step="1"></div>
+            <div class="col-3 text-center">Alternative 3</div>
+        </div>
+        <div class="row p-2">
+            <div class="col-3 text-center">Alternative 2</div>
+            <div class="col-6"><input id="slider3" type="range" min="-8" max="9" step="1"></div>
+            <div class="col-3 text-center">Criterion 3</div>
+        </div>
+        <div class="row p-2 text-center">
+            <div class="col">
+                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
-<form>
-    <div class="container p-5 bg-white">
-        <div class="col-3 text-center">Alternative 1</div>
-        <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
-        <div class="col-3 text-center">Alternative 2</div>
-    </div>
-    <div class="container p-5  bg-white">
-        <div class="col-3 text-center">Alternative 1</div>
-        <div class="col-6"><input id="slider2" type="range" min="-8" max="9" step="1"></div>
-        <div class="col-3 text-center">Alternative 3</div>
-    </div>
-    <div class="container p-5  bg-white">
-        <div class="col-3 text-center">Alternative 2</div>
-        <div class="col-6"><input id="slider3" type="range" min="-8" max="9" step="1"></div>
-        <div class="col-3 text-center">Criterion 3</div>
-    </div>
-    <div class="container p-5  bg-white">
-        <button type="submit" class="btn btn-success btn-lg">Submit</button>
-    </div>
-</form>
+
+@section scripts {
+    <script>
+        $('input[type=range]').on("click", () => {
+            console.log($('input[type=range]').val());
+        });
+    </script>
+}
