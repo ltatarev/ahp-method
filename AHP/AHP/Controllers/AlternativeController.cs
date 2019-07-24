@@ -12,39 +12,16 @@ namespace AHP.Controllers
         // GET: Alterntive/AddAlternative
         public ActionResult AddAlternative()
         {
-<<<<<<< Updated upstream
-            var alternative = new AlternativeView()
-=======
-<<<<<<< Updated upstream
-            var alternative = new Alternative()
->>>>>>> Stashed changes
-            {
-                AlternativeName = "alternativa 1"
-            };
-
-            return View(alternative);
-=======
             return View();
->>>>>>> Stashed changes
+
         }
 
         // GET: Alterntive/EditAlternative
         public ActionResult EditAlternative()
         {
-<<<<<<< Updated upstream
-            var alternative = new AlternativeView()
-=======
-<<<<<<< Updated upstream
-            var alternative = new Alternative()
->>>>>>> Stashed changes
-            {
-                AlternativeName = "alternativa 2"
-            };
 
-            return View(alternative);
-=======
             return View();
->>>>>>> Stashed changes
+
         }
     }
 }

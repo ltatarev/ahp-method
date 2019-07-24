@@ -6,32 +6,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container bg-dark mt-5 text-center p-4">
+    <div class="container bg-dark mt-5 text-center p-4">
 
-    <h1 id="SubTitle">Add alternative</h1>
+        <h1 id="SubTitle">Add alternative</h1>
 
-    @using (Html.BeginForm("AddAlternative", "Alternative"))
-    {
-        <div class="row pt-4 justify-content-center">
-            <div class="col-5 offset-2">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+        @using (Html.BeginForm("AddAlternative", "Alternative"))
+        {
+            <div class="row pt-4 justify-content-center">
+                <div class="col-5 offset-2">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-outline-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
-                <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-5" id="alternative">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+            <div class="row justify-content-md-center">
+                <div class="col-5" id="alternative">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+
+
+
+    </div>
 
 @section scripts {
     <script>

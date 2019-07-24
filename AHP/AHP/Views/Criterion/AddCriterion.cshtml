@@ -10,7 +10,7 @@
 
     <h1 id="SubTitle">Add criterion</h1>
 
-    @using (Html.BeginForm("AddCriterion", "Criterion"))
+    @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
     {
 <div class="row pt-4 justify-content-center">
     <div class="col-5 offset-2">
@@ -20,7 +20,7 @@
     </div>
     <div class="col-2">
         <button type="button" class="btn btn-outline-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
     </div>
 </div>
     <div class="row justify-content-md-center">
@@ -36,10 +36,45 @@
 @section scripts {
     <script>
     function addCriterion() {
-        let formGroup = document.createElement("div");
-            formGroup.classList.add("form-group");
-            formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required" })`
-            $("#criteria").append(formGroup);
-        }
+         let formGroup = document.createElement("div");
+         formGroup.classList.add("form-group");
+         formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required" })`
+         $("#criteria").append(formGroup);
+    }
+
+    $("#AddCriterionForm").on("submit", function () {
+         event.preventDefault();
+         var url = '@Url.Action("AddNewCriterion", "Criterion")';
+         var data = [];
+
+         // Find all input fields
+         var text = $('#AddCriterionForm').find('input[name="CriteriaName"]');
+                
+         for (let t of text) {
+              // Values of each input field
+              // console.log(t.value);
+             data.push({
+                 CriteriaName: t.value
+             })
+         };
+
+         console.log(JSON.stringify(data));
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(data),
+            success: function (response) {
+                alert(response);
+                window.location.href = '@Url.Action("EditCriteria", "Criterion")';
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });    
+    }); 
+
     </script>
 }
