@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AHP.Models;
-using System.Web.Script.Serialization;
-using Newtonsoft.Json.Linq;
 
 namespace AHP.Controllers
 {
@@ -17,14 +15,14 @@ namespace AHP.Controllers
         }
 
        [HttpPost]
-        public JsonResult AddNewCriterion(CriterionView[] Criteria)
+        public JsonResult AddNewCriterion(List<CriterionView> Criteria)
         {
             CriterionView NewCriterion = new CriterionView();
             NewCriterion.CriteriaName = Criteria[0].CriteriaName;
 
-            var len = Criteria.Length;
+            
 
-            return Json(len);
+            return Json(1);
         }
 
 
