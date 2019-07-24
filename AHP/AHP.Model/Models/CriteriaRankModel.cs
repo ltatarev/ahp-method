@@ -7,7 +7,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Model.Models
 {
-    class CriteriaRankModel : ICriteriaRankModel
+    public class CriteriaRankModel : ICriteriaRankModel
     {
 
         public int CriteriaRankId { get; set; }

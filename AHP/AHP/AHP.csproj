@@ -53,6 +53,9 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -147,6 +150,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AutoMapper\RepositoryMapper.cs" />
+    <Compile Include="AutoMapper\DIModule.cs" />
+    <Compile Include="AutoMapper\MVCMapper.cs" />
     <Compile Include="Controllers\AlternativeController.cs" />
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -262,6 +268,14 @@
     <ProjectReference Include="..\AHP.DAL\AHP.DAL.csproj">
       <Project>{a8e24914-3505-42f8-8107-0de22129e61e}</Project>
       <Name>AHP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Model.Common\AHP.Model.Common.csproj">
+      <Project>{59a56bbc-72e7-4d07-b218-bda9d97ed662}</Project>
+      <Name>AHP.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Model\AHP.Model.csproj">
+      <Project>{24c2cab9-c9d4-423e-a8e9-58ccad83a722}</Project>
+      <Name>AHP.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\AHP.Repository\AHP.Repository.csproj">
       <Project>{b26cc01b-184f-43ef-baab-f28a89e85270}</Project>

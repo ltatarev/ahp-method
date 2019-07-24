@@ -57,6 +57,10 @@
       <Project>{A8E24914-3505-42F8-8107-0DE22129E61E}</Project>
       <Name>AHP.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AHP.Model.Common\AHP.Model.Common.csproj">
+      <Project>{59A56BBC-72E7-4D07-B218-BDA9D97ED662}</Project>
+      <Name>AHP.Model.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AHP.Repository.Common\AHP.Repository.Common.csproj">
       <Project>{515c59cf-af01-4a28-9586-1a66297569cb}</Project>
       <Name>AHP.Repository.Common</Name>

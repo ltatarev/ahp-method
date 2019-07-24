@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AHP.Service.Common;
 using AHP.Repository.Common;
 using AHP.DAL.Entities;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Service
 {
@@ -23,25 +24,17 @@ namespace AHP.Service
         #endregion Properties
 
         #region Methods
-
-        public async Task<Project> AddProjectAsync(Project project)
+        
+       public async Task<bool>AddProjectAsync(IProjectModel project)
         {
-            project.DateCreated = DateTime.Now;
-            project.DateUpdated = DateTime.Now;
             ProjectRepository.InsertProject(project);
             await ProjectRepository.SaveAsync();
-            return project;
-
+            return true;
         }
-        public async Task<List<Project>> GetProjectsAsync(int PageNumber)
+        public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
         {
-            var Projects = await ProjectRepository.GetProjectsAsync(PageNumber);
+            var Projects =await ProjectRepository.GetProjectsAsync(pageNumber, pageSize);
             return Projects;
-        }
-
-        public async Task<Project> GetProjectByIdAsync(int id)
-        {
-            return await ProjectRepository.GetProjectByIdAsync(id);
         }
 
         #endregion Methods

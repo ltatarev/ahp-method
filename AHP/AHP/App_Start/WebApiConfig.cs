@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AHP.AutoMapper;
+using Autofac;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,7 +13,7 @@ namespace AHP
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            var builder = new ContainerBuilder();
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -18,7 +21,9 @@ namespace AHP
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
-        }
+            );          
+                    
+
+        } 
     }
 }

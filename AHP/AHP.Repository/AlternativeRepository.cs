@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,72 +8,65 @@ using AHP.DAL;
 using AHP.DAL.Entities;
 using AHP.Model;
 using AHP.Model.Common;
+using AHP.Model.Common.Model_Interfaces;
 using AHP.Repository.Common;
+using AutoMapper;
 
 namespace AHP.Repository
 {
 	class AlternativeRepository : IAlternativeRepository
-	{
-        //Body of class
-
+	{        
         #region Constructor
 
-            public AlternativeRepository(AHPContext context)
+            public AlternativeRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
+            this.Mapper = mapper;
         }
 
         #endregion Constructor
-
         #region Properties
 
         //Context was protected
-
+        private IMapper Mapper;
         private AHPContext Context { get; set; }
 
         #endregion Properties
-
-        #region Methods
-
-        //Methods for Alternative class
-
-        public IEnumerable<Alternative> GetAlternatives()
+        #region Methods   
+        public async Task<List<IAlternativeModel>> GetAlternativesAsync(int pageNumber, int pageSize=10)
         {
-            return Context.Alternatives.ToList();
+            var alternatives = await Context.Alternatives.OrderBy(a => a.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return Mapper.Map<List<IAlternativeModel>>(alternatives);
         }
 
-        public Alternative GetAlternativeById(int AlternativeId)
+        public async Task<IAlternativeModel> GetAlternativeById(int alternativeId)
         {
-            return Context.Alternatives.Find(AlternativeId);
+            var alternative = await Context.Alternatives.FindAsync(alternativeId);
+            return Mapper.Map<IAlternativeModel>(alternative);
+        }                
+
+        public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(int ProjectId, int pageNumber, int pageSize=10)
+        {
+            var alternatives = await Context.Alternatives.Where(a => a.ProjectId == ProjectId).OrderBy(a => a.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return Mapper.Map<List<IAlternativeModel>>(alternatives);
+        }                
+
+        public  IAlternativeModel InsertAlternative(IAlternativeModel alternative)
+        {
+            var mapped = Mapper.Map<Alternative>(alternative);
+            Context.Alternatives.Add(mapped);
+            return alternative;
         }
 
-        //Method for cheching if Alternative is form specific project
-
-        public void GetAlternativeByProjectId(int ProjectId)
+        public async Task<bool> DeleteAlternative(int AlternativeId)
         {
-
-            Project projectId = Context.Projects.Find(ProjectId);
-            Alternative alternativeProjectId = Context.Alternatives.Find(ProjectId);
-
-            // project.Equals(criteriaProjectId); -- checks if objects are same
-
-            if (projectId.Equals(alternativeProjectId))
-            {
-                Context.Criterias.Find(alternativeProjectId);
-            }
-        }
-
-        public void InsertAlternative(Alternative alternative)
-        {
-            Context.Alternatives.Add(alternative);
-            Context.SaveChanges();
-        }
-
-        public void DeleteAlternative(int AlternativeId)
-        {
-            Alternative alternative = Context.Alternatives.Find(AlternativeId);
+            var alternative = await Context.Alternatives.FindAsync(AlternativeId);
             Context.Alternatives.Remove(alternative);
-            Context.SaveChanges();
+            return true;
+        }
+        public async Task<int> SaveAsync()
+        {
+            return await Context.SaveChangesAsync();
         }
 
         #endregion Methods

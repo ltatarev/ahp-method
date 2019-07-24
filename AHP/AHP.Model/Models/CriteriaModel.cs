@@ -7,7 +7,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Model.Models
 {
-    class CriteriaModel : ICriteriaModel
+    public class CriteriaModel : ICriteriaModel
     {
 
         public int CriteriaId { get; set; }

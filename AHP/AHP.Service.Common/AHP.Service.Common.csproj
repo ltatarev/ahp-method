@@ -56,6 +56,10 @@
       <Project>{A8E24914-3505-42F8-8107-0DE22129E61E}</Project>
       <Name>AHP.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AHP.Model.Common\AHP.Model.Common.csproj">
+      <Project>{59A56BBC-72E7-4D07-B218-BDA9D97ED662}</Project>
+      <Name>AHP.Model.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
