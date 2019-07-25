@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AHP.Service.Common;
 using AHP.Repository.Common;
+using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Service
 {
@@ -20,7 +21,13 @@ namespace AHP.Service
         protected ICriteriaRankRepository Repository { get; private set; }
         #endregion Properties
 
-       
+        public async Task<bool> AddRange(List<ICriteriaRankModel> criteriaRanks)
+        {
+            Repository.AddRange(criteriaRanks);
+            await Repository.SaveAsync();
+            return true;
+        }
+
 
     }
 }
