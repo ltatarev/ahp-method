@@ -83,6 +83,10 @@
     <Compile Include="Migrations\201907240807271_IcollectionToList.Designer.cs">
       <DependentUpon>201907240807271_IcollectionToList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907250905201_changes.cs" />
+    <Compile Include="Migrations\201907250905201_changes.Designer.cs">
+      <DependentUpon>201907250905201_changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907240807271_IcollectionToList.resx">
       <DependentUpon>201907240807271_IcollectionToList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907250905201_changes.resx">
+      <DependentUpon>201907250905201_changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

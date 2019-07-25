@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using AHP.Model.Common.Model_Interfaces;
 using AHP.Model.Models;
 using AHP.Models;
@@ -39,15 +40,23 @@ namespace AHP.Controllers
 
         [HttpPost]
         public async Task<ActionResult> CreateProject(ProjectView project)
-        {            
+        {
+            
             var mapped = _mapper.Map<ProjectView,IProjectModel>(project);
-            mapped.DateCreated = DateTime.Now;
-            mapped.DateUpdated = DateTime.Now;       
-
-            var status = await ProjectService.AddProjectAsync(mapped);   
-
-           // TO DO: Send ProjectId when redirecting
-            return RedirectToRoute("AddCriterion");
+            var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
+            if (!(projectInDb == null))
+            {
+                return Json("Ima vec takav project");
+            }
+            else
+            {
+                mapped.DateCreated = DateTime.Now;
+                mapped.DateUpdated = DateTime.Now;
+                var status = await ProjectService.AddProjectAsync(mapped);
+                var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
+                TempData["proje"] = pro.ProjectId;
+                return RedirectToRoute("AddCriterion");
+            }
         }
     }
 }

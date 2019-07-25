@@ -17,7 +17,6 @@ namespace AHP.DAL.Entities
         public DateTime DateUpdated { get; set; }
         public int FinalPriority { get; set; }
 
-
         public int ProjectId { get; set; }
         public Project Project { get; set; }
     }

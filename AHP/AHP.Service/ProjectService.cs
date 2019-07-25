@@ -37,6 +37,12 @@ namespace AHP.Service
             return Projects;
         }
 
+        public async Task<IProjectModel> CompareProjects(string projectName, string userName)
+        {
+            return await ProjectRepository.CompareProjects(projectName, userName);
+        }
+
+
         #endregion Methods
 
     }
