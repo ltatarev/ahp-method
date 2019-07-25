@@ -15,6 +15,7 @@ namespace AHP.Repository.Common
         Task<IAlternativeModel> GetAlternativeById(int alternativeId);
         Task<List<IAlternativeModel>> GetAlternativesByProjectId(int ProjectId, int pageNumber, int pageSize = 10);
         IAlternativeModel InsertAlternative(IAlternativeModel alternative);
+        List<IAlternativeModel> AddRange(List<IAlternativeModel> alternatives);
         Task<bool> DeleteAlternative(int AlternativeId);
         Task<int> SaveAsync();
     }

@@ -10,7 +10,7 @@
 
         <h1 id="SubTitle">Add alternative</h1>
 
-        @using (Html.BeginForm("AddAlternative", "Alternative"))
+        @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
         {
             <div class="row pt-4 justify-content-center">
                 <div class="col-5 offset-2">
@@ -31,9 +31,6 @@
                 </div>
             </div>
         }
-
-
-
     </div>
 
 @section scripts {
@@ -44,5 +41,43 @@
             formGroup.innerHTML = `@Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })`
             $("#alternative").append(formGroup);
         }
+
+        $("#AddAlternativeForm").on("submit", function () {
+         event.preventDefault();
+         var url = '@Url.Action("AddNewAlternative", "Alternative")';
+         var data = [];
+
+         // Find all input fields
+            var text = $('#AddAlternativeForm').find('input[name="AlternativeName"]');
+                
+         for (let t of text) {
+              // Values of each input field
+              // console.log(t.value);
+             data.push({
+                 AlternativeName: t.value
+             })
+         };
+
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(data),
+            success: function (response) {
+                alert(response);
+                window.location.href = '@Url.Action("EditAlternative", "Alternative")';
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });    
+    }); 
+
+
+
+
     </script>
 }

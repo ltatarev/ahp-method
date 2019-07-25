@@ -57,6 +57,11 @@ namespace AHP.Repository
             Context.Alternatives.Add(mapped);
             return alternative;
         }
+        public List<IAlternativeModel> AddRange(List<IAlternativeModel> alternatives)
+        {
+            Context.Alternatives.AddRange(Mapper.Map<List<Alternative>>(alternatives));
+            return alternatives;
+        }
 
         public async Task<bool> DeleteAlternative(int AlternativeId)
         {

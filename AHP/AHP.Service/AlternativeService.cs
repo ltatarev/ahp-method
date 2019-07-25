@@ -17,7 +17,6 @@ namespace AHP.Service
             this.Repository = repository;
         }
         #endregion Constructors
-
         #region Properties
         protected IAlternativeRepository Repository { get; private set; }
         #endregion Properties
@@ -182,6 +181,13 @@ namespace AHP.Service
         {
             var criterias = await Repository.GetAlternativesByProjectId(projectId, pageNumber,pageSize);
             return criterias;
+        }
+
+        public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
+        {
+            Repository.AddRange(alternatives);
+            await Repository.SaveAsync();
+            return true;
         }
 
 

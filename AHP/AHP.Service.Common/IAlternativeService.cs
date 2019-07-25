@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AHP.Model.Common.Model_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace AHP.Service.Common
 {
     public interface IAlternativeService
     {
+        Task<bool> AddRange(List<IAlternativeModel> alternatives);
+        Task<List<IAlternativeModel>> GetAlternativesByProjectId(int projectId, int pageNumber, int pageSize = 10);
     }
 }
