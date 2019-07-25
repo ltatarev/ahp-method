@@ -45,12 +45,16 @@ namespace AHP.Controllers
         // GET: Criterion/EditCriterion
         public ActionResult EditCriteria()
         {
-            var criterion = new CriterionView()
-            {
-                CriteriaName = "Kriterij1"
-            };
+            // TO DO: GET all Criteria for certain ProjectId
+            // IList<CriterionView> Criteria = new List<CriterionView>();
 
-            return View(criterion);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult EditCriterionPreference(List<CriteriaRankModel> CriteriaRank)
+        {
+            return Json("Success");
         }
     }
 }
