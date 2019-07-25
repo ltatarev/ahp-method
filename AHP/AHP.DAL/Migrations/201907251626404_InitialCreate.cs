@@ -3,7 +3,7 @@ namespace AHP.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class changes : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {

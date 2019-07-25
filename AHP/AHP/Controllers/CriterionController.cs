@@ -14,13 +14,15 @@ namespace AHP.Controllers
 {
     public class CriterionController : Controller
     {
-        public CriterionController(ICriteriaService criteriaService, IMapper mapper)
+        public CriterionController(ICriteriaService criteriaService, ICriteriaRankService criteriaRankService, IMapper mapper)
         {
             this._mapper = mapper;
             this.CriteriaService = criteriaService;
+            this.CriteriaRankService = criteriaRankService;
         }
         public IMapper _mapper { get; set; }
         public ICriteriaService CriteriaService { get; set; }
+        public ICriteriaRankService CriteriaRankService;
 
         public ActionResult AddCriterion(int projectId)
         {
@@ -53,7 +55,7 @@ namespace AHP.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
+        public async Task<JsonResult> EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {
             var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);
             foreach(var cr in mapped)
@@ -61,7 +63,7 @@ namespace AHP.Controllers
                 cr.DateCreated = DateTime.Now;
                 cr.DateUpdated = DateTime.Now;                
             }
-            //TO DO: CriteriaRankService.AddRange(mapped);
+            await CriteriaRankService.AddRange(mapped);
 
             return Json("Success");
         }

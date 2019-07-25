@@ -16,7 +16,7 @@ namespace AHP.Model.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
-        public int Criteria1Id { get; set; }
+        public int CriteriaId { get; set; }
         public ICriteriaRankModel Criteria { get; set; }
 
     }

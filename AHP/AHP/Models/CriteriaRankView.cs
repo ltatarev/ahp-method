@@ -7,7 +7,7 @@ namespace AHP.Models
 {
     public class CriteriaRankView
     {
-        public int Criteria1Id { get; set; }
+        public int CriteriaId { get; set; }
         public int Column { get; set; }
         public float Priority { get; set; }
 
