@@ -22,19 +22,22 @@ namespace AHP.Controllers
         public IMapper _mapper { get; set; }
         public ICriteriaService CriteriaService { get; set; }
 
-        public ActionResult AddCriterion()
+        public ActionResult AddCriterion(int projectId)
         {
             return View();
         }
 
-       [HttpPost]
+        [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
-            var mapped = _mapper.Map<CriterionView, ICriteriaModel>(Criteria[0]);
-            mapped.DateCreated = DateTime.Now;
-            mapped.DateUpdated = DateTime.Now;
-
-            var status = await CriteriaService.AddCriteriaAsync(mapped);
+            var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);            
+            foreach (var crit in mapped)
+            {
+                crit.DateCreated = DateTime.Now;
+                crit.DateUpdated = DateTime.Now;                                
+            }
+            
+            var status = await CriteriaService.AddRange(mapped);
 
             return Json("Success");
         }

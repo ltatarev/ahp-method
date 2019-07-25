@@ -19,7 +19,7 @@ namespace AHP.Repository.Common
 
         //Methods for getting project
         //Example for checking if first project was added
-
+        Task<IProjectModel> CompareProjects(string projectName, string userName);
         Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize = 10);
         Task<IProjectModel> GetProjectByIdAsync(int ProjectId);
         bool InsertProject(IProjectModel project);

@@ -11,5 +11,6 @@ namespace AHP.Service.Common
     public interface ICriteriaService
     {
         Task<bool> AddCriteriaAsync(ICriteriaModel criteria);
+        Task<bool> AddRange(List<ICriteriaModel> criteria);
     }
 }

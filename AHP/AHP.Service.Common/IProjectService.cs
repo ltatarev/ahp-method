@@ -12,7 +12,7 @@ namespace AHP.Service.Common
     public interface IProjectService
     {
         Task<IProjectModel> AddProjectAsync(IProjectModel project);
-
+        Task<IProjectModel> CompareProjects(string projectName, string userName);
 
 
     }
