@@ -114,16 +114,16 @@ namespace AHP.DAL.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            context.Projects.AddOrUpdate(Project);
-            context.SaveChanges();
-            criterias.ForEach(crit => context.Criterias.AddOrUpdate(crit));
-            context.SaveChanges();
-            alternatives.ForEach(alt => context.Alternatives.AddOrUpdate(alt));
-            context.SaveChanges();
-            alternativeRanks.ForEach(altrank => context.AlternativeRanks.AddOrUpdate(altrank));
-            context.SaveChanges();
-            criteriaRanks.ForEach(critrank => context.CriteriaRanks.AddOrUpdate(critrank));
-            context.SaveChanges();
+            //context.Projects.AddOrUpdate(Project);
+            //context.SaveChanges();
+            //criterias.ForEach(crit => context.Criterias.AddOrUpdate(crit));
+            //context.SaveChanges();
+            //alternatives.ForEach(alt => context.Alternatives.AddOrUpdate(alt));
+            //context.SaveChanges();
+            //alternativeRanks.ForEach(altrank => context.AlternativeRanks.AddOrUpdate(altrank));
+            //context.SaveChanges();
+            //criteriaRanks.ForEach(critrank => context.CriteriaRanks.AddOrUpdate(critrank));
+            //context.SaveChanges();
         }
     }
 }

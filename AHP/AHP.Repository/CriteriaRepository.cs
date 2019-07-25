@@ -61,7 +61,13 @@ namespace AHP.Repository
             Context.Criterias.Add(mapped);            
             return criteria;
         }
-        
+
+        public  List<ICriteriaModel> AddRange(List<ICriteriaModel> criteria)
+        {
+            Context.Criterias.AddRange(Mapper.Map<List<Criteria>>(criteria));
+            return criteria;
+        }
+
         public async Task<bool> DeleteCriteriaAsync(int CriteriaID)
         {
             var crit = await Context.Criterias.FindAsync(CriteriaID);

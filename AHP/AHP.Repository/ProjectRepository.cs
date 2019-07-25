@@ -40,6 +40,11 @@ namespace AHP.Repository
             var mapped = Mapper.Map<List<Project>, List<IProjectModel>>(projects);
             return mapped;
         }
+        public async Task<IProjectModel> CompareProjects(string projectName, string userName)
+        {
+            var project = await Context.Projects.Where(p => p.ProjectName == projectName).Where(p => p.Username == userName).FirstOrDefaultAsync();
+            return Mapper.Map<IProjectModel>(project);
+        }
 
          public async Task<IProjectModel> GetProjectByIdAsync(int ProjectId)
         {
@@ -64,6 +69,7 @@ namespace AHP.Repository
         {
             return await Context.SaveChangesAsync();
         }
+
 
         #endregion Methods
 	}
