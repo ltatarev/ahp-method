@@ -11,8 +11,9 @@ namespace AHP.Service.Common
 {
     public interface IProjectService
     {
-        Task<bool> AddProjectAsync(IProjectModel project);
-         
-        
+        Task<IProjectModel> AddProjectAsync(IProjectModel project);
+
+
+
     }
 }

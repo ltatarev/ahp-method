@@ -25,11 +25,11 @@ namespace AHP.Service
 
         #region Methods
         
-       public async Task<bool>AddProjectAsync(IProjectModel project)
+       public async Task<IProjectModel>AddProjectAsync(IProjectModel project)
         {
             ProjectRepository.InsertProject(project);
             await ProjectRepository.SaveAsync();
-            return true;
+            return project;
         }
         public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
         {
