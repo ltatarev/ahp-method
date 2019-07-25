@@ -21,9 +21,11 @@ namespace AHP.Controllers
         }
         IAlternativeService AlternativeService;
         IMapper _mapper;
+
         // GET: Alterntive/AddAlternative
         public ActionResult AddAlternative()
         {
+            // Display View with form for adding Alternatives
             return View();
 
         }
@@ -31,9 +33,11 @@ namespace AHP.Controllers
         // GET: Alterntive/EditAlternative
         public ActionResult EditAlternative()
         {
+            // TO DO: GET all Alternatives for projectId
             return View();
         }
 
+        // POST: Alterntive/AddNewAlternative
         [HttpPost]
         public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives)
         {
@@ -45,6 +49,7 @@ namespace AHP.Controllers
                 alter.DateUpdated = DateTime.Now;
                 alter.Order = order;
                 order++;
+                // 2 ??
                 alter.ProjectId = 2;
             }
 

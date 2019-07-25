@@ -22,12 +22,15 @@ namespace AHP.Controllers
         public IMapper _mapper { get; set; }
         public ICriteriaService CriteriaService { get; set; }
 
+        // GET: Criterion/AddCriterion
         public ActionResult AddCriterion(int projectId)
         {
+            // Display View with form for adding Criteria
             ViewBag.id = projectId;
             return View();
         }
 
+        // GET: Criterion/AddNewCriterion
         [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
@@ -48,10 +51,12 @@ namespace AHP.Controllers
         {
             // TO DO: GET all Criteria for certain ProjectId
             // IList<CriterionView> Criteria = new List<CriterionView>();
+            // projectId??
 
             return View();
         }
 
+        // POST: Criterion/EditCriterionPreference
         [HttpPost]
         public JsonResult EditCriterionPreference(List<CriteriaRankModel> CriteriaRank)
         {

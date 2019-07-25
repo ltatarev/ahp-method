@@ -9,46 +9,118 @@
     <div class="row mr-auto">
         <div class="col">
             <h1 id="SubTitle">Edit alternative</h1>
+            <h3 class="text-light font-italic">Input your preferences considering each criterion</h3>
         </div>
     </div>
 </div>
-<div class="container justify-content-md-center text-center p-2 bg-white">
-    <h2 class="alert alert-info" role="alert">
+<div class="container justify-content-md-center text-center p-2 bg-white" id="mainContainer">
+    @*<h2 class="alert alert-info" role="alert">
         Criterion 1
     </h2>
-
     <form>
         <div class="row p-2">
             <div class="col-3 text-center">Alternative 1</div>
             <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
             <div class="col-3 text-center">Alternative 2</div>
         </div>
-        <div class="row p-2">
-            <div class="col-3 text-center">Alternative 1</div>
-            <div class="col-6"><input id="slider2" type="range" min="-8" max="9" step="1"></div>
-            <div class="col-3 text-center">Alternative 3</div>
-        </div>
-        <div class="row p-2">
-            <div class="col-3 text-center">Alternative 2</div>
-            <div class="col-6"><input id="slider3" type="range" min="-8" max="9" step="1"></div>
-            <div class="col-3 text-center">Criterion 3</div>
-        </div>
         <div class="row p-2 text-center">
             <div class="col">
                 <button type="submit" class="btn btn-success btn-lg">Submit</button>
             </div>
         </div>
-    </form>
+    </form>*@
 </div>
 
 @section scripts {
     <script>
-        $('input[type=range]').on("click", () => {
-            let val = $('input[type=range]').val();
-            if (val < 0) {
-                val = 1/((-val) + 1);
+        //$('input[type=range]').on("click", () => {
+        //    let val = $('input[type=range]').val();
+        //    if (val < 0) {
+        //        val = 1/((-val) + 1);
+        //    }
+        //    console.log(val);
+        //});
+
+
+        // CREATING FORM ROW
+        //  TODO: Get both from DB
+        let Criteria = ["Price", "Color", "Size"];
+        let Alternatives = ["First", "Second", "Third", "Forth"];
+
+
+        $(document).ready(function () {
+            let container = document.getElementById("mainContainer");
+            let C = Criteria.length;
+            let A = Alternatives.length;
+            let idCount = 0;
+
+            for (i = 0; i < C; i++) {
+                let critTitle = document.createElement("h1");
+                    critTitle.classList.add("alert", "alert-info");
+                    critTitle.setAttribute("role", "alert");
+                    critTitle.innerHTML = Criteria[i];
+
+                let form = document.createElement("form");
+                // setAttr - method, id, class, action 
+
+                container.appendChild(critTitle);
+
+                for (j = 0; j < A; j++) {
+
+                    for (k = j + 1; k < A; k++) {
+
+                        //TO DO: ADD DESCRIPTION FROM EDITCRITERIA
+
+                        let formRow = document.createElement("div");
+                        formRow.classList.add("row", "pt-2");
+
+                        let firstAlt = document.createElement("div");
+                            firstAlt.classList.add("col-3", "text-center");
+                            firstAlt.setAttribute("style", "font-size:20px; font-weight: bold;");
+                            firstAlt.setAttribute("id", `first` + idCount);
+                            firstAlt.innerHTML = Alternatives[j];
+                        formRow.appendChild(firstAlt);
+
+                        let slider = document.createElement("div");
+                            slider.classList.add("col-6");
+
+                        let sliderInput = document.createElement("input");
+                            sliderInput.setAttribute("type", "range");
+                            sliderInput.setAttribute("min", -8);
+                            sliderInput.setAttribute("max", 9);
+                            sliderInput.setAttribute("step", 1);
+                            sliderInput.setAttribute("Value", 1);
+                            sliderInput.setAttribute("id", idCount);
+                            slider.appendChild(sliderInput);
+                        formRow.appendChild(slider);
+
+                        let secondAlt = document.createElement("div");
+                            secondAlt.classList.add("col-3", "text-center");
+                            secondAlt.setAttribute("style", "font-size:20px; font-weight: bold;");
+                            secondAlt.setAttribute("id", `second` + idCount);
+                            secondAlt.innerHTML = Alternatives[k];
+                        formRow.appendChild(secondAlt);
+
+                        form.append(formRow);
+
+                        let line = document.createElement("hr");
+                        form.append(line);
+                        container.appendChild(form);
+                        idCount++;
+                    }
+                }
+                           let btn = document.createElement("button");
+                            btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
+                            btn.setAttribute("type", "submit");
+                            btn.innerHTML = "Submit";
+                            form.append(btn);
+       
             }
-            console.log(val);
+
+
         });
+
+
+
     </script>
 }
