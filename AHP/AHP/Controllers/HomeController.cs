@@ -46,7 +46,7 @@ namespace AHP.Controllers
             var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
             if (!(projectInDb == null))
             {
-                return Json("Ima vec takav project");
+                return Content("<script language='javascript' type='text/javascript'>alert('Project already exists!');window.location.href='/Home/Login';</script>");
             }
             else
             {

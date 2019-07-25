@@ -1,35 +1,36 @@
 ﻿@model AHP.Models.ProjectView
 
 <!-- ADDING NEW PROJECT -->
-    <div class="container mt-5 bg-dark rounded pl-4 pb-5 pt-3">
+<div class="container mt-5 bg-dark rounded pl-4 pb-5 pt-3">
 
-        <h1 id="MainTitle" class="text-light text-center">AHP METHOD</h1>
-        <h3 class="font-italic text-center text-light">Add new project</h3>
-        @using (Html.BeginForm("CreateProject", "Home"))
-        {
-            <div class="row justify-content-md-center p-0">
-                <div class="col-5">
-                    <div class="form-group pt-1">
-                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required = "required" })
-                    </div>
+    <h1 id="MainTitle" class="text-light text-center">AHP METHOD</h1>
+    <h3 class="font-italic text-center text-light">Add new project</h3>
+    @using (Html.BeginForm("CreateProject", "Home", FormMethod.Post, new { id = "CreateProjectForm" }))
+    {
+        <div class="row justify-content-md-center p-0">
+            <div class="col-5">
+                <div class="form-group pt-1">
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required = "required" })
                 </div>
             </div>
-            <div class="row justify-content-md-center p-0">
-                <div class="col-5">
-                    <div class="form-group pt-1">
-                        @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", placeholder = "Project name", required = "required" })
-                    </div>
+        </div>
+        <div class="row justify-content-md-center p-0">
+            <div class="col-5">
+                <div class="form-group pt-1">
+                    @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", placeholder = "Project name", required = "required" })
                 </div>
             </div>
-            <div class="row justify-content-md-center p-0">
-                <div class="col-5 offset-2">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description" })
-                    </div>
-                </div>
-                <div class="col-2">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle pt-1 fa-lg"></i></button>
+        </div>
+        <div class="row justify-content-md-center p-0">
+            <div class="col-5 offset-2">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description" })
                 </div>
             </div>
-        }
-    </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-success"><i class="fas fa-check-circle pt-1 fa-lg"></i></button>
+            </div>
+        </div>
+    }
+</div>
+
