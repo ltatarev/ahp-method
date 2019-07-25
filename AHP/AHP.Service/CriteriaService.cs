@@ -43,7 +43,12 @@ namespace AHP.Service
             return criterias;
         }
 
-
+        public async Task<bool> AddRange(List<ICriteriaModel> criteria)
+        {
+             Repository.AddRange(criteria);
+            await Repository.SaveAsync();
+            return true;
+        }
 
         #endregion Methods
 
