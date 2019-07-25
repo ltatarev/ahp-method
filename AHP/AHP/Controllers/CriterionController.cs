@@ -53,8 +53,16 @@ namespace AHP.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditCriterionPreference(List<CriteriaRankModel> CriteriaRank)
+        public JsonResult EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {
+            var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);
+            foreach(var cr in mapped)
+            {
+                cr.DateCreated = DateTime.Now;
+                cr.DateUpdated = DateTime.Now;                
+            }
+            //TO DO: CriteriaRankService.AddRange(mapped);
+
             return Json("Success");
         }
     }

@@ -16,6 +16,8 @@ namespace AHP.AutoMapper
             CreateMap<ProjectView, IProjectModel>().ReverseMap();
             CreateMap<CriterionView, ICriteriaModel>().ReverseMap();
             CreateMap<AlternativeView, IAlternativeModel>().ReverseMap();
+            CreateMap<CriteriaRankView, ICriteriaRankModel>().ReverseMap();
+
 
 
         }
