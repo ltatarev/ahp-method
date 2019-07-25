@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5 pl-4 pt-5">
+<div class="container mt-3 pl-4 pt-5">
     <div class="row mr-auto">
         <div class="col">
             <h1 id="SubTitle">Edit criteria</h1>
@@ -13,38 +13,111 @@
     </div>
 </div>
 <div class="container justify-content-md-center text-center p-3 pt-5 bg-white">
-    <form>
-        <div class="row p-2">
-            <div class="col-3 text-center">criteria 1</div>
-            <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
-            <div class="col-3 text-center">criteria 2</div>
-        </div>
-        <div class="row p-2">
-            <div class="col-3 text-center">criteria 1</div>
-            <div class="col-6"><input id="slider2" type="range" min="-8" max="9" step="1"></div>
-            <div class="col-3 text-center">criteria 3</div>
-        </div>
-        <div class="row p-2">
-            <div class="col-3 text-center">criteria 2</div>
-            <div class="col-6"><input id="slider3" type="range" min="-8" max="9" step="1"></div>
-            <div class="col-3 text-center">criteria 3</div>
-        </div>
-        <div class="row p-2 text-center">
-            <div class="col">
-                <button type="submit" class="btn btn-success btn-lg">Submit</button>
-            </div>
-        </div>
-    </form>
+    @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
+        {
+           @*<div class="row p-2">
+                <div class="col-3 text-center">criteria 1</div>
+                <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
+                <div class="col-3 text-center">criteria 2</div>
+            </div>*@
+    }
+    <div id="EditCriterionForm"></div>
 </div>
 
 @section scripts {
     <script>
-        $('input[type=range]').on("click", () => {
-            let val = $('input[type=range]').val();
-            if (val < 0) {
-                val = 1/((-val) + 1);
+
+        // CREATING FORM ROW
+
+        let Criteria = ["Prvi", "Drugi", "Treci", "Cetvrti"];
+
+        let form = document.getElementById('EditCriterionForm');
+        $(document).ready(function () {
+            let a = Criteria.length;
+            for (var i = 0; i < a; i++) {
+                for (var j = i + 1; j < a; j++) {
+                    let formRow = document.createElement("div");
+                        formRow.classList.add("row", "pt-2");
+
+                    let firstCriterion = document.createElement("div");
+                        firstCriterion.classList.add("col-3", "text-center");
+                        firstCriterion.innerHTML = Criteria[i];
+                    formRow.appendChild(firstCriterion);
+
+                    let slider = document.createElement("div");
+                        slider.classList.add("col-6");
+                    let sliderInput = document.createElement("input");
+                        sliderInput.setAttribute("type", "range");
+                        sliderInput.setAttribute("min", -8);
+                        sliderInput.setAttribute("max", 9);
+                        sliderInput.setAttribute("step", 1);
+                        sliderInput.setAttribute("Value", 1);
+                        sliderInput.setAttribute("id",i+j-1);
+                        slider.appendChild(sliderInput);
+                        formRow.appendChild(slider);
+
+                    let secondCriterion = document.createElement("div");
+                    secondCriterion.classList.add("col-3", "text-center");
+                    secondCriterion.innerHTML = Criteria[j];
+                    formRow.appendChild(secondCriterion);
+
+                    form.append(formRow);
+                }
             }
-            console.log(val);
+
+            let btn = document.createElement("button");
+            btn.classList.add("btn","btn-success","mt-3");
+            btn.setAttribute("type", "submit");
+            btn.innerHTML = "Submit";
+            form.append(btn);
+
         });
-    </script>
+
+         $("#EditCriterionForm").on("submit", function () {
+             event.preventDefault();
+             var url = '@Url.Action("EditCriterionPreference", "Criterion")';
+             var data = [];
+
+         // Find all input fields
+             var input = $('#EditCriterionForm').find('input[type=range]');
+             let tempData = [];
+             for (let t of input) {
+                    // Values of each input field
+                    let x = parseInt(t.value);
+                    x = (x > 0) ? x : (1 / ((-x) + 1));
+                    tempData.push(x);
+             }
+             for (var i = 0; i < Criteria.length; i++) {
+                 // Get Criteria1Id for a certain i
+                 for (var j = i + 1; j < Criteria.length; j++) {
+                     data.push({
+                         Criteria1Id: i+1,
+                         Priority: tempData[i + j - 1],
+                         Column: j+1
+                     })
+                 }
+             }
+
+         //console.log(JSON.stringify(tempData));
+
+            $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log(response);
+                window.location.href = '@Url.Action("AddAlternative", "Alternative")'
+            },
+            failure: function (response) {
+                alert(response);
+            }
+         });  
+
+        }); 
+
+        
+   </script>
+
 }

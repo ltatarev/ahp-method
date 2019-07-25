@@ -161,6 +161,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AlternativeView.cs" />
+    <Compile Include="Models\CriteriaRankView.cs" />
     <Compile Include="Models\CriterionView.cs" />
     <Compile Include="Models\ProjectView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
