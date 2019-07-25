@@ -33,11 +33,14 @@ namespace AHP.Controllers
         [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
-            var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);            
+            var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);
+            var order = 1;
             foreach (var crit in mapped)
             {
                 crit.DateCreated = DateTime.Now;
-                crit.DateUpdated = DateTime.Now;                                
+                crit.DateUpdated = DateTime.Now;
+                crit.Order = order;
+                order++;
             }
             
             var status = await CriteriaService.AddRange(mapped);
