@@ -7,13 +7,13 @@ namespace AHP.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class changes : IMigrationMetadata
+    public sealed partial class id : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changes));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(id));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907250905201_changes"; }
+            get { return "201907251654549_id"; }
         }
         
         string IMigrationMetadata.Source

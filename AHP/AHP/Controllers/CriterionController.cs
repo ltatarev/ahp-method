@@ -14,13 +14,15 @@ namespace AHP.Controllers
 {
     public class CriterionController : Controller
     {
-        public CriterionController(ICriteriaService criteriaService, IMapper mapper)
+        public CriterionController(ICriteriaService criteriaService, ICriteriaRankService criteriaRankService, IMapper mapper)
         {
             this._mapper = mapper;
             this.CriteriaService = criteriaService;
+            this.CriteriaRankService = criteriaRankService;
         }
         public IMapper _mapper { get; set; }
         public ICriteriaService CriteriaService { get; set; }
+        public ICriteriaRankService CriteriaRankService;
 
         public ActionResult AddCriterion(int projectId)
         {
@@ -31,11 +33,14 @@ namespace AHP.Controllers
         [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
-            var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);            
+            var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);
+            var order = 1;
             foreach (var crit in mapped)
             {
                 crit.DateCreated = DateTime.Now;
-                crit.DateUpdated = DateTime.Now;                                
+                crit.DateUpdated = DateTime.Now;
+                crit.Order = order;
+                order++;
             }
             
             var status = await CriteriaService.AddRange(mapped);
@@ -44,17 +49,27 @@ namespace AHP.Controllers
         }
 
         // GET: Criterion/EditCriterion
-        public ActionResult EditCriteria(int? id)
+        public async Task<ActionResult> EditCriteria(int id)
         {
             // TO DO: GET all Criteria for certain ProjectId
             // IList<CriterionView> Criteria = new List<CriterionView>();
+
+            var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
 
             return View();
         }
 
         [HttpPost]
-        public JsonResult EditCriterionPreference(List<CriteriaRankModel> CriteriaRank)
+        public async Task<JsonResult> EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {
+            var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);
+            foreach(var cr in mapped)
+            {
+                cr.DateCreated = DateTime.Now;
+                cr.DateUpdated = DateTime.Now;                
+            }
+            await CriteriaRankService.AddRange(mapped);
+
             return Json("Success");
         }
     }

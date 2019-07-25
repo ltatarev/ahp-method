@@ -12,13 +12,17 @@ namespace AHP.DAL.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CriteriaRankId { get; set; }        
+        public int CriteriaRankId { get; set; }
+
         public int Column { get; set; }
+
         public float Priority { get; set; }
+
         public DateTime DateCreated { get; set; }
+
         public DateTime DateUpdated { get; set; }
 
-        public int Criteria1Id { get; set; }
+        public int CriteriaId { get; set; }
         public Criteria Criteria { get; set; }
     }
 }
