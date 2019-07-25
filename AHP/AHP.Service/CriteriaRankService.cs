@@ -16,16 +16,11 @@ namespace AHP.Service
             this.Repository = repository;
         }
         #endregion Constructors
-
         #region Properties
         protected ICriteriaRankRepository Repository { get; private set; }
         #endregion Properties
 
-        #region Methods
-
-        //Add method
-
-        #endregion Methods
+       
 
     }
 }

@@ -19,7 +19,6 @@ namespace AHP.DAL.Entities
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
-
         public virtual ICollection<Criteria> Criterias { get; set; }
         public virtual ICollection<Alternative> Alternatives { get; set; }
        
