@@ -5,7 +5,7 @@
     ViewBag.Title = "AddCriterion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<!-- ViewbBag.id = projectId -->
 <div class="container bg-dark mt-5 text-center p-4">
 
     <h1 id="SubTitle">Add criterion</h1>
@@ -56,7 +56,7 @@
               // console.log(t.value);
              data.push({
                  CriteriaName: t.value,
-                 ProjectId: 1
+                 ProjectId: @ViewBag.id
              })
          };
 
@@ -70,7 +70,7 @@
             data: JSON.stringify(data),
             success: function (response) {
                 console.log(response);
-                window.location.href = '@Url.Action("EditCriteria", "Criterion")';
+                window.location.href = '@Url.Action("EditCriteria", "Criterion", new { id = ViewBag.id })';
             },
             failure: function (response) {
                 alert(response);

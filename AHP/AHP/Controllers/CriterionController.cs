@@ -24,6 +24,7 @@ namespace AHP.Controllers
 
         public ActionResult AddCriterion(int projectId)
         {
+            ViewBag.id = projectId;
             return View();
         }
 
@@ -43,7 +44,7 @@ namespace AHP.Controllers
         }
 
         // GET: Criterion/EditCriterion
-        public ActionResult EditCriteria()
+        public ActionResult EditCriteria(int projectId)
         {
             // TO DO: GET all Criteria for certain ProjectId
             // IList<CriterionView> Criteria = new List<CriterionView>();
