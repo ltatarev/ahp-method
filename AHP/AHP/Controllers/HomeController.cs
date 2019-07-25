@@ -55,7 +55,7 @@ namespace AHP.Controllers
                 var status = await ProjectService.AddProjectAsync(mapped);
                 var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
                 TempData["proje"] = pro.ProjectId;
-                return RedirectToRoute("AddCriterion");
+                return RedirectToRoute("AddCriterion", new {projectId = pro.ProjectId });
             }
         }
     }

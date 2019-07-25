@@ -22,7 +22,7 @@ namespace AHP.Controllers
         public IMapper _mapper { get; set; }
         public ICriteriaService CriteriaService { get; set; }
 
-        public ActionResult AddCriterion()
+        public ActionResult AddCriterion(int projectId)
         {
             return View();
         }
