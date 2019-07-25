@@ -17,6 +17,9 @@ namespace AHP.Repository
 
             builder.RegisterType<AlternativeRepository>().As<Common.IAlternativeRepository>();
             builder.RegisterType<AlternativeRankRepository>().As<Common.IAlternativeRankRepository>();
+
+            builder.RegisterType<UnitOfWork>().As<Common.IUnitOfWork>();
+            builder.RegisterType<UnitOfWorkFactory>().As<Common.IUnitOfWorkFactory>();
         }
     }
 }

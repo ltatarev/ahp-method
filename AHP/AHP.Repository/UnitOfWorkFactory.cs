@@ -19,7 +19,7 @@ namespace AHP.Repository
 
         public IUnitOfWork CreateUnitOfWork()
         {
-            return new UnitOfWork();
+            return new UnitOfWork(_context);
         }
 
     }

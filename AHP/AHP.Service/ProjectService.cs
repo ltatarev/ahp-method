@@ -13,13 +13,15 @@ namespace AHP.Service
     public class ProjectService : IProjectService
     {
         #region Constructors
-        public ProjectService(IProjectRepository projectRepository)
+        public ProjectService(IProjectRepository projectRepository, IUnitOfWorkFactory unitOfWorkFactory)
         {
             this.ProjectRepository = projectRepository;
+            this.UnitOfWorkFactory = unitOfWorkFactory;
         }
         #endregion Constructors
 
         #region Properties
+        protected IUnitOfWorkFactory UnitOfWorkFactory;
         protected IProjectRepository ProjectRepository { get; private set; }
         #endregion Properties
 
@@ -27,8 +29,11 @@ namespace AHP.Service
         
        public async Task<IProjectModel>AddProjectAsync(IProjectModel project)
         {
+            var unitOfWork = UnitOfWorkFactory.CreateUnitOfWork();
+            // await unitOfWork.AddAsync(project);
             ProjectRepository.InsertProject(project);
             await ProjectRepository.SaveAsync();
+            //  await unitOfWork.CommitAsync();
             return project;
         }
         public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
