@@ -8,8 +8,6 @@ namespace AHP.Repository.Common
 {
     public interface IUnitOfWorkFactory
     {
-
         IUnitOfWork CreateUnitOfWork();
-
     }
 }

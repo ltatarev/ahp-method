@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,45 +14,78 @@ namespace AHP.Repository
     class UnitOfWork : IUnitOfWork
     {
 
-        private readonly TransactionScope transactionScope;
-        private bool dispose = false;
+        private AHPContext Context { get; set; }
 
         public UnitOfWork()
         {
-            transactionScope = new TransactionScope(
-                 TransactionScopeOption.RequiresNew,
-                 new TransactionOptions()
-                 {
-                     IsolationLevel = IsolationLevel.ReadCommitted
-                 },
-                 TransactionScopeAsyncFlowOption.Enabled);
+            
         }
 
-        public void Commit()
+        public Task<int> AddAsync<T>(T entity) where T : class
         {
-            transactionScope.Complete();
+            DbEntityEntry dbEntityEntry = Context.Entry(entity);
+            if (dbEntityEntry.State != EntityState.Detached)
+            {
+                dbEntityEntry.State = EntityState.Added;
+            }
+            else
+            {
+                Context.Set<T>().Add(entity);
+            }
+            return Task.FromResult(1);
         }
 
+        public Task<int> UpdateAsync<T>(T entity) where T : class
+        {
+            DbEntityEntry dbEntityEntry = Context.Entry(entity);
+            if (dbEntityEntry.State == EntityState.Detached)
+            {
+                Context.Set<T>().Attach(entity);
+            }
+            dbEntityEntry.State = EntityState.Modified;
 
+            return Task.FromResult(1);
+        }
+
+        public Task<int> DeleteAsync<T>(T entity) where T : class
+        {
+            DbEntityEntry dbEntityEntry = Context.Entry(entity);
+            if (dbEntityEntry.State != EntityState.Deleted)
+            {
+                dbEntityEntry.State = EntityState.Deleted;
+            }
+            else
+            {
+                Context.Set<T>().Attach(entity);
+                Context.Set<T>().Remove(entity);
+            }
+            return Task.FromResult(1);
+        }
+
+        public Task<int> DeleteAsync<T>(string ID) where T : class
+        {
+            var entity = Context.Set<T>().Find(ID);
+            if (entity == null)
+            {
+                return Task.FromResult(0);
+            }
+            return DeleteAsync<T>(entity);
+        }
+
+        public async Task<int> CommitAsync()
+        {
+            int result = 0;
+            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                result = await Context.SaveChangesAsync();
+                scope.Complete();
+            }
+            return result;
+        }
+      
         public void Dispose()
         {
-            Dispose(true);
+            Context.Dispose();
         }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!dispose)
-            {
-                if (disposing)
-                {
-                    if (transactionScope != null)
-                    {
-                        transactionScope.Dispose();
-                    }
-                }
-                dispose = true;
-            }
-        }
-
     }
 }
