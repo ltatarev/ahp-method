@@ -48,7 +48,8 @@ namespace AHP.Service
             }
 
             return NormalizedVector;
-        }
+        }  //posebna klasa
+
         public double[,] CreateMatrix(int[] array, int dimension)
         {
             /// <summary>
@@ -89,7 +90,7 @@ namespace AHP.Service
             {
                 return null;
             }
-        }
+        }  //posebna klasa
 
         public double[] CalculatePriority(double[,] Matrix)
         {
@@ -120,7 +121,7 @@ namespace AHP.Service
             }
 
             return NormalizeVector(GeoMeans);
-        }
+        }         //posebna klasa
 
         public double[] AHPMethod(int[] CriteriaPreference, int[][] AlternativePreferences)
         {
@@ -182,7 +183,6 @@ namespace AHP.Service
             var criterias = await Repository.GetAlternativesByProjectId(projectId, pageNumber,pageSize);
             return criterias;
         }
-
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
             Repository.AddRange(alternatives);

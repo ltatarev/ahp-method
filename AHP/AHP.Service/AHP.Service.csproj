@@ -46,6 +46,10 @@
   <ItemGroup>
     <Compile Include="AlternativeRankService.cs" />
     <Compile Include="AlternativeService.cs" />
+    <Compile Include="CalculationClasses\DataPreparation.cs" />
+    <Compile Include="CalculationClasses\FinalResultCalculator.cs" />
+    <Compile Include="CalculationClasses\MatrixCreator.cs" />
+    <Compile Include="CalculationClasses\PriorityCalculator.cs" />
     <Compile Include="CriteriaRankService.cs" />
     <Compile Include="CriteriaService.cs" />
     <Compile Include="DIModule.cs" />

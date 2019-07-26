@@ -51,7 +51,7 @@ namespace AHP.Repository
         public async Task<List<ICriteriaModel>> GetCriteriasByProjectId(int ProjectId, int PageNumber, int PageSize)
         {
             var criterias = await Context.Criterias.Where(c=>c.ProjectId==ProjectId).OrderBy(P => P.DateCreated).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
-            var mapped = Mapper.Map<List<Criteria>, List<ICriteriaModel>>(criterias);
+            var mapped = Mapper.Map<List<ICriteriaModel>>(criterias);
             return mapped;
         }
 
