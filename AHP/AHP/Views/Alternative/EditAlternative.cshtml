@@ -41,7 +41,6 @@
         //    console.log(val);
         //});
 
-
         // CREATING FORM ROW
         //  TODO: Get both from DB
         let Criteria = ["Price", "Color", "Size"];
@@ -128,6 +127,7 @@
                btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
                btn.setAttribute("type", "submit");
                btn.innerHTML = "Submit";
+
             container.append(btn);   
          
 
@@ -145,16 +145,16 @@
                 switch(parseInt(event.target.value)) {
                     case -8:
                     case -7:
-                            desc.innerHTML = first + ` extremely more important than ` + second;
+                        desc.innerHTML = first + ` extremely more important than ` + second;
                     break;
-                        case -6:
-                        case -5:
-                            desc.innerHTML = first + ` very strongly more important than ` + second;
-                        break;
-                        case -4:
-                        case -3:
-                            desc.innerHTML = first + ` strongly more important than ` + second;
-                        break;
+                    case -6:
+                    case -5:
+                        desc.innerHTML = first + ` very strongly more important than ` + second;
+                    break;
+                    case -4:
+                    case -3:
+                        desc.innerHTML = first + ` strongly more important than ` + second;
+                    break;
                         case -2:
                         case -1:
                             desc.innerHTML = first + ` moderately more important than ` + second;
@@ -202,38 +202,31 @@
             
             let C = Criteria.length;
             let A = Alternatives.length;
-
+             let idCount = 0;
              for (i = 0; i < C; i++) {
                  // i for Criteria count
-                 for (j = 0; j < A; j++) {
+                 for (j = 1; j < A; j++) {
                      // j for First alternative count
                      for (k = j + 1; k < A; k++) {
                          // k for Second alternative count
-
-
+                         data.push({
+                             // stupac
+                             Alternative1: j,
+                             // redak
+                             Alternative2: k,
+                             // preference
+                             Preference: tempData[idCount],
+                             CriteriaId: 0
+                         });
+                         idCount++;
                      }
                  }
-
              }
 
-
-
-
-             for (var i = 0; i < Criteria.length; i++) {
-                 // Get Criteria1Id for a certain i
-                 for (var j = i + 1; j < Criteria.length; j++) {
-                     data.push({
-                         Alternative1: i+1,
-                         Alternative2: tempData[i + j - 1],
-                         Preference: j + 1,
-                         CriteriaId: 1
-                     })
-                 }
-             }
 
          //console.log(JSON.stringify(tempData));
 
-            @*$.ajax({
+            $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
@@ -246,7 +239,7 @@
             failure: function (response) {
                 alert(response);
             }
-         });*@
+         });
 
         });
 
