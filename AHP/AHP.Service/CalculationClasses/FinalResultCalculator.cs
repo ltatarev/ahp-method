@@ -66,7 +66,7 @@ namespace AHP.Service.CalculationClasses
                     FinalDecision[i] += W[i, j] * CriteriaPriority[j];
                 }
             }
-            return (FinalDecision);
+            return DataPreparation.NormalizeVector(FinalDecision);
         }
     }
 }
