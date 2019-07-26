@@ -14,22 +14,25 @@
     </div>
 </div>
 <div class="container justify-content-md-center text-center p-2 bg-white" id="mainContainer">
-    @*<h2 class="alert alert-info" role="alert">
-        Criterion 1
-    </h2>
-    <form>
-        <div class="row p-2">
-            <div class="col-3 text-center">Alternative 1</div>
-            <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
-            <div class="col-3 text-center">Alternative 2</div>
-        </div>
-        <div class="row p-2 text-center">
-            <div class="col">
-                <button type="submit" class="btn btn-success btn-lg">Submit</button>
-            </div>
-        </div>
-    </form>*@
-</div>
+    @using (Html.BeginForm("EditAlternativePreference", "Alternative", FormMethod.Post, new { id = "EditAlternativeForm" }))
+    {
+        @*<h2 class="alert alert-info" role="alert">
+                Criterion 1
+            </h2>
+            <form>
+                <div class="row p-2">
+                    <div class="col-3 text-center">Alternative 1</div>
+                    <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
+                    <div class="col-3 text-center">Alternative 2</div>
+                </div>
+                <div class="row p-2 text-center">
+                    <div class="col">
+                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                    </div>
+                </div>
+            </form>*@
+    }
+    </div>
 
 @section scripts {
     <script>
@@ -48,13 +51,12 @@
 
 
         $(document).ready(function () {
-            let container = document.getElementById("mainContainer");
+            let form = $("#EditAlternativeForm");
             let C = Criteria.length;
             let A = Alternatives.length;
             let idCount = 0;
-                     let form = document.createElement("form");
-                    form.setAttribute("method", "post");
-                    form.setAttribute("id", "EditAlternativeForm");
+                   //  let form = document.createElement("form");
+                    //form.setAttribute("id", "EditAlternativeForm");
                
                
             for (i = 0; i < C; i++) {
@@ -64,7 +66,7 @@
                     critTitle.setAttribute("role", "alert");
                     critTitle.innerHTML = Criteria[i];
 
-                    form.appendChild(critTitle);
+                    form.append(critTitle);
 
                 for (j = 0; j < A; j++) {
 
@@ -78,7 +80,7 @@
                             desc.setAttribute("id", idCount * 2);
                             desc.setAttribute("style","font-size:15px; letter-spacing:1px; font-style: italic;")
                             desc.innerHTML = "Equally prefered";
-                        formRowDesc.appendChild(desc);
+                        formRowDesc.append(desc);
 
                         let formRow = document.createElement("div");
                         formRow.classList.add("row", "pt-2");
@@ -88,7 +90,7 @@
                             firstAlt.setAttribute("style", "font-size:20px; font-weight: bold;");
                             firstAlt.setAttribute("id", `first` + idCount);
                             firstAlt.innerHTML = Alternatives[j];
-                        formRow.appendChild(firstAlt);
+                        formRow.append(firstAlt);
 
                         let slider = document.createElement("div");
                             slider.classList.add("col-6");
@@ -101,21 +103,21 @@
                             sliderInput.setAttribute("Value", 0);
                             sliderInput.setAttribute("id", idCount);
                             slider.appendChild(sliderInput);
-                        formRow.appendChild(slider);
+                        formRow.append(slider);
 
                         let secondAlt = document.createElement("div");
                             secondAlt.classList.add("col-3", "text-center");
                             secondAlt.setAttribute("style", "font-size:20px; font-weight: bold;");
                             secondAlt.setAttribute("id", `second` + idCount);
                             secondAlt.innerHTML = Alternatives[k];
-                        formRow.appendChild(secondAlt);
+                        formRow.append(secondAlt);
 
                         form.append(formRowDesc);
                         form.append(formRow);
 
                         let line = document.createElement("hr");
                         form.append(line);
-                        container.appendChild(form);
+                        
                         idCount++;
                     }
                 }
@@ -123,22 +125,18 @@
        
             }
 
-                  let btn = document.createElement("button");
-               btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
-               btn.setAttribute("type", "submit");
-                btn.innerHTML = "Submit"; 
-                 form.append(btn); 
-
-           
-
-             
-         
+            let btn = document.createElement("button");
+            btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
+            btn.setAttribute("type", "submit");
+            btn.innerHTML = "Submit"; 
+            form.append(btn); 
+            //container.append(form);
 
             $('input[type=range]').on("click", () => {
                 let id = parseInt(event.target.id);
                 let descId = (id * 2).toString();
                 let desc = document.getElementById(descId);
-
+                 
                 let firstId = `first` + id;
                 let first = document.getElementById(firstId).innerHTML;
 
@@ -187,8 +185,10 @@
 
                 });
         });
+
+
          // FORM SUBMIT
-         $("#EditAlternativeForm").on("submit", function () {
+       $("#EditAlternativeForm").on("submit", function () {
              event.preventDefault();
              var url = '@Url.Action("EditAlternativePreference", "Alternative")';
              var data = [];
@@ -219,6 +219,7 @@
                              Alternative2: k,
                              // preference
                              Preference: tempData[idCount],
+                             // Add appropriate CriteriaId
                              CriteriaId: i
                          });
                          idCount++;
@@ -226,10 +227,9 @@
                  }
              }
 
-
          console.log(JSON.stringify(data));
 
-            @*$.ajax({
+            $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
@@ -237,14 +237,14 @@
             data: JSON.stringify(data),
             success: function (response) {
                 console.log(response);
-                window.location.href = '@Url.Action("FinalResult", "Result")'
+                window.location.href = '@Url.Action("FinalResult", "Result", new { id = ViewBag.id })'
             },
             failure: function (response) {
                 alert(response);
                 }
 
-         })*@
-        });
+         })
+        })
 
     </script>
 }

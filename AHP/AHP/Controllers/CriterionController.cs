@@ -47,7 +47,6 @@ namespace AHP.Controllers
             }
             
             var status = await CriteriaService.AddRange(mapped);
-
             return Json("Success");
         }
 
@@ -55,9 +54,9 @@ namespace AHP.Controllers
         public async Task<ActionResult> EditCriteria(int id)
         {
             // IList<CriterionView> Criteria = new List<CriterionView>();
-
             var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
             var CriterionView = _mapper.Map<List<CriterionView>>(CriteriasInProject);
+            ViewBag.id = id;
             return View(CriterionView);
         }
 

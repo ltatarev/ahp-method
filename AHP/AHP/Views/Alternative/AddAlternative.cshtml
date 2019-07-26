@@ -44,7 +44,7 @@
 
         $("#AddAlternativeForm").on("submit", function () {
          event.preventDefault();
-         var url = '@Url.Action("AddNewAlternative", "Alternative")';
+         var url = '@Url.Action("AddNewAlternative", "Alternative", new { id = @ViewBag.id })';
          var data = [];
 
          // Find all input fields
@@ -67,17 +67,14 @@
             url: url,
             data: JSON.stringify(data),
             success: function (response) {
-                alert(response);
-                window.location.href = '@Url.Action("EditAlternative", "Alternative")';
+                console.log(response);
+                window.location.href = '@Url.Action("EditAlternative", "Alternative", new { id = @ViewBag.id })';
             },
             failure: function (response) {
                 alert(response);
             }
         });    
     }); 
-
-
-
 
     </script>
 }

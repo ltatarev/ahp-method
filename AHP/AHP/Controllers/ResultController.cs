@@ -9,9 +9,9 @@ namespace AHP.Controllers
     public class ResultController : Controller
     {
         // GET: Result/FinalResult
-        public ActionResult FinalResult()
+        public ActionResult FinalResult(int id)
         {
-
+              // id = projectId
             return View();
         }
     }

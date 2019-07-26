@@ -30,8 +30,17 @@
 
         // CREATING FORM ROW
 
-        let Criteria = ["Price", "Color", "Size"];
+        let criteriaLen =  @Model.Count;
+        let Criteria = [];
 
+         var uploadedList = @Html.Raw(Json.Encode(@Model));
+
+        for (let criteria of uploadedList) {
+            Criteria.push({ name: criteria.CriteriaName, id: criteria.CriteriaId })
+        }
+
+        console.log(Criteria);
+        
         let form = document.getElementById('EditCriterionForm');
         $(document).ready(function () {
             let a = Criteria.length;
@@ -55,8 +64,8 @@
                     let firstCriterion = document.createElement("div");
                         firstCriterion.classList.add("col-3", "text-center");
                         firstCriterion.setAttribute("style", "font-size:20px; font-weight: bold;");
-                        firstCriterion.setAttribute("id", `first` + idCount);
-                        firstCriterion.innerHTML = Criteria[i];
+                    firstCriterion.setAttribute("id", `first` + idCount);
+                    firstCriterion.innerHTML = Criteria[i].name;
                     formRow2.appendChild(firstCriterion);
 
                     let slider = document.createElement("div");
@@ -75,8 +84,8 @@
                     let secondCriterion = document.createElement("div");
                         secondCriterion.classList.add("col-3", "text-center");
                         secondCriterion.setAttribute("style", "font-size:20px; font-weight: bold;");
-                        secondCriterion.setAttribute("id", `second` + idCount);
-                        secondCriterion.innerHTML = Criteria[j];
+                    secondCriterion.setAttribute("id", `second` + idCount);
+                    secondCriterion.innerHTML = Criteria[j].name;
                     formRow2.appendChild(secondCriterion);
 
                     form.append(formRow1);
@@ -148,7 +157,6 @@
             });
         });
 
-
         // FORM SUBMIT
          $("#EditCriterionForm").on("submit", function () {
              event.preventDefault();
@@ -168,14 +176,14 @@
                  // Get Criteria1Id for a certain i
                  for (var j = i + 1; j < Criteria.length; j++) {
                      data.push({
-                         CriteriaId: i+1,
+                         CriteriaId: Criteria[i].id,
                          Priority: tempData[i + j - 1],
-                         Order: j+1
+                         Column: j+1
                      })
                  }
              }
 
-         //console.log(JSON.stringify(tempData));
+         //console.log(JSON.stringify(data));
 
             $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -185,7 +193,7 @@
             data: JSON.stringify(data),
             success: function (response) {
                 console.log(response);
-                window.location.href = '@Url.Action("AddAlternative", "Alternative")'
+                window.location.href = '@Url.Action("AddAlternative", "Alternative", new { id = @ViewBag.id })'
             },
             failure: function (response) {
                 alert(response);

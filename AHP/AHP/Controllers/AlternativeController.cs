@@ -23,23 +23,23 @@ namespace AHP.Controllers
         IMapper _mapper;
 
         // GET: Alterntive/AddAlternative
-        public ActionResult AddAlternative()
+        public ActionResult AddAlternative(int id)
         {
             // Display View with form for adding Alternatives
+            ViewBag.id = id;
             return View();
-
         }
 
         // GET: Alterntive/EditAlternative
-        public ActionResult EditAlternative()
+        public ActionResult EditAlternative(int id)
         {
-            // TO DO: GET all Alternatives for projectId
+            ViewBag.id = id;
             return View();
         }
 
         // POST: Alterntive/AddNewAlternative
         [HttpPost]
-        public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives)
+        public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives, int id)
         {
             var order = 1;
             var mapped = _mapper.Map<List<IAlternativeModel>>(alternatives);
@@ -49,8 +49,7 @@ namespace AHP.Controllers
                 alter.DateUpdated = DateTime.Now;
                 alter.Order = order;
                 order++;
-                // 2 ??
-                alter.ProjectId = 2;
+                alter.ProjectId = id;
             }
 
             var status = await AlternativeService.AddRange(mapped);
@@ -58,6 +57,7 @@ namespace AHP.Controllers
             return Json("Success");
         }
 
+        // POST: Alternative/EditAlternativePreference
         [HttpPost]
         public JsonResult EditAlternativePreference(List<AlternativeRankView> Alternative)
         {
