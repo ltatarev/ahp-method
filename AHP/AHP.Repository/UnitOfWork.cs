@@ -16,9 +16,9 @@ namespace AHP.Repository
 
         private AHPContext Context { get; set; }
 
-        public UnitOfWork()
+        public UnitOfWork(AHPContext context)
         {
-            
+            Context = context;
         }
 
         public Task<int> AddAsync<T>(T entity) where T : class

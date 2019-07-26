@@ -16,12 +16,15 @@ namespace AHP.Repository
 {
 	class ProjectRepository : IProjectRepository
 	{
-               #region Constructor
+        #region Constructor
 
-            public ProjectRepository(AHPContext context, IMapper mapper)
+        IUnitOfWorkFactory uowFactory;
+
+        public ProjectRepository(AHPContext context, IMapper mapper, IUnitOfWorkFactory uowFactory)
         {
             this.Context = context;
             this.Mapper = mapper;
+            this.uowFactory = uowFactory;
         }
 
         #endregion Constructor
@@ -47,10 +50,11 @@ namespace AHP.Repository
             return Mapper.Map<Project, IProjectModel>(project);
         }
 
-        public IProjectModel InsertProject(IProjectModel project)
+        public async Task<IProjectModel> InsertProject(IProjectModel project)
         {
+            var unitOfWork = uowFactory.CreateUnitOfWork();
             var mapped = Mapper.Map<IProjectModel, Project>(project);
-            Context.Projects.Add(mapped);            
+            await unitOfWork.AddAsync(mapped);
             return project;
         }
 
