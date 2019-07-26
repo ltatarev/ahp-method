@@ -9,7 +9,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
-    public interface IProjectRepository : IRepository<IProjectModel>
+    public interface IProjectRepository : IRepository<Project>
     {
         //Interface body
 

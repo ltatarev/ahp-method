@@ -14,7 +14,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository
 {
-    class ProjectRepository : Repository<IProjectModel>, IProjectRepository
+    class ProjectRepository : Repository<Project>, IProjectRepository
     {
         #region Constructor
 
@@ -47,15 +47,15 @@ namespace AHP.Repository
 
         public bool InsertProject(IProjectModel project)
         {
-            using (var unitOfWork = new UnitOfWork(Context, Mapper))
-            {
+            var unitOfWork = new UnitOfWork(Context, Mapper);
+            
                 var mapped = Mapper.Map<Project>(project);
                 
-                unitOfWork.Projects.Add(project);
+                unitOfWork.Projects.Add(mapped);
 
                 unitOfWork.Complete();
                 return true;
-            }
+            
         }
 
         public async Task<bool> DeleteProject(int ProjectId)

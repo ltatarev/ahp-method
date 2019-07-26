@@ -7,7 +7,7 @@ using System.Transactions;
 
 namespace AHP.Repository.Common
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         IProjectRepository Projects { get; }
         int Complete();

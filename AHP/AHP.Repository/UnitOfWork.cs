@@ -32,9 +32,6 @@ namespace AHP.Repository
             return Context.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            Context.Dispose();
-        }
+       
     }
 }
