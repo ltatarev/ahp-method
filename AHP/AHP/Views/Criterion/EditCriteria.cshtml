@@ -65,9 +65,9 @@
                     let sliderInput = document.createElement("input");
                         sliderInput.setAttribute("type", "range");
                         sliderInput.setAttribute("min", -8);
-                        sliderInput.setAttribute("max", 9);
+                        sliderInput.setAttribute("max", 8);
                         sliderInput.setAttribute("step", 1);
-                        sliderInput.setAttribute("Value", 1);
+                        sliderInput.setAttribute("Value", 0);
                         sliderInput.setAttribute("id", idCount);
                         slider.appendChild(sliderInput);
                     formRow2.appendChild(slider);
@@ -123,23 +123,22 @@
                             desc.innerHTML = first + ` moderately more important than ` + second;
                         break;
                         case 0:
-                        case 1:
                             desc.innerHTML = first + ` equally prefered to ` + second;
                         break;
                         case 2:
-                        case 3:
+                        case 1:
                             desc.innerHTML = second + ` moderately more important than ` + first;
                         break;
                         case 4:
-                        case 5:
+                        case 3:
                             desc.innerHTML = second + ` strongly more important than ` + first;
                         break;
                         case 6:
-                        case 7:
+                        case 5:
                             desc.innerHTML = second + ` very strongly more important than ` + first;
                         break;
                         case 8:
-                        case 9:
+                        case 7:
                             desc.innerHTML = second + ` extremely more important than ` + first;
                         break;
                       default:
@@ -162,7 +161,7 @@
              for (let t of input) {
                     // Values of each input field
                     let x = parseInt(t.value);
-                    let y = (x > 0) ? (1 / x) : (-x+1);
+                    let y = (x > 0) ? (1 / (x+1)) : (-x+1);
                     tempData.push(y);
              }
              for (var i = 0; i < Criteria.length; i++) {

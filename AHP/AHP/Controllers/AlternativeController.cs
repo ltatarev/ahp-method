@@ -57,5 +57,10 @@ namespace AHP.Controllers
 
             return Json("Success");
         }
+
+        public JsonResult EditAlternativePreference(List<AlternativeRankView> Alt)
+        {
+            return Json("Success");
+        }
     }
 }
