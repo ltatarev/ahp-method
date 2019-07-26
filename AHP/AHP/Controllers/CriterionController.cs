@@ -24,12 +24,15 @@ namespace AHP.Controllers
         public ICriteriaService CriteriaService { get; set; }
         public ICriteriaRankService CriteriaRankService;
 
+        // GET: Criterion/AddCriterion
         public ActionResult AddCriterion(int projectId)
         {
+            // Display View with form for adding Criteria
             ViewBag.id = projectId;
             return View();
         }
 
+        // GET: Criterion/AddNewCriterion
         [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
@@ -53,12 +56,14 @@ namespace AHP.Controllers
         {
             // TO DO: GET all Criteria for certain ProjectId
             // IList<CriterionView> Criteria = new List<CriterionView>();
+            // projectId??
 
             var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
 
             return View();
         }
 
+        // POST: Criterion/EditCriterionPreference
         [HttpPost]
         public async Task<JsonResult> EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {

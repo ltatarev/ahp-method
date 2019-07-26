@@ -23,30 +23,36 @@ namespace AHP.Controllers
         public IMapper _mapper { get; set; }
         public IProjectService ProjectService { get; set; }
 
+        // GET: Home/Index
         public ActionResult Index()
         {
+            // Display Index view
             return View();
         }
 
+        // GET: Home/Login
         public ActionResult Login()
         {
+            // Display view for adding new project
             return View();
         }
 
+        // GET: Home/AllProjects
         public ActionResult AllProjects()
         {
+            // Display view with first n projects
             return View();
         }
 
+        // POST: Home/CreateProject
         [HttpPost]
         public async Task<ActionResult> CreateProject(ProjectView project)
         {
-            
             var mapped = _mapper.Map<ProjectView,IProjectModel>(project);
             var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
             if (!(projectInDb == null))
             {
-                return Json("Ima vec takav project");
+                return Content("<script language='javascript' type='text/javascript'>alert('Project already exists!');window.location.href='/Home/Login';</script>");
             }
             else
             {

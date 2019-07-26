@@ -9,13 +9,14 @@
     <div class="row mr-auto">
         <div class="col">
             <h1 id="SubTitle">Edit criteria</h1>
+            <h3 class="text-light font-italic">Input your preferences</h3>
         </div>
     </div>
 </div>
 <div class="container justify-content-md-center text-center p-3 pt-5 bg-white">
     @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
-        {
-           @*<div class="row p-2">
+    {
+        @*<div class="row p-2">
                 <div class="col-3 text-center">criteria 1</div>
                 <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
                 <div class="col-3 text-center">criteria 2</div>
@@ -29,50 +30,126 @@
 
         // CREATING FORM ROW
 
-        let Criteria = ["Prvi", "Drugi", "Treci", "Cetvrti"];
+        let Criteria = ["Price", "Color", "Size"];
 
         let form = document.getElementById('EditCriterionForm');
         $(document).ready(function () {
             let a = Criteria.length;
+            let idCount = 0;
             for (var i = 0; i < a; i++) {
                 for (var j = i + 1; j < a; j++) {
-                    let formRow = document.createElement("div");
-                        formRow.classList.add("row", "pt-2");
+                   // console.log(idCount);
+                    let formRow1 = document.createElement("div");
+                        formRow1.classList.add("row", "pt-4");
+                        formRow1.setAttribute("class", "text-center");
+                    let desc = document.createElement("p");
+                        desc.classList.add("lead");
+                        desc.setAttribute("id", idCount * 2);
+                        desc.setAttribute("style","font-size:15px; letter-spacing:1px; font-style: italic;")
+                        desc.innerHTML = "Equally prefered";
+                    formRow1.appendChild(desc);
+
+                    let formRow2 = document.createElement("div");
+                        formRow2.classList.add("row");
 
                     let firstCriterion = document.createElement("div");
                         firstCriterion.classList.add("col-3", "text-center");
+                        firstCriterion.setAttribute("style", "font-size:20px; font-weight: bold;");
+                        firstCriterion.setAttribute("id", `first` + idCount);
                         firstCriterion.innerHTML = Criteria[i];
-                    formRow.appendChild(firstCriterion);
+                    formRow2.appendChild(firstCriterion);
 
                     let slider = document.createElement("div");
                         slider.classList.add("col-6");
+
                     let sliderInput = document.createElement("input");
                         sliderInput.setAttribute("type", "range");
                         sliderInput.setAttribute("min", -8);
-                        sliderInput.setAttribute("max", 9);
+                        sliderInput.setAttribute("max", 8);
                         sliderInput.setAttribute("step", 1);
-                        sliderInput.setAttribute("Value", 1);
-                        sliderInput.setAttribute("id",i+j-1);
+                        sliderInput.setAttribute("Value", 0);
+                        sliderInput.setAttribute("id", idCount);
                         slider.appendChild(sliderInput);
-                        formRow.appendChild(slider);
+                    formRow2.appendChild(slider);
 
                     let secondCriterion = document.createElement("div");
-                    secondCriterion.classList.add("col-3", "text-center");
-                    secondCriterion.innerHTML = Criteria[j];
-                    formRow.appendChild(secondCriterion);
+                        secondCriterion.classList.add("col-3", "text-center");
+                        secondCriterion.setAttribute("style", "font-size:20px; font-weight: bold;");
+                        secondCriterion.setAttribute("id", `second` + idCount);
+                        secondCriterion.innerHTML = Criteria[j];
+                    formRow2.appendChild(secondCriterion);
 
-                    form.append(formRow);
+                    form.append(formRow1);
+                    form.append(formRow2);
+
+                    let line = document.createElement("hr");
+                        form.append(line);
+                    idCount++;
                 }
             }
 
             let btn = document.createElement("button");
-            btn.classList.add("btn","btn-success","mt-3");
+            btn.classList.add("btn","btn-success","btn-lg","mt-3");
             btn.setAttribute("type", "submit");
             btn.innerHTML = "Submit";
             form.append(btn);
 
+            $('input[type=range]').on("click", () => {
+                let id = parseInt(event.target.id);
+                let descId = (id * 2).toString();
+                let desc = document.getElementById(descId);
+
+                let firstId = `first` + id;
+                let first = document.getElementById(firstId).innerHTML;
+
+                let secondId = `second` + id;
+                let second = document.getElementById(secondId).innerHTML;
+
+                switch(parseInt(event.target.value)) {
+                        case -8:
+                        case -7:
+                            desc.innerHTML = first + ` extremely more important than ` + second;
+                        break;
+                        case -6:
+                        case -5:
+                            desc.innerHTML = first + ` very strongly more important than ` + second;
+                        break;
+                        case -4:
+                        case -3:
+                            desc.innerHTML = first + ` strongly more important than ` + second;
+                        break;
+                        case -2:
+                        case -1:
+                            desc.innerHTML = first + ` moderately more important than ` + second;
+                        break;
+                        case 0:
+                            desc.innerHTML = first + ` equally prefered to ` + second;
+                        break;
+                        case 2:
+                        case 1:
+                            desc.innerHTML = second + ` moderately more important than ` + first;
+                        break;
+                        case 4:
+                        case 3:
+                            desc.innerHTML = second + ` strongly more important than ` + first;
+                        break;
+                        case 6:
+                        case 5:
+                            desc.innerHTML = second + ` very strongly more important than ` + first;
+                        break;
+                        case 8:
+                        case 7:
+                            desc.innerHTML = second + ` extremely more important than ` + first;
+                        break;
+                      default:
+                        desc.innerHTML = "Equally prefered";
+                    }
+
+            });
         });
 
+
+        // FORM SUBMIT
          $("#EditCriterionForm").on("submit", function () {
              event.preventDefault();
              var url = '@Url.Action("EditCriterionPreference", "Criterion")';
@@ -84,8 +161,8 @@
              for (let t of input) {
                     // Values of each input field
                     let x = parseInt(t.value);
-                    x = (x > 0) ? x : (1 / ((-x) + 1));
-                    tempData.push(x);
+                    let y = (x > 0) ? (1 / (x+1)) : (-x+1);
+                    tempData.push(y);
              }
              for (var i = 0; i < Criteria.length; i++) {
                  // Get Criteria1Id for a certain i
@@ -113,11 +190,11 @@
             failure: function (response) {
                 alert(response);
             }
-         });  
+         });
 
-        }); 
+        });
 
-        
-   </script>
+
+    </script>
 
 }
