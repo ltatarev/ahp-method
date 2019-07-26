@@ -14,11 +14,13 @@ namespace AHP.Controllers
     public class AlternativeController : Controller
     {
 
-        public AlternativeController(IAlternativeService alternativeService, IMapper mapper)
+        public AlternativeController(IAlternativeService alternativeService, ICriteriaService  criteriaService, IMapper mapper)
         {
             this.AlternativeService = alternativeService;
+            this.CriteriaService = criteriaService;
             this._mapper = mapper;
         }
+        ICriteriaService CriteriaService;
         IAlternativeService AlternativeService;
         IMapper _mapper;
 
@@ -31,10 +33,22 @@ namespace AHP.Controllers
         }
 
         // GET: Alterntive/EditAlternative
-        public ActionResult EditAlternative(int id)
+        public async Task<ActionResult> EditAlternative(int id)
         {
             ViewBag.id = id;
-            return View();
+            var alternatives = await AlternativeService.GetAlternativesByProjectId(id, 1);
+            var criterias = await CriteriaService.GetCriteriasByProjectId(id, 1);
+
+            var CriteriaAlternativeView = new CriteriaAlternativeView();
+
+            var MappedAlternatives = _mapper.Map<IList<AlternativeView>>(alternatives);
+            var MappedCriterias = _mapper.Map<IList<CriterionView>>(criterias);
+
+            CriteriaAlternativeView.Alternatives = MappedAlternatives;
+            CriteriaAlternativeView.Criterias = MappedCriterias;
+
+            return View(CriteriaAlternativeView);
+            
         }
 
         // POST: Alterntive/AddNewAlternative

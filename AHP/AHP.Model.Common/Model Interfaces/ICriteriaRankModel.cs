@@ -12,7 +12,7 @@ namespace AHP.Model.Common.Model_Interfaces
         DateTime DateUpdated { get; set; }
 
         int CriteriaId { get; set; }
-        ICriteriaRankModel Criteria { get; set; }
+        ICriteriaModel Criteria { get; set; }
 
     }
 }
