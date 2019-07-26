@@ -61,11 +61,13 @@ namespace AHP.Repository
             var unitOfWork = uowFactory.CreateUnitOfWork();
             var mapped = Mapper.Map<IProjectModel, Project>(project);
             await unitOfWork.AddAsync(mapped);
+            await unitOfWork.CommitAsync();
             return project;
         }
 
         public async Task<bool> DeleteProject(int ProjectId)
         {
+            var unitOfWork = uowFactory.CreateUnitOfWork();
             var project = await Context.Projects.FindAsync(ProjectId);
             Context.Projects.Remove(project);
             return true;

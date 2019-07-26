@@ -29,11 +29,9 @@ namespace AHP.Service
         
        public async Task<IProjectModel>AddProjectAsync(IProjectModel project)
         {
-            var unitOfWork = UnitOfWorkFactory.CreateUnitOfWork();
-            // await unitOfWork.AddAsync(project);
-            ProjectRepository.InsertProject(project);
-            await ProjectRepository.SaveAsync();
-            //  await unitOfWork.CommitAsync();
+         
+            await ProjectRepository.InsertProject(project);
+          
             return project;
         }
         public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
