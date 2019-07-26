@@ -57,6 +57,12 @@ namespace AHP.Repository
             Context.AlternativeRanks.Remove(alterRank);
             return true;
         }
+        public List<IAlternativeRankModel> AddRange(List<IAlternativeRankModel> alternativeRanks)
+        {
+            Context.AlternativeRanks.AddRange(Mapper.Map<List<AlternativeRank>>(alternativeRanks));
+            return alternativeRanks;
+        }
+
         public async Task<int> SaveAsync()
         {
             return await Context.SaveChangesAsync();

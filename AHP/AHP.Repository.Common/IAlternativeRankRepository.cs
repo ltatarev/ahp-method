@@ -14,6 +14,7 @@ namespace AHP.Repository.Common
         Task<List<IAlternativeRankModel>> GetAlternativeRanks(int pageNumber, int pageSize);
         Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(int alterRankId);
         IAlternativeRankModel InsertAlternativeRank(IAlternativeRankModel alterRank);
+        List<IAlternativeRankModel> AddRange(List<IAlternativeRankModel> alternativeRanks);
         Task<bool> DeleteAlternativeRank(int alterRankId);
         Task<int> SaveAsync();
     }

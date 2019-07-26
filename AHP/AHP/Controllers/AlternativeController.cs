@@ -14,14 +14,19 @@ namespace AHP.Controllers
     public class AlternativeController : Controller
     {
 
-        public AlternativeController(IAlternativeService alternativeService, ICriteriaService  criteriaService, IMapper mapper)
+        public AlternativeController(IAlternativeService alternativeService, 
+                                    ICriteriaService  criteriaService,
+                                    IAlternativeRankService alternativeRankService,
+                                    IMapper mapper)
         {
             this.AlternativeService = alternativeService;
             this.CriteriaService = criteriaService;
+            this.AlternativeRankService = alternativeRankService;
             this._mapper = mapper;
         }
         ICriteriaService CriteriaService;
         IAlternativeService AlternativeService;
+        IAlternativeRankService AlternativeRankService;
         IMapper _mapper;
 
         // GET: Alterntive/AddAlternative
@@ -73,8 +78,16 @@ namespace AHP.Controllers
 
         // POST: Alternative/EditAlternativePreference
         [HttpPost]
-        public JsonResult EditAlternativePreference(List<AlternativeRankView> Alternative)
+        public async Task<JsonResult> EditAlternativePreference(List<AlternativeRankView> Alternative)
         {
+            var mapped = _mapper.Map<List<IAlternativeRankModel>>(Alternative);
+            foreach(var arv in mapped)
+            {
+                arv.DateCreated = DateTime.Now;
+                arv.DateUpdated = DateTime.Now;
+                
+            }
+            await AlternativeRankService.AddRange(mapped);
             return Json("Success");
         }
     }
