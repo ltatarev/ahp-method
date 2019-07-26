@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AHP.Models
 {
-    public class CriteriaAlternative
+    public class CriteriaAlternativeView
     {
         public IList<CriterionView> Criterias { get; set; }
 
