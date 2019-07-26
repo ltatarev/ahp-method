@@ -12,7 +12,6 @@ namespace AHP.Models
         public string AlternativeName { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
-        public int FinalPriority { get; set; }
 
     }
 }

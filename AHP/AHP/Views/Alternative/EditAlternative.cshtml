@@ -124,11 +124,11 @@
        
             }
 
-                     let btn = document.createElement("button");
-                            btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
-                            btn.setAttribute("type", "submit");
-                            btn.innerHTML = "Submit";
-                            container.append(btn);   
+           let btn = document.createElement("button");
+               btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
+               btn.setAttribute("type", "submit");
+               btn.innerHTML = "Submit";
+            container.append(btn);   
          
 
             $('input[type=range]').on("click", () => {
@@ -143,10 +143,10 @@
                 let second = document.getElementById(secondId).innerHTML;
 
                 switch(parseInt(event.target.value)) {
-                        case -8:
-                        case -7:
+                    case -8:
+                    case -7:
                             desc.innerHTML = first + ` extremely more important than ` + second;
-                        break;
+                    break;
                         case -6:
                         case -5:
                             desc.innerHTML = first + ` very strongly more important than ` + second;
@@ -182,15 +182,15 @@
                         desc.innerHTML = "Equally prefered";
                     }
 
+                });
         });
- });
-                // FORM SUBMIT
+         // FORM SUBMIT
          $("#EditAlternativeForm").on("submit", function () {
              event.preventDefault();
              var url = '@Url.Action("EditAlternativePreference", "Alternative")';
              var data = [];
 
-         // Find all input fields
+            // Find all input fields
              var input = $('#EditAlternativeForm').find('input[type=range]');
              let tempData = [];
              for (let t of input) {

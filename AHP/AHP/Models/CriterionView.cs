@@ -12,8 +12,6 @@ namespace AHP.Models
         public string CriteriaName { get; set; }
         public float Priority { get; set; }
         public int ProjectId { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
     }
 
 }

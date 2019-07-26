@@ -54,14 +54,11 @@ namespace AHP.Controllers
         // GET: Criterion/EditCriterion
         public async Task<ActionResult> EditCriteria(int id)
         {
-            // TO DO: GET all Criteria for certain ProjectId
-            
             // IList<CriterionView> Criteria = new List<CriterionView>();
-            // projectId??
-            var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
-            var criteriaView = _mapper.Map<List<CriterionView>>(CriteriasInProject);
 
-            return View(criteriaView);
+            var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
+
+            return View(CriteriasInProject);
         }
 
         // POST: Criterion/EditCriterionPreference
