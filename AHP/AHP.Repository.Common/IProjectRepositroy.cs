@@ -9,7 +9,7 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository.Common
 {
-    public interface IProjectRepository
+    public interface IProjectRepository : IRepository<IProjectModel>
     {
         //Interface body
 
@@ -25,7 +25,7 @@ namespace AHP.Repository.Common
         bool InsertProject(IProjectModel project);
         Task<bool> DeleteProject(int ProjectId);
         Task<int> SaveAsync();
-        
+
         #endregion Methods
     }
 }

@@ -14,13 +14,12 @@ using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Repository
 {
-	class ProjectRepository : IProjectRepository
-	{
-               #region Constructor
+    class ProjectRepository : Repository<IProjectModel>, IProjectRepository
+    {
+        #region Constructor
 
-            public ProjectRepository(AHPContext context, IMapper mapper)
+        public ProjectRepository(AHPContext context, IMapper mapper) : base(context)
         {
-            this.Context = context;
             this.Mapper = mapper;
         }
 
@@ -29,19 +28,18 @@ namespace AHP.Repository
         #region Properties
 
         public IMapper Mapper { get; set; }
-        private AHPContext Context { get;  set; }
 
         #endregion Properties
 
         #region Methods          
-        public async Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize=10)
+        public async Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize = 10)
         {
             var projects = await Context.Projects.OrderBy(P => P.DateCreated).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
             var mapped = Mapper.Map<List<Project>, List<IProjectModel>>(projects);
             return mapped;
         }
 
-         public async Task<IProjectModel> GetProjectByIdAsync(int ProjectId)
+        public async Task<IProjectModel> GetProjectByIdAsync(int ProjectId)
         {
             var project = await Context.Projects.FindAsync(ProjectId);
             return Mapper.Map<Project, IProjectModel>(project);
@@ -49,14 +47,20 @@ namespace AHP.Repository
 
         public bool InsertProject(IProjectModel project)
         {
-            var mapped = Mapper.Map<IProjectModel, Project>(project);
-            Context.Projects.Add(mapped);            
-            return true;
+            using (var unitOfWork = new UnitOfWork(Context, Mapper))
+            {
+                var mapped = Mapper.Map<Project>(project);
+                
+                unitOfWork.Projects.Add(project);
+
+                unitOfWork.Complete();
+                return true;
+            }
         }
 
         public async Task<bool> DeleteProject(int ProjectId)
         {
-            var project =await Context.Projects.FindAsync(ProjectId);
+            var project = await Context.Projects.FindAsync(ProjectId);
             Context.Projects.Remove(project);
             return true;
         }

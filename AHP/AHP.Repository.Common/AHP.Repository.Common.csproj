@@ -47,6 +47,7 @@
     <Compile Include="ICriteriaRankRepository.cs" />
     <Compile Include="ICriteriaRepository.cs" />
     <Compile Include="IProjectRepositroy.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
