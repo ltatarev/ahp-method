@@ -32,7 +32,7 @@
                 </div>
             </form>*@
     }
-    </div>
+</div>
 
 @section scripts {
     <script>
@@ -45,10 +45,29 @@
         //});
 
         // CREATING FORM ROW
-        //  TODO: Get both from DB
-        let Criteria = ["Price", "Color", "Size"];
-        let Alternatives = ["First", "Second", "Third", "Forth"];
 
+
+        let criteriaLen =  @Model.Criterias.Count;
+        let alternativeLen = @Model.Alternatives.Count;
+
+        let Criteria = [];
+        let Alternatives = [];
+
+        var uploadedListCriteria = @Html.Raw(Json.Encode(@Model.Criterias));
+        var uploadedListAlternative = @Html.Raw(Json.Encode(@Model.Alternatives));
+
+        //console.log(uploadedListCriteria);
+
+        for (let criteria of uploadedListCriteria) {
+              Criteria.push({ id:criteria.CriteriaId, name: criteria.CriteriaName })
+        }
+
+        for (let alternative of uploadedListAlternative) {
+            Alternatives.push({ id:alternative.AlternativeId, name: alternative.AlternativeName, order: alternative.Order })
+        }
+
+        //let Criteria = ["Price", "Color", "Size"];
+        //let Alternatives = ["First", "Second", "Third", "Forth"];
 
         $(document).ready(function () {
             let form = $("#EditAlternativeForm");
@@ -57,14 +76,14 @@
             let idCount = 0;
                    //  let form = document.createElement("form");
                     //form.setAttribute("id", "EditAlternativeForm");
-               
-               
+
+
             for (i = 0; i < C; i++) {
                 let critTitle = document.createElement("h1");
                     critTitle.classList.add("alert", "alert-info");
                     critTitle.setAttribute("style", "font-weight:bold; text-transform: uppercase; letter-spacing: 2px;");
-                    critTitle.setAttribute("role", "alert");
-                    critTitle.innerHTML = Criteria[i];
+                critTitle.setAttribute("role", "alert");
+                critTitle.innerHTML = Criteria[i].name;
 
                     form.append(critTitle);
 
@@ -88,8 +107,8 @@
                         let firstAlt = document.createElement("div");
                             firstAlt.classList.add("col-3", "text-center");
                             firstAlt.setAttribute("style", "font-size:20px; font-weight: bold;");
-                            firstAlt.setAttribute("id", `first` + idCount);
-                            firstAlt.innerHTML = Alternatives[j];
+                        firstAlt.setAttribute("id", `first` + idCount);
+                        firstAlt.innerHTML = Alternatives[j].name;
                         formRow.append(firstAlt);
 
                         let slider = document.createElement("div");
@@ -108,8 +127,8 @@
                         let secondAlt = document.createElement("div");
                             secondAlt.classList.add("col-3", "text-center");
                             secondAlt.setAttribute("style", "font-size:20px; font-weight: bold;");
-                            secondAlt.setAttribute("id", `second` + idCount);
-                            secondAlt.innerHTML = Alternatives[k];
+                        secondAlt.setAttribute("id", `second` + idCount);
+                        secondAlt.innerHTML = Alternatives[k].name;
                         formRow.append(secondAlt);
 
                         form.append(formRowDesc);
@@ -117,26 +136,26 @@
 
                         let line = document.createElement("hr");
                         form.append(line);
-                        
+
                         idCount++;
                     }
                 }
-           
-       
+
+
             }
 
             let btn = document.createElement("button");
             btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
             btn.setAttribute("type", "submit");
-            btn.innerHTML = "Submit"; 
-            form.append(btn); 
+            btn.innerHTML = "Submit";
+            form.append(btn);
             //container.append(form);
 
             $('input[type=range]').on("click", () => {
                 let id = parseInt(event.target.id);
                 let descId = (id * 2).toString();
                 let desc = document.getElementById(descId);
-                 
+
                 let firstId = `first` + id;
                 let first = document.getElementById(firstId).innerHTML;
 
@@ -202,32 +221,32 @@
                     let y = (x > 0) ? (1 / (x + 1)) : (-x + 1);
                     tempData.push(y);
              }
-            
+
             let C = Criteria.length;
             let A = Alternatives.length;
              let idCount = 0;
              for (i = 0; i < C; i++) {
                  // i for Criteria count
-                 for (j = 1; j < A; j++) {
+                 for (j = 0; j < A; j++) {
                      // j for First alternative count
                      for (k = j + 1; k < A; k++) {
                          // k for Second alternative count
                          data.push({
                              // stupac
-                             Alternative1: j,
+                             Alternative1: Alternatives[j].order,
                              // redak
-                             Alternative2: k,
+                             Alternative2: Alternatives[k].order,
                              // preference
                              Preference: tempData[idCount],
                              // Add appropriate CriteriaId
-                             CriteriaId: i
+                             CriteriaId: Criteria[i].id
                          });
                          idCount++;
                      }
                  }
              }
 
-         console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
             $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -242,7 +261,6 @@
             failure: function (response) {
                 alert(response);
                 }
-
          })
         })
 
