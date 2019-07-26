@@ -57,8 +57,8 @@ namespace AHP.Controllers
             // IList<CriterionView> Criteria = new List<CriterionView>();
 
             var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
-
-            return View(CriteriasInProject);
+            var CriterionView = _mapper.Map<List<CriterionView>>(CriteriasInProject);
+            return View(CriterionView);
         }
 
         // POST: Criterion/EditCriterionPreference

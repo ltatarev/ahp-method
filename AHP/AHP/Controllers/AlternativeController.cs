@@ -58,6 +58,7 @@ namespace AHP.Controllers
             return Json("Success");
         }
 
+        [HttpPost]
         public JsonResult EditAlternativePreference(List<AlternativeRankView> Alternative)
         {
             return Json("Success");
