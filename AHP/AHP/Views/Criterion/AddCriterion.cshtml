@@ -6,32 +6,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- ViewbBag.id = projectId -->
-<div class="container bg-dark mt-5 text-center p-4">
+    <div class="container bg-dark mt-5 text-center p-4">
 
-    <h1 id="SubTitle">Add criterion</h1>
+        <h1 id="SubTitle">Add criterion</h1>
 
-    @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
-    {
-<div class="row pt-4 justify-content-center">
-    <div class="col-5 offset-2">
-        <div class="form-group">
-            @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required" })
-        </div>
-    </div>
-    <div class="col-2">
-        <button type="button" class="btn btn-outline-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
-        <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
-    </div>
-</div>
-    <div class="row justify-content-md-center">
-        <div class="col-5" id="criteria">
-            <div class="form-group">
-                @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required" })
+        @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row pt-4 justify-content-center">
+                <div class="col-5 offset-2">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
+                    <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
+                </div>
             </div>
-        </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5" id="criteria">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-    }
-</div>
 
 @section scripts {
     <script>
@@ -39,7 +40,7 @@
     function addCriterion() {
          let formGroup = document.createElement("div");
          formGroup.classList.add("form-group");
-         formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required" })`
+         formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete="off" })`
          $("#criteria").append(formGroup);
     }
 

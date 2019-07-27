@@ -16,6 +16,7 @@
 <div class="container justify-content-md-center text-center p-2 bg-white" id="mainContainer">
     @using (Html.BeginForm("EditAlternativePreference", "Alternative", FormMethod.Post, new { id = "EditAlternativeForm" }))
     {
+        @Html.AntiForgeryToken()
         @*<h2 class="alert alert-info" role="alert">
                 Criterion 1
             </h2>

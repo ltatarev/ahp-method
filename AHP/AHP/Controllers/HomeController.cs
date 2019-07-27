@@ -46,23 +46,28 @@ namespace AHP.Controllers
 
         // POST: Home/CreateProject
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateProject(ProjectView project)
         {
-            var mapped = _mapper.Map<ProjectView,IProjectModel>(project);
-            var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
-            if (!(projectInDb == null))
+            if (ModelState.IsValid)
             {
-                return Content("<script language='javascript' type='text/javascript'>alert('Project already exists!');window.location.href='/Home/Login';</script>");
+                var mapped = _mapper.Map<ProjectView, IProjectModel>(project);
+                var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
+                if (!(projectInDb == null))
+                {
+                    return Content("<script language='javascript' type='text/javascript'>alert('Project already exists!');window.location.href='/Home/Login';</script>");
+                }
+                else
+                {
+                    mapped.DateCreated = DateTime.Now;
+                    mapped.DateUpdated = DateTime.Now;
+                    var status = await ProjectService.AddProjectAsync(mapped);
+                    var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
+
+                    return RedirectToAction("AddCriterion", "Criterion", new { id = pro.ProjectId });
+                }
             }
-            else
-            {
-                mapped.DateCreated = DateTime.Now;
-                mapped.DateUpdated = DateTime.Now;
-                var status = await ProjectService.AddProjectAsync(mapped);
-                var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
-                
-                return RedirectToAction("AddCriterion", "Criterion", new {id = pro.ProjectId });
-            }
+            return View();
         }
     }
 }

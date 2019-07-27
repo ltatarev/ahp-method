@@ -12,10 +12,11 @@
 
         @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
         {
+            @Html.AntiForgeryToken()
             <div class="row pt-4 justify-content-center">
                 <div class="col-5 offset-2">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required", autocomplete = "off" })
                     </div>
                 </div>
                 <div class="col-2">
@@ -26,7 +27,7 @@
             <div class="row justify-content-md-center">
                 <div class="col-5" id="alternative">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required", autocomplete = "off" })
                     </div>
                 </div>
             </div>
@@ -38,7 +39,7 @@
     function addAlternative() {
         let formGroup = document.createElement("div");
             formGroup.classList.add("form-group");
-            formGroup.innerHTML = `@Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })`
+            formGroup.innerHTML = `@Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required", autocomplete="off" })`
             $("#alternative").append(formGroup);
         }
 

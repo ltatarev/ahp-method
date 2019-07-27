@@ -7,17 +7,18 @@
         <h3 class="font-italic text-center text-light">Add new project</h3>
         @using (Html.BeginForm("CreateProject", "Home", FormMethod.Post, new { id = "CreateProjectForm" }))
         {
+            @Html.AntiForgeryToken()
             <div class="row justify-content-md-center p-0">
                 <div class="col-5">
                     <div class="form-group pt-1">
-                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required = "required" })
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required = "required", autocomplete="off" })
                     </div>
                 </div>
             </div>
             <div class="row justify-content-md-center p-0">
                 <div class="col-5">
                     <div class="form-group pt-1">
-                        @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", placeholder = "Project name", required = "required" })
+                        @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", placeholder = "Project name", required = "required", autocomplete="off" })
                     </div>
                 </div>
             </div>
@@ -33,8 +34,8 @@
             </div>
         }
 
-            
-      
+
+
     </div>
     <div class="lds-eclipse" id="divLoader" style="display:none;">
        </div>
