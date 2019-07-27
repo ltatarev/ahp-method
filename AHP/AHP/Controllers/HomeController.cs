@@ -61,7 +61,7 @@ namespace AHP.Controllers
                 var status = await ProjectService.AddProjectAsync(mapped);
                 var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
                 
-                return RedirectToAction("AddCriterion", "Criterion", new {projectId = pro.ProjectId });
+                return RedirectToAction("AddCriterion", "Criterion", new {id = pro.ProjectId });
             }
         }
     }

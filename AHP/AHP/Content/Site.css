@@ -18,7 +18,7 @@ ORANGE: dd5c46
 
 
 .row {
-    font-family: 'Karla', cursive;
+    font-family: 'Fira Sans', sans-serif;
     font-size: 16px;
 }
 
@@ -27,14 +27,14 @@ ORANGE: dd5c46
 }*/
 
 #MainTitle {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
     font-size: 90px;
 }
 
 #SubTitle {
     margin-top: 40px;
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Raleway', sans-serif;
     color: white;
     font-weight: bold;
     font-size: 80px;

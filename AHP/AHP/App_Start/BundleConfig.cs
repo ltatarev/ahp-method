@@ -27,8 +27,9 @@ namespace AHP
                       "~/Content/site.css",
                       "~/Content/slider.css",
                       "~/Content/body.css",
-                      "~/Content/placeholder.css"
-                      ));
+                      "~/Content/placeholder.css",
+                      "~/Content/Loader.css"
+));
         }
     }
 }

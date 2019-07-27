@@ -25,10 +25,10 @@ namespace AHP.Controllers
         public ICriteriaRankService CriteriaRankService;
 
         // GET: Criterion/AddCriterion
-        public ActionResult AddCriterion(int projectId)
+        public ActionResult AddCriterion(int id)
         {
             // Display View with form for adding Criteria
-            ViewBag.id = projectId;
+            ViewBag.id = id;
             return View();
         }
 
