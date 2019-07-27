@@ -8,24 +8,26 @@
 <!-- ViewbBag.id = projectId -->
     <div class="container bg-dark mt-5 text-center p-4">
 
-        <h1 id="SubTitle">Add criterion</h1>
+        <h1 id="SubTitle">Add criteria</h1>
 
         @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
         {
             @Html.AntiForgeryToken()
             <div class="row pt-4 justify-content-center">
-                <div class="col-5 offset-2">
+                <div class="col-4 offset-3">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete = "off" })
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <button type="button" class="btn btn-outline-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
+                    <button type="button" class="btn btn-outline-danger mr-2" onclick="removeCriterion()"><i class="fas fa-minus fa-lg"></i></button>
+
                     <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-5" id="criteria">
+                <div class="col-4" id="criteria">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete = "off" })
                     </div>
@@ -37,11 +39,43 @@
 @section scripts {
     <script>
     // Adding new criterions to form
+    let warning = document.createElement("div");
+    warning.setAttribute("style", "display:none");
+    warning.setAttribute("id","warning")
+    warning.setAttribute("class", "alert");
+    warning.setAttribute("class", "text-danger")
+    warning.setAttribute("style","display:none; border: 2px solid red; font-weight: bold;")
+
+    let subtitle = document.getElementById("SubTitle");
+    subtitle.after(warning);
+
+    let numOfCriteria = 2;
     function addCriterion() {
-         let formGroup = document.createElement("div");
-         formGroup.classList.add("form-group");
-         formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete="off" })`
-         $("#criteria").append(formGroup);
+        if (numOfCriteria < 10) {
+            let formGroup = document.createElement("div");
+            formGroup.classList.add("form-group");
+            formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete="off" })`
+            $("#criteria").append(formGroup);
+            numOfCriteria++;
+        }
+        else {
+            warning.innerHTML = "Number of max. criteria reached!";
+            warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+            $('#warning').fadeIn('fast').delay(1000).fadeOut('fast');
+        }
+    }
+    let form = document.getElementById("criteria");
+        function removeCriterion() {
+            if (numOfCriteria > 3) {
+                form.removeChild(form.lastChild)
+                numOfCriteria--;
+            } else {
+                 warning.innerHTML = "Number of min. criteria reached!";
+                warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+
+                $('#warning').fadeIn('fast').delay(1000).fadeOut('fast');
+            }
+     
     }
 
     $("#AddCriterionForm").on("submit", function () {

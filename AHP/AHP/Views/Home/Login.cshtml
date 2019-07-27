@@ -32,21 +32,20 @@
                     <button type="submit" class="btn btn-success"><i class="fas fa-check-circle pt-1 fa-lg"></i></button>
                 </div>
             </div>
-        }
+         }
 
 
 
     </div>
-    <div class="lds-eclipse" id="divLoader" style="display:none;">
-       </div>
+    <!-- LOADER -->
+    <div class="lds-eclipse" id="divLoader" style="display:none;"></div>
 
-
-        @section scripts {
-            <script>
-                $("form").submit(function () {
-                    $("#divLoader").show("slow");
-                    $('.container').css("filter", "blur(1px)");
-                })
-            </script>
-
-        }
+@section scripts {
+    <script>
+        // LOADING ANIMATION
+        $("form").submit(function () {
+            $("#divLoader").show("slow");
+            $('.container').css("filter", "blur(1px)");
+        })
+    </script>
+}
