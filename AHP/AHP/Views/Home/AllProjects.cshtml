@@ -1,16 +1,17 @@
 ﻿
-<div class="container bg-dark text-light text-center rounded mt-5 pl-4 pt-2">
-    <div class="row mr-auto">
+<div class="container text-light  mt-5 pl-4 pt-5">
+    <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+    <div class="row pt-5 mt-2 mr-auto">
         <div class="col">
             <h1 id="MainTitle">AHP METHOD</h1>
             <h3 class="font-italic">All projects</h3>
         </div>
-        
+
     </div>
 
     <div class="row mr-auto">
         <div class="col-12">
-            <table class="table table-dark table-sm table-hover">
+            <table class="table table-light table-sm table-hover w-50 text-center m-auto">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">#</th>
@@ -43,4 +44,17 @@
 
         </div>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pt-3 pagination-sm">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>

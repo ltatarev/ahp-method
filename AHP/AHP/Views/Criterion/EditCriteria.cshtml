@@ -13,10 +13,9 @@
         </div>
     </div>
 </div>
-<div class="container justify-content-md-center text-center p-3 pt-5 bg-white">
+<div class="container justify-content-md-center rounded shadow text-center p-3 pt-5 bg-white">
     @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
     {
-        @Html.AntiForgeryToken()
         @*<div class="row p-2">
                 <div class="col-3 text-center">criteria 1</div>
                 <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
@@ -28,7 +27,7 @@
 <div class="lds-eclipse" id="divLoader" style="display:none;"></div>
 
 @section scripts {
-        <script>
+    <script>
 
         // CREATING FORM ROW
         let criteriaLen =  @Model.Count;
@@ -209,6 +208,6 @@
         });
 
 
-        </script>
+    </script>
 
-    }
+}

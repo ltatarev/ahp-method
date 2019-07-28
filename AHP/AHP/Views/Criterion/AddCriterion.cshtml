@@ -5,36 +5,34 @@
     ViewBag.Title = "AddCriterion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!-- ViewbBag.id = projectId -->
-    <div class="container bg-dark mt-5 text-center p-4">
+<div class="container pt-5 mr-5 pb-5">
 
-        <h1 id="SubTitle">Add criteria</h1>
+    <h1 id="SubTitle">Add criteria</h1>
 
-        @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
-        {
-            @Html.AntiForgeryToken()
-            <div class="row pt-4 justify-content-center">
-                <div class="col-4 offset-3">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete = "off" })
-                    </div>
-                </div>
-                <div class="col-3">
-                    <button type="button" class="btn btn-outline-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
-                    <button type="button" class="btn btn-outline-danger mr-2" onclick="removeCriterion()"><i class="fas fa-minus fa-lg"></i></button>
-
-                    <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
+    @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
+    {
+        <div class="row pt-4">
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
                 </div>
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col-4" id="criteria">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete = "off" })
-                    </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
+                <button type="button" class="btn btn-danger mr-2" onclick="removeCriterion()"><i class="fas fa-minus fa-lg"></i></button>
+
+                <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4" id="criteria">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
+</div>
 
 @section scripts {
     <script>
@@ -42,8 +40,8 @@
     let warning = document.createElement("div");
     warning.setAttribute("style", "display:none");
     warning.setAttribute("id","warning")
-    warning.setAttribute("class", "alert");
-    warning.setAttribute("class", "text-danger")
+    warning.setAttribute("class", "alert alert-danger");
+    warning.setAttribute("role", "alert");
     warning.setAttribute("style","display:none; border: 2px solid red; font-weight: bold;")
 
     let subtitle = document.getElementById("SubTitle");
@@ -54,7 +52,7 @@
         if (numOfCriteria < 10) {
             let formGroup = document.createElement("div");
             formGroup.classList.add("form-group");
-            formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control", placeholder = "Criterion name", required = "required", autocomplete="off" })`
+            formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete="off" })`
             $("#criteria").append(formGroup);
             numOfCriteria++;
         }
@@ -66,7 +64,7 @@
     }
     let form = document.getElementById("criteria");
         function removeCriterion() {
-            if (numOfCriteria > 3) {
+            if (numOfCriteria > 2) {
                 form.removeChild(form.lastChild)
                 numOfCriteria--;
             } else {
@@ -75,27 +73,28 @@
 
                 $('#warning').fadeIn('fast').delay(1000).fadeOut('fast');
             }
-     
     }
 
+
     $("#AddCriterionForm").on("submit", function () {
-         event.preventDefault();
+        event.preventDefault();
+         var token = $('input[name="__RequestVerificationToken"]').val();
          var url = '@Url.Action("AddNewCriterion", "Criterion")';
          var data = [];
 
          // Find all input fields
          var text = $('#AddCriterionForm').find('input[name="CriteriaName"]');
-                
+         var id = @ViewBag.id;
          for (let t of text) {
               // Values of each input field
               // console.log(t.value);
              data.push({
                  CriteriaName: t.value,
-                 ProjectId: @ViewBag.id
+                 ProjectId: id
              })
          };
 
-         console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -110,8 +109,8 @@
             failure: function (response) {
                 alert(response);
             }
-        });    
-    }); 
+        });
+    });
 
     </script>
 }

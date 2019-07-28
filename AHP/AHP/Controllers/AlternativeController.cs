@@ -14,8 +14,8 @@ namespace AHP.Controllers
     public class AlternativeController : Controller
     {
 
-        public AlternativeController(IAlternativeService alternativeService, 
-                                    ICriteriaService  criteriaService,
+        public AlternativeController(IAlternativeService alternativeService,
+                                    ICriteriaService criteriaService,
                                     IAlternativeRankService alternativeRankService,
                                     IMapper mapper)
         {
@@ -53,12 +53,11 @@ namespace AHP.Controllers
             CriteriaAlternativeView.Criterias = MappedCriterias;
 
             return View(CriteriaAlternativeView);
-            
+
         }
 
         // POST: Alterntive/AddNewAlternative
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives, int id)
         {
             if (ModelState.IsValid)
@@ -86,7 +85,6 @@ namespace AHP.Controllers
 
         // POST: Alternative/EditAlternativePreference
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> EditAlternativePreference(List<AlternativeRankView> Alternative)
         {
             if (ModelState.IsValid)

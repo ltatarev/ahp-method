@@ -11,8 +11,8 @@ ORANGE: dd5c46
     fbe8ff
     f9da9f
 
-    background-color: #21D4FD;
-background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    background-color: #21D4FD;  
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
 
 */
 
@@ -20,9 +20,12 @@ background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
     background: #116196;
 }
 
+.container {
+    height: 100%;
+}
 
 .row {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
 }
 
@@ -31,21 +34,22 @@ background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
 }*/
 
 #MainTitle {
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
-    font-size: 90px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80px;
+    font-weight: bolder;
+    text-shadow: 4px 3px 7px rgba(52,52,52,0.5);
 }
 
 #SubTitle {
     margin-top: 40px;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: white;
-    font-weight: bold;
-    font-size: 80px;
+    font-size: 65px;
     letter-spacing: 5px;
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
 
 .form-control, input[type=text] {
     background: rgba(255, 255, 255, 0.65);
@@ -54,9 +58,26 @@ background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
 }
 
 .btn {
-    border-radius: 15px;
+    border-radius: 25px;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    letter-spacing: 2px;
+    font-family: 'Gotham Book';
+    -webkit-box-shadow: 3px 5px 16px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 5px 16px -1px rgba(0,0,0,0.3);
+    box-shadow: 3px 5px 16px -1px rgba(0,0,0,0.3);
 }
 
 .btn-outline-light {
-    border: 1px solid white;
+    border: 3px solid white;
+}
+
+ol li {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Josefin Sans', sans-serif;
 }

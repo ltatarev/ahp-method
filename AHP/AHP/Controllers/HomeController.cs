@@ -44,6 +44,13 @@ namespace AHP.Controllers
             return View();
         }
 
+        // GET: Home/LearnMore
+        public ActionResult LearnMore()
+        {
+            // Display LearnMore view
+            return View();
+        }
+
         // POST: Home/CreateProject
         [HttpPost]
         [ValidateAntiForgeryToken]

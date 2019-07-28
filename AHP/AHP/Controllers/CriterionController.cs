@@ -32,9 +32,8 @@ namespace AHP.Controllers
             return View();
         }
 
-        // GET: Criterion/AddNewCriterion
+        // POST: Criterion/AddNewCriterion
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
             if (ModelState.IsValid)
@@ -51,10 +50,12 @@ namespace AHP.Controllers
 
                 var status = await CriteriaService.AddRange(mapped);
                 return Json("Success");
-            } else
+            }
+            else
             {
                 return Json("Failure");
             }
+
         }
 
         // GET: Criterion/EditCriterion
@@ -69,7 +70,6 @@ namespace AHP.Controllers
 
         // POST: Criterion/EditCriterionPreference
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {
             if (ModelState.IsValid)
@@ -83,7 +83,8 @@ namespace AHP.Controllers
                 await CriteriaRankService.AddRange(mapped);
 
                 return Json("Success");
-            } else
+            }
+            else
             {
                 return Json("Failure");
             }

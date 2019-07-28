@@ -1,66 +1,10 @@
 ﻿body {
-    background: linear-gradient(82deg, #3680ac, #8916c0, #4849ae);
-    background-size: 600% 600%;
-    -webkit-animation: Gradient 47s ease infinite;
-    -moz-animation: Gradient 47s ease infinite;
-    animation: Gradient 47s ease infinite;
+    background-image: url('bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    min-width: 1000px; 
+    width: auto !important; 
+    width: 1000px;
     font-family: 'Fira Sans', sans-serif;
     font-size: 25px;
 }
-
-
-@-webkit-keyframes Gradient {
-    0% {
-        background-position: 0% 53%
-    }
-
-    50% {
-        background-position: 100% 48%
-    }
-
-    100% {
-        background-position: 0% 53%
-    }
-}
-
-@-moz-keyframes Gradient {
-    0% {
-        background-position: 0% 53%
-    }
-
-    50% {
-        background-position: 100% 48%
-    }
-
-    100% {
-        background-position: 0% 53%
-    }
-}
-
-@-o-keyframes Gradient {
-    0% {
-        background-position: 0% 53%
-    }
-
-    50% {
-        background-position: 100% 48%
-    }
-
-    100% {
-        background-position: 0% 53%
-    }
-}
-
-@keyframes Gradient {
-    0% {
-        background-position: 0% 53%
-    }
-
-    50% {
-        background-position: 100% 48%
-    }
-
-    100% {
-        background-position: 0% 53%
-    }
-}}
