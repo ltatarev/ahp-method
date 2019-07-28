@@ -38,9 +38,13 @@ namespace AHP.Controllers
         }
 
         // GET: Home/AllProjects
+        // public async Task<ActionResult> AllProjects()
         public ActionResult AllProjects()
         {
-            // Display view with first n projects
+            // Display view with first 10 projects
+           // int pageNum = 1;
+           // var AllProjects = await ProjectService.GetProjects(pageNum, 10);
+           // var ProjectView = _mapper.Map<List<CriterionView>>(AllProjects);
             return View();
         }
 

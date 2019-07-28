@@ -1,0 +1,137 @@
+﻿a {
+    text-decoration: none;
+    color: #c8cce3;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0px;
+    padding: 0px;
+}
+
+    a:hover {
+        text-decoration: none;
+        color: rebeccapurple;
+    }
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.bg {
+    display: flex;
+    background: #fff;
+    width: 376px;
+    height: 131px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    margin: auto;
+}
+
+.pagination-body {
+    display: flex;
+    margin: auto;
+}
+
+.pagination {
+    margin: auto;
+    display: flex;
+    height: 50px;
+    list-style-type: none;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    background: linear-gradient(to top, #EBEDEE, #FDFBFB);
+    box-shadow: 0 3px 6px 0 rgba(96, 79, 168, 0.3);
+    border-radius: 50px;
+}
+
+    .pagination li {
+        padding: 0 7px;
+    }
+
+        .pagination li:first-child {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            background: linear-gradient(to right, #764BA2, #667EEA);
+            box-shadow: 3px 0 3px 0 rgba(102, 125, 233, 0.5);
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+            margin-right: 10px;
+        }
+
+            .pagination li:first-child:hover {
+                opacity: 0.9;
+            }
+
+        .pagination li:last-child {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            background: linear-gradient(to right, #667EEA, #764BA2);
+            box-shadow: -2px 0 3px 0 rgba(102, 125, 233, 0.5);
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+            margin-left: 10px;
+        }
+
+            .pagination li:last-child:hover {
+                opacity: 0.9;
+            }
+
+        .pagination li a:nth-child(3):hover {
+            color: #667eea !important;
+        }
+
+    .pagination .active {
+        font-size: 30px;
+        font-weight: 900;
+        color: #667de9
+    }
+
+.color1 {
+    width: 38px;
+    height: 38px;
+    background: #764ba2;
+}
+
+.color2 {
+    width: 38px;
+    height: 38px;
+    background: #667eea;
+}
+
+.color-p1 {
+    color: #764ba2;
+    font-size: 10px;
+}
+
+.color-p2 {
+    color: #667eea;
+    font-size: 10px;
+}
+
+
+.guideline {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 0 0;
+}
+
+    .guideline .section {
+        margin: 0 10px;
+    }
+
+.section p {
+    margin: 10px 0 0 0;
+}
+
+.type {
+    display: flex;
+    flex-direction: column;
+}
+
+    .type p {
+        padding: 3px 0;
+        margin-left: 40px;
+    }

@@ -16,6 +16,7 @@
 <div class="container justify-content-md-center text-center p-2 bg-white rounded shadow" id="mainContainer">
     @using (Html.BeginForm("EditAlternativePreference", "Alternative", FormMethod.Post, new { id = "EditAlternativeForm" }))
     {
+        @Html.AntiForgeryToken()
         @*<h2 class="alert alert-info" role="alert">
                 Criterion 1
             </h2>
@@ -232,13 +233,13 @@
                      for (k = j + 1; k < A; k++) {
                          // k for Second alternative count
                          data.push({
-                             // stupac
+                             // Column
                              Alternative1: Alternatives[j].order,
-                             // redak
+                             // Row
                              Alternative2: Alternatives[k].order,
                              // preference
                              Preference: tempData[idCount],
-                             // Add appropriate CriteriaId
+                             // Id
                              CriteriaId: Criteria[i].id
                          });
                          idCount++;
@@ -253,7 +254,10 @@
             dataType: 'json',
             type: 'POST',
             url: url,
-            data: JSON.stringify(data),
+                data: JSON.stringify(data),
+                        headers: {
+             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
+               },
             success: function (response) {
                 console.log(response);
                 window.location.href = '@Url.Action("FinalResult", "Result", new { id = ViewBag.id })'

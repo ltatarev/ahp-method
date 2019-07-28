@@ -65,9 +65,9 @@ ORANGE: dd5c46
     padding-right: 15px;
     letter-spacing: 2px;
     font-family: 'Gotham Book';
-    -webkit-box-shadow: 3px 5px 16px -1px rgba(0,0,0,0.3);
-    -moz-box-shadow: 3px 5px 16px -1px rgba(0,0,0,0.3);
-    box-shadow: 3px 5px 16px -1px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
 }
 
 .btn-outline-light {

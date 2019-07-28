@@ -27,7 +27,7 @@
             <div class="row pb-5">
                 <div class="col-5">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description" })
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description", autocomplete = "off" })
                     </div>
                 </div>
                 <div class="col-2">
@@ -36,9 +36,6 @@
 
             </div>
         }
-
-
-
     </div>
 <!-- LOADER -->
 <div class="lds-eclipse" id="divLoader" style="display:none;"></div>

@@ -180,6 +180,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Loader.css" />
+    <Content Include="Content\Pagination.css" />
     <Content Include="Content\Placeholder.css" />
     <Content Include="Content\Slider.css" />
     <Content Include="favicon.ico" />

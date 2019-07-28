@@ -5,34 +5,35 @@
     ViewBag.Title = "AddCriterion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container pt-5 mr-5 pb-5">
+    <div class="container pt-5 mr-5 pb-5">
 
-    <h1 id="SubTitle">Add criteria</h1>
+        <h1 id="SubTitle">Add criteria</h1>
 
-    @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
-    {
-        <div class="row pt-4">
-            <div class="col-4">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+        @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row pt-4">
+                <div class="col-4">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button type="button" class="btn btn-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
+                    <button type="button" class="btn btn-danger mr-2" onclick="removeCriterion()"><i class="fas fa-minus fa-lg"></i></button>
+
+                    <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
                 </div>
             </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
-                <button type="button" class="btn btn-danger mr-2" onclick="removeCriterion()"><i class="fas fa-minus fa-lg"></i></button>
-
-                <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4" id="criteria">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+            <div class="row">
+                <div class="col-4" id="criteria">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
 @section scripts {
     <script>
@@ -102,6 +103,9 @@
             type: 'POST',
             url: url,
             data: JSON.stringify(data),
+            headers: {
+             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
+               },
             success: function (response) {
                 console.log(response);
                 window.location.href = '@Url.Action("EditCriteria", "Criterion", new { id = ViewBag.id })';
