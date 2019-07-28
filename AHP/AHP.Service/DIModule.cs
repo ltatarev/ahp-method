@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AHP.Service.CalculationClasses;
 using Autofac;
 
 namespace AHP.Service
@@ -18,6 +19,11 @@ namespace AHP.Service
 
             builder.RegisterType<CriteriaService>().As<Common.ICriteriaService>();
             builder.RegisterType<CriteriaRankService>().As<Common.ICriteriaRankService>();
+
+            builder.RegisterType<PriorityCalculator>().As<Common.AHPCalculation.IPriorityCalculator>();
+            builder.RegisterType<MatrixCreator>().As<Common.AHPCalculation.IMatrixCreator>();
+            builder.RegisterType<DataPreparation>().As<Common.AHPCalculation.IDataPreparation>();
+            builder.RegisterType<FinalResultCalculator>().As<Common.IFinalResultCalculator>();
         }
     }
 }

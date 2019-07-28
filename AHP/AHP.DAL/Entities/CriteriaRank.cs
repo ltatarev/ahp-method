@@ -16,7 +16,7 @@ namespace AHP.DAL.Entities
 
         public int Column { get; set; }
 
-        public float Priority { get; set; }
+        public double Priority { get; set; }
 
         public DateTime DateCreated { get; set; }
 

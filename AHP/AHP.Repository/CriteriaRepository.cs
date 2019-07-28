@@ -55,6 +55,13 @@ namespace AHP.Repository
             return mapped;
         }
 
+        public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(int projectId)
+        {
+            var criterias = await Context.Criterias.Where(c => c.ProjectId == projectId).Include(c => c.AlternativeRanks).Include(c => c.CriteriaRanks).ToListAsync();
+            var mapped = Mapper.Map<List<ICriteriaModel>>(criterias);
+            return mapped;
+        }
+
         public ICriteriaModel InsertCriteria(ICriteriaModel criteria)
         {
             var mapped = Mapper.Map<ICriteriaModel, Criteria>(criteria);
