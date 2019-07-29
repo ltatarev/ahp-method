@@ -64,14 +64,14 @@ ORANGE: dd5c46
     padding-left: 15px;
     padding-right: 15px;
     letter-spacing: 2px;
-    font-family: 'Gotham Book';
+    font-family: 'Josefin Sans', sans-serif;
     -webkit-box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
     -moz-box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
     box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
 }
 
-.btn-outline-light {
-    border: 3px solid white;
+.btn:first-child, .btn-outline-light {
+    padding-top:9px;
 }
 
 ol li {
