@@ -39,14 +39,14 @@
     </div>
 
 <!-- LOADER -->
-<div class="lds-eclipse" id="divLoader" style="display:none;"></div>
+<div class="loader" id="divLoader" style="display:none;"></div>
 
 
 @section scripts {
     <script>
         $("form").submit(function () {
-            $("#divLoader").show("slow");
-            $('.container').css("filter", "blur(1px)");
+            $("#divLoader").show("fast");
+            $('.container').css("filter", "blur(0.5px)");
         })
     </script>
 

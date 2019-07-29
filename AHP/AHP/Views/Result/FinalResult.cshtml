@@ -1,4 +1,5 @@
-﻿
+﻿@model  AHP.Models.AlternativeView
+
 <div class="container mt-5 pl-4 pt-5">
     <div class="row text-light pt-5 mt-2 text-left">
         <div class="col">
@@ -8,7 +9,7 @@
     </div>
 
     <div class="col">
-       <div class="row">
+        <div class="row">
             <table class="table w-50 m-auto text-center shadow table-light rounded table-borderless table-hover table-sm">
                 <thead class="thead-light">
                     <tr>
@@ -41,3 +42,25 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        //$('input[type=range]').on("click", () => {
+        //    let val = $('input[type=range]').val();
+        //    if (val < 0) {
+        //        val = 1/((-val) + 1);
+        //    }
+        //    console.log(val);
+        //});
+
+        // CREATING FORM ROW
+
+
+        let alternativeLen = @Model.Alternatives.Count;
+
+        let Criteria = [];
+        let Alternatives = [];
+
+        var uploadedListAlternative = @Html.Raw(Json.Encode(@Model.Alternatives));
+        </script>
+}

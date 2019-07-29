@@ -6,34 +6,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container mt-5 p-4">
+<div class="container mt-5 p-4">
 
-        <h1 id="SubTitle">Add alternative</h1>
+    <h1 id="SubTitle">Add alternative</h1>
 
-        @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
-        {
-            @Html.AntiForgeryToken()
-            <div class="row pt-4 pr-3">
-                <div class="col-4">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
-                    </div>
-                </div>
-                <div class="col-3">
-                    <button type="button" class="btn btn-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
-                    <button type="button" class="btn btn-danger mr-2" onclick="removeAlternative()"><i class="fas fa-minus fa-lg"></i></button>
-                    <button type="submit" class="btn btn-success">Submit</button>
+    @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row pt-4 pr-3">
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
                 </div>
             </div>
-            <div class="row">
-                <div class="col-4" id="alternative">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
-                    </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
+                <button type="button" class="btn btn-danger mr-2" onclick="removeAlternative()"><i class="fas fa-minus fa-lg"></i></button>
+                <button type="submit" class="btn btn-success pt-2">Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4" id="alternative">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
+</div>
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 
 @section scripts {
     <script>
@@ -101,9 +103,10 @@
             type: 'POST',
             url: url,
             data: JSON.stringify(data),
-                        headers: {
-             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
-               },
+                        beforeSend: function () {
+                $("#divLoader").show("slow");
+                $('.container').css("filter", "blur(1px)");
+                },
             success: function (response) {
                 console.log(response);
                 window.location.href = '@Url.Action("EditAlternative", "Alternative", new { id = @ViewBag.id })';

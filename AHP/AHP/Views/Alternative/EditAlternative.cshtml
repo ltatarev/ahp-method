@@ -16,7 +16,6 @@
 <div class="container justify-content-md-center text-center p-2 bg-white rounded shadow" id="mainContainer">
     @using (Html.BeginForm("EditAlternativePreference", "Alternative", FormMethod.Post, new { id = "EditAlternativeForm" }))
     {
-        @Html.AntiForgeryToken()
         @*<h2 class="alert alert-info" role="alert">
                 Criterion 1
             </h2>
@@ -34,6 +33,8 @@
             </form>*@
     }
 </div>
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 
 @section scripts {
     <script>
@@ -255,9 +256,10 @@
             type: 'POST',
             url: url,
                 data: JSON.stringify(data),
-                        headers: {
-             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
-               },
+            beforeSend: function () {
+                $("#divLoader").show("slow");
+                $('.container').css("filter", "blur(1px)");
+                },
             success: function (response) {
                 console.log(response);
                 window.location.href = '@Url.Action("FinalResult", "Result", new { id = ViewBag.id })'
