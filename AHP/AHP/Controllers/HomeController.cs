@@ -57,7 +57,6 @@ namespace AHP.Controllers
 
         // POST: Home/CreateProject
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateProject(ProjectView project)
         {
             if (ModelState.IsValid)

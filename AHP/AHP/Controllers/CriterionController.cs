@@ -34,7 +34,6 @@ namespace AHP.Controllers
 
         // POST: Criterion/AddNewCriterion
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
             if (ModelState.IsValid)
@@ -71,7 +70,6 @@ namespace AHP.Controllers
 
         // POST: Criterion/EditCriterionPreference
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {
             if (ModelState.IsValid)

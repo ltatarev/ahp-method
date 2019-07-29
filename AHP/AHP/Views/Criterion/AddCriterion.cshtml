@@ -5,13 +5,8 @@
     ViewBag.Title = "AddCriterion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<<<<<<< Updated upstream
+
     <div class="container pt-5 mr-5 pb-5">
-=======
-<<<<<<< Updated upstream
-<!-- ViewbBag.id = projectId -->
-<div class="container bg-dark mt-5 text-center p-4">
->>>>>>> Stashed changes
 
         <h1 id="SubTitle">Add criteria</h1>
 
@@ -38,46 +33,11 @@
                     </div>
                 </div>
             </div>
-        }
-    </div>
-<<<<<<< Updated upstream
-=======
+       
+ 
+
     }
 </div>
-=======
-<div class="container pt-5 mr-5 pb-5">
-
-    <h1 id="SubTitle">Add criteria</h1>
-
-    @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="row pt-4">
-            <div class="col-4">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
-                </div>
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-success mr-2" onclick="addCriterion()"><i class="fas fa-plus fa-lg"></i></button>
-                <button type="button" class="btn btn-danger mr-2" onclick="removeCriterion()"><i class="fas fa-minus fa-lg"></i></button>
-
-                <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4" id="criteria">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
-                </div>
-            </div>
-        </div>
-    }
-</div>
-
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-
 @section scripts {
     <script>
     // Adding new criterions to form

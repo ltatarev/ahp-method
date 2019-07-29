@@ -1,17 +1,12 @@
 ﻿@model AHP.Models.ProjectView
 
 <!-- ADDING NEW PROJECT -->
-<<<<<<< Updated upstream
-    <div class="container pt-5 mt-5 pl-5 w-75">
-        <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+<div class="container pt-5 mt-5 pl-5 w-75">
+    <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
 
+    <h3 id="SubTitle" class="text-light text-left">Add new project</h3>
 
-        <h3 id="SubTitle" class="text-light text-left">Add new project</h3>
-=======
-<<<<<<< Updated upstream
-    <div class="container mt-5 bg-dark rounded pl-4 pb-5 pt-3">
->>>>>>> Stashed changes
-
+  
         @using (Html.BeginForm("CreateProject", "Home", FormMethod.Post, new { id = "CreateProjectForm" }))
         {
             @Html.AntiForgeryToken()
@@ -42,73 +37,17 @@
             </div>
         }
     </div>
+
 <!-- LOADER -->
 <div class="lds-eclipse" id="divLoader" style="display:none;"></div>
 
-<<<<<<< Updated upstream
-=======
-        @section scripts {
-            <script>
-                $("form").submit(function () {
-                    $("#divLoader").show("slow");
-                    $('.container').css("filter", "blur(1px)");
-                })
-            </script>
 
-        }
-=======
-<div class="container pt-5 mt-5 pl-5 w-75">
-    <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
-
-
-    <h3 id="SubTitle" class="text-light text-left">Add new project</h3>
-
-    @using (Html.BeginForm("CreateProject", "Home", FormMethod.Post, new { id = "CreateProjectForm" }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="row pt-5">
-            <div class="col-5">
-                <div class="form-group pt-1">
-                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required = "required", autocomplete = "off" })
-                </div>
-            </div>
-        </div>
-        <div class="row p-0">
-            <div class="col-5">
-                <div class="form-group pt-1">
-                    @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", placeholder = "Project name", required = "required", autocomplete = "off" })
-                </div>
-            </div>
-        </div>
-        <div class="row pb-5">
-            <div class="col-5">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description", autocomplete = "off" })
-                </div>
-            </div>
-            <div class="col-2">
-                <button type="submit" class="btn btn-success"><i class="fas fa-check-circle pt-1 fa-lg"></i></button>
-            </div>
-
-        </div>
-    }
-</div>
-
->>>>>>> Stashed changes
 @section scripts {
     <script>
-        // LOADING ANIMATION
         $("form").submit(function () {
             $("#divLoader").show("slow");
-<<<<<<< Updated upstream
             $('.container').css("filter", "blur(1px)");
         })
     </script>
+
 }
-=======
-            $('.container').css("filter", "blur(0.5px)");
-        })
-    </script>
-}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
