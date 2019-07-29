@@ -13,9 +13,10 @@
         </div>
     </div>
 </div>
-<div class="container justify-content-md-center text-center p-2 bg-white" id="mainContainer">
+<div class="container justify-content-md-center text-center p-2 bg-white rounded shadow" id="mainContainer">
     @using (Html.BeginForm("EditAlternativePreference", "Alternative", FormMethod.Post, new { id = "EditAlternativeForm" }))
     {
+        @Html.AntiForgeryToken()
         @*<h2 class="alert alert-info" role="alert">
                 Criterion 1
             </h2>
@@ -80,9 +81,9 @@
 
             for (i = 0; i < C; i++) {
                 let critTitle = document.createElement("h1");
-                    critTitle.classList.add("alert", "alert-info");
-                    critTitle.setAttribute("style", "font-weight:bold; text-transform: uppercase; letter-spacing: 2px;");
-                critTitle.setAttribute("role", "alert");
+                    critTitle.classList.add("alert");
+                    critTitle.setAttribute("style", "font-weight:bold; background: rgba(102,144,238,0.4); text-transform: uppercase; letter-spacing: 2px;");
+                    critTitle.setAttribute("role", "alert");
                 critTitle.innerHTML = Criteria[i].name;
 
                     form.append(critTitle);
@@ -199,7 +200,7 @@
                             desc.innerHTML = second + ` extremely more important than ` + first;
                         break;
                       default:
-                        desc.innerHTML = "Equally prefered";
+                        desc.innerHTML = first + ` equally prefered to ` + second;
                     }
 
                 });
@@ -232,13 +233,13 @@
                      for (k = j + 1; k < A; k++) {
                          // k for Second alternative count
                          data.push({
-                             // stupac
+                             // Column
                              Alternative1: Alternatives[j].order,
-                             // redak
+                             // Row
                              Alternative2: Alternatives[k].order,
                              // preference
                              Preference: tempData[idCount],
-                             // Add appropriate CriteriaId
+                             // Id
                              CriteriaId: Criteria[i].id
                          });
                          idCount++;
@@ -253,7 +254,10 @@
             dataType: 'json',
             type: 'POST',
             url: url,
-            data: JSON.stringify(data),
+                data: JSON.stringify(data),
+                        headers: {
+             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
+               },
             success: function (response) {
                 console.log(response);
                 window.location.href = '@Url.Action("FinalResult", "Result", new { id = ViewBag.id })'

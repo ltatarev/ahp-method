@@ -38,9 +38,20 @@ namespace AHP.Controllers
         }
 
         // GET: Home/AllProjects
+        // public async Task<ActionResult> AllProjects()
         public ActionResult AllProjects()
         {
-            // Display view with first n projects
+            // Display view with first 10 projects
+           // int pageNum = 1;
+           // var AllProjects = await ProjectService.GetProjects(pageNum, 10);
+           // var ProjectView = _mapper.Map<List<CriterionView>>(AllProjects);
+            return View();
+        }
+
+        // GET: Home/LearnMore
+        public ActionResult LearnMore()
+        {
+            // Display LearnMore view
             return View();
         }
 
@@ -48,21 +59,25 @@ namespace AHP.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateProject(ProjectView project)
         {
-            var mapped = _mapper.Map<ProjectView,IProjectModel>(project);
-            var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
-            if (!(projectInDb == null))
+            if (ModelState.IsValid)
             {
-                return Content("<script language='javascript' type='text/javascript'>alert('Project already exists!');window.location.href='/Home/Login';</script>");
+                var mapped = _mapper.Map<ProjectView, IProjectModel>(project);
+                var projectInDb = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
+                if (!(projectInDb == null))
+                {
+                    return Content("<script language='javascript' type='text/javascript'>alert('Project already exists!');window.location.href='/Home/Login';</script>");
+                }
+                else
+                {
+                    mapped.DateCreated = DateTime.Now;
+                    mapped.DateUpdated = DateTime.Now;
+                    var status = await ProjectService.AddProjectAsync(mapped);
+                    var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
+
+                    return RedirectToAction("AddCriterion", "Criterion", new { id = pro.ProjectId });
+                }
             }
-            else
-            {
-                mapped.DateCreated = DateTime.Now;
-                mapped.DateUpdated = DateTime.Now;
-                var status = await ProjectService.AddProjectAsync(mapped);
-                var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
-                
-                return RedirectToAction("AddCriterion", "Criterion", new {id = pro.ProjectId });
-            }
+            return View();
         }
     }
 }

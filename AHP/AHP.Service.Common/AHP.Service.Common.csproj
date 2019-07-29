@@ -41,10 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AHPCalculation\IDataPreparation.cs" />
+    <Compile Include="AHPCalculation\IMatrixCreator.cs" />
+    <Compile Include="AHPCalculation\IPriorityCalculator.cs" />
     <Compile Include="IAlternativeRankService.cs" />
     <Compile Include="IAlternativeService.cs" />
     <Compile Include="ICriteriaRankService.cs" />
     <Compile Include="ICriteriaService.cs" />
+    <Compile Include="IFinalResultCalculator.cs" />
     <Compile Include="IProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

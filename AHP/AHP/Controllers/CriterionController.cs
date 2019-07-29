@@ -32,22 +32,30 @@ namespace AHP.Controllers
             return View();
         }
 
-        // GET: Criterion/AddNewCriterion
+        // POST: Criterion/AddNewCriterion
         [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> Criteria)
         {
-            var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);
-            var order = 1;
-            foreach (var crit in mapped)
+            if (ModelState.IsValid)
             {
-                crit.DateCreated = DateTime.Now;
-                crit.DateUpdated = DateTime.Now;
-                crit.Order = order;
-                order++;
+                var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);
+                var order = 1;
+                foreach (var crit in mapped)
+                {
+                    crit.DateCreated = DateTime.Now;
+                    crit.DateUpdated = DateTime.Now;
+                    crit.Order = order;
+                    order++;
+                }
+
+                var status = await CriteriaService.AddRange(mapped);
+                return Json("Success");
             }
-            
-            var status = await CriteriaService.AddRange(mapped);
-            return Json("Success");
+            else
+            {
+                return Json("Failure");
+            }
+
         }
 
         // GET: Criterion/EditCriterion
@@ -64,15 +72,22 @@ namespace AHP.Controllers
         [HttpPost]
         public async Task<JsonResult> EditCriterionPreference(List<CriteriaRankView> CriteriaRank)
         {
-            var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);
-            foreach(var cr in mapped)
+            if (ModelState.IsValid)
             {
-                cr.DateCreated = DateTime.Now;
-                cr.DateUpdated = DateTime.Now;                
-            }
-            await CriteriaRankService.AddRange(mapped);
+                var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);
+                foreach (var cr in mapped)
+                {
+                    cr.DateCreated = DateTime.Now;
+                    cr.DateUpdated = DateTime.Now;
+                }
+                await CriteriaRankService.AddRange(mapped);
 
-            return Json("Success");
+                return Json("Success");
+            }
+            else
+            {
+                return Json("Failure");
+            }
         }
     }
 }

@@ -24,11 +24,12 @@ namespace AHP
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/slider.css",
-                      "~/Content/body.css",
-                      "~/Content/placeholder.css",
-                      "~/Content/Loader.css"
+                      "~/Content/Body.css",
+                      "~/Content/Site.css",
+                      "~/Content/Slider.css",
+                      "~/Content/Placeholder.css",
+                      "~/Content/Loader.css",
+                      "~/Content/Pagination.css"
 ));
         }
     }

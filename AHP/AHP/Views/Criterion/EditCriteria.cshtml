@@ -13,9 +13,10 @@
         </div>
     </div>
 </div>
-<div class="container justify-content-md-center text-center p-3 pt-5 bg-white">
+<div class="container justify-content-md-center rounded shadow text-center p-3 pt-5 bg-white">
     @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
     {
+        @Html.AntiForgeryToken()
         @*<div class="row p-2">
                 <div class="col-3 text-center">criteria 1</div>
                 <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
@@ -24,12 +25,12 @@
     }
     <div id="EditCriterionForm"></div>
 </div>
+<div class="lds-eclipse" id="divLoader" style="display:none;"></div>
 
 @section scripts {
     <script>
 
         // CREATING FORM ROW
-
         let criteriaLen =  @Model.Count;
         let Criteria = [];
 
@@ -39,8 +40,8 @@
             Criteria.push({ name: criteria.CriteriaName, id: criteria.CriteriaId })
         }
 
-        console.log(Criteria);
-        
+        // console.log(Criteria);
+
         let form = document.getElementById('EditCriterionForm');
         $(document).ready(function () {
             let a = Criteria.length;
@@ -84,8 +85,8 @@
                     let secondCriterion = document.createElement("div");
                         secondCriterion.classList.add("col-3", "text-center");
                         secondCriterion.setAttribute("style", "font-size:20px; font-weight: bold;");
-                    secondCriterion.setAttribute("id", `second` + idCount);
-                    secondCriterion.innerHTML = Criteria[j].name;
+                        secondCriterion.setAttribute("id", `second` + idCount);
+                        secondCriterion.innerHTML = Criteria[j].name;
                     formRow2.appendChild(secondCriterion);
 
                     form.append(formRow1);
@@ -151,7 +152,7 @@
                             desc.innerHTML = second + ` extremely more important than ` + first;
                         break;
                       default:
-                        desc.innerHTML = "Equally prefered";
+                        desc.innerHTML = first + ` equally prefered to ` + second;
                     }
 
             });
@@ -191,8 +192,18 @@
             type: 'POST',
             url: url,
             data: JSON.stringify(data),
+            beforeSend: function () {
+                $("#divLoader").show("slow");
+                $('.container').css("filter", "blur(1px)");
+                },
+
+                        headers: {
+             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
+               },
+
             success: function (response) {
                 console.log(response);
+                $("#divLoader").hide("slow");
                 window.location.href = '@Url.Action("AddAlternative", "Alternative", new { id = @ViewBag.id })'
             },
             failure: function (response) {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AHP.Service.Common.AHPCalculation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace AHP.Service.CalculationClasses
 {
-    public class MatrixCreator
+    public class MatrixCreator : IMatrixCreator
     {
 
-        public double[,] CreateMatrix(int[] array, int dimension)
+        public double[,] CreateMatrix(double[] array, int dimension)
         {
             /// <summary>
             /// Method for creating square matrix out of a given array.

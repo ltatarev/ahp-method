@@ -6,27 +6,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container bg-dark mt-5 text-center p-4">
+    <div class="container mt-5 p-4">
 
         <h1 id="SubTitle">Add alternative</h1>
 
         @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
         {
-            <div class="row pt-4 justify-content-center">
-                <div class="col-5 offset-2">
+            @Html.AntiForgeryToken()
+            <div class="row pt-4 pr-3">
+                <div class="col-4">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
                     </div>
                 </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-outline-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
+                <div class="col-3">
+                    <button type="button" class="btn btn-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
+                    <button type="button" class="btn btn-danger mr-2" onclick="removeAlternative()"><i class="fas fa-minus fa-lg"></i></button>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col-5" id="alternative">
+            <div class="row">
+                <div class="col-4" id="alternative">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })
+                        @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
                     </div>
                 </div>
             </div>
@@ -35,12 +37,45 @@
 
 @section scripts {
     <script>
+
+    let warning = document.createElement("div");
+    warning.setAttribute("style", "display:none");
+    warning.setAttribute("id","warning")
+    warning.setAttribute("class", "alert alert-danger");
+    warning.setAttribute("role", "alert");
+    warning.setAttribute("style","display:none; border: 2px solid red; font-weight: bold;")
+
+    let subtitle = document.getElementById("SubTitle");
+    subtitle.after(warning);
+
+     let numOfAlternatives = 2;
     function addAlternative() {
+        if (numOfAlternatives < 10) {
         let formGroup = document.createElement("div");
             formGroup.classList.add("form-group");
-            formGroup.innerHTML = `@Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control", placeholder = "Alternative name", required = "required" })`
+            formGroup.innerHTML = `@Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete="off" })`
             $("#alternative").append(formGroup);
+            numOfAlternatives++;
         }
+        else {
+            warning.innerHTML = "Number of max. alternatives reached!";
+            warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+            $('#warning').fadeIn('fast').delay(1000).fadeOut('fast');
+        }
+    }
+    let form = document.getElementById("alternative");
+    function removeAlternative() {
+        if (numOfAlternatives > 2) {
+                form.removeChild(form.lastChild)
+                numOfAlternatives--;
+            } else {
+                 warning.innerHTML = "Number of min. alternatives reached!";
+                warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+
+                $('#warning').fadeIn('fast').delay(1000).fadeOut('fast');
+            }
+
+    }
 
         $("#AddAlternativeForm").on("submit", function () {
          event.preventDefault();
@@ -49,7 +84,7 @@
 
          // Find all input fields
          var text = $('#AddAlternativeForm').find('input[name="AlternativeName"]');
-                
+
          for (let t of text) {
               // Values of each input field
               // console.log(t.value);
@@ -58,7 +93,7 @@
              })
          };
 
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -66,6 +101,9 @@
             type: 'POST',
             url: url,
             data: JSON.stringify(data),
+                        headers: {
+             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
+               },
             success: function (response) {
                 console.log(response);
                 window.location.href = '@Url.Action("EditAlternative", "Alternative", new { id = @ViewBag.id })';
@@ -73,8 +111,8 @@
             failure: function (response) {
                 alert(response);
             }
-        });    
-    }); 
+        });
+    });
 
     </script>
 }

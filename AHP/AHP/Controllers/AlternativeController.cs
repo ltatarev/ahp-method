@@ -14,8 +14,8 @@ namespace AHP.Controllers
     public class AlternativeController : Controller
     {
 
-        public AlternativeController(IAlternativeService alternativeService, 
-                                    ICriteriaService  criteriaService,
+        public AlternativeController(IAlternativeService alternativeService,
+                                    ICriteriaService criteriaService,
                                     IAlternativeRankService alternativeRankService,
                                     IMapper mapper)
         {
@@ -53,42 +53,56 @@ namespace AHP.Controllers
             CriteriaAlternativeView.Criterias = MappedCriterias;
 
             return View(CriteriaAlternativeView);
-            
+
         }
 
         // POST: Alterntive/AddNewAlternative
         [HttpPost]
         public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives, int id)
         {
-            var order = 1;
-            var mapped = _mapper.Map<List<IAlternativeModel>>(alternatives);
-            foreach (var alter in mapped)
+            if (ModelState.IsValid)
             {
-                alter.DateCreated = DateTime.Now;
-                alter.DateUpdated = DateTime.Now;
-                alter.Order = order;
-                order++;
-                alter.ProjectId = id;
+                var order = 1;
+                var mapped = _mapper.Map<List<IAlternativeModel>>(alternatives);
+                foreach (var alter in mapped)
+                {
+                    alter.DateCreated = DateTime.Now;
+                    alter.DateUpdated = DateTime.Now;
+                    alter.Order = order;
+                    order++;
+                    alter.ProjectId = id;
+                }
+
+                var status = await AlternativeService.AddRange(mapped);
+
+                return Json("Success");
             }
-
-            var status = await AlternativeService.AddRange(mapped);
-
-            return Json("Success");
+            else
+            {
+                return Json("Failure");
+            }
         }
 
         // POST: Alternative/EditAlternativePreference
         [HttpPost]
         public async Task<JsonResult> EditAlternativePreference(List<AlternativeRankView> Alternative)
         {
-            var mapped = _mapper.Map<List<IAlternativeRankModel>>(Alternative);
-            foreach(var arv in mapped)
+            if (ModelState.IsValid)
             {
-                arv.DateCreated = DateTime.Now;
-                arv.DateUpdated = DateTime.Now;
-                
+                var mapped = _mapper.Map<List<IAlternativeRankModel>>(Alternative);
+                foreach (var arv in mapped)
+                {
+                    arv.DateCreated = DateTime.Now;
+                    arv.DateUpdated = DateTime.Now;
+
+                }
+                await AlternativeRankService.AddRange(mapped);
+                return Json("Success");
             }
-            await AlternativeRankService.AddRange(mapped);
-            return Json("Success");
+            else
+            {
+                return Json("Failure");
+            }
         }
     }
 }

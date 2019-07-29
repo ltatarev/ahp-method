@@ -12,6 +12,7 @@ namespace AHP.Service.Common
     public interface IProjectService
     {
         Task<IProjectModel> AddProjectAsync(IProjectModel project);
+        Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize);
         Task<IProjectModel> CompareProjects(string projectName, string userName);
 
 

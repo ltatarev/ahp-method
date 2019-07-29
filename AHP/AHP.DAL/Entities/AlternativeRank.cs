@@ -15,7 +15,7 @@ namespace AHP.DAL.Entities
         public int AlternativeRankId { get; set; }
         public int Alternative1 { get; set; }
         public int Alternative2 { get; set; }
-        public float Preference { get; set; }
+        public double Preference { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 

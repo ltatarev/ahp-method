@@ -1,18 +1,50 @@
-﻿
-    <div class="container bg-dark rounded mt-5 pl-4 pb-5 pt-5">
-        <div class="row text-light">
-            <div class="col text-center">
-                <h1 id="MainTitle">AHP METHOD</h1>
-            </div>
-        </div>
-
-        <div class="row pb-3 text-center">
-            <div class="col pt-1">
-                <!-- should redirect to "Login" -->
-                <input type="button" value="New Project" onclick="location.href=' @Url.Action("Login","Home")'" class="btn btn-success" />
-
-                <!-- should redirect to "AllProjects" -->
-                <input type="button" value="Open existing project" onclick="location.href=' @Url.Action("AllProjects","Home")'" class="btn btn-outline-light" />
-            </div>
+﻿<div class="container pt-5 mt-5 w-75">
+    <div class="row text-light pt-5 mt-2 text-left">
+        <div class="col">
+            <h1 class="ml3" id="MainTitle">AHP METHOD</h1>
+            <p class="lead font-italic" style="letter-spacing:2px; font-size:18px;">Decision making made easy</p>
         </div>
     </div>
+    <div class="row text-left ml-5">
+        <div class="col">
+            <input type="button" value="Learn more" onclick="location.href=' @Url.Action("LearnMore","Home")'" class="btn btn-light" />
+        </div>
+    </div>
+    <div class="row pt-5 pb-5 text-center mt-5 float-right mr-5 pr-5" style="border-radius:25px;">
+        <div class="col">
+            <!-- should redirect to "Login" -->
+            <input type="button" value="New Project" onclick="location.href=' @Url.Action("Login","Home")'" class="btn btn-success" />
+
+            <!-- should redirect to "AllProjects" -->
+            <input type="button" value="Open existing project" onclick="location.href=' @Url.Action("AllProjects","Home")'" class="btn btn-outline-light  ml-2" />
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+// Wrap every letter in a span
+var textWrapper = document.querySelector('.ml3');
+textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: false})
+  .add({
+    targets: '.ml3 .letter',
+    opacity: [0,1],
+    easing: "easeInOutQuad",
+    duration: 2250,
+    delay: function(el, i) {
+      return 150 * (i+1)
+    }
+  })
+  //  .add({
+  //  targets: '.ml3',
+  //  opacity: 0,
+  //  duration: 1000,
+  //  easing: "easeOutExpo",
+  //  delay: 1000
+  //});
+    </script>
+}

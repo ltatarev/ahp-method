@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AHP.Model.Common.Model_Interfaces;
+using AHP.Service.Common.AHPCalculation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace AHP.Service.CalculationClasses
 {
-    public class DataPreparation
+    public class DataPreparation : IDataPreparation
     {
-
-
-
         #region methods
         public double[] NormalizeVector(double[] vector)
         {
@@ -39,6 +38,37 @@ namespace AHP.Service.CalculationClasses
 
             return NormalizedVector;
         }  //posebna klasa
+
+        public double[][] Get2dArray(List<ICriteriaModel> criterias)
+        {
+            List<List<double>> lista = new List<List<double>>();
+
+            foreach(var crit in criterias)
+            {
+                List<double> Priorities = new List<double>();
+                foreach(var priority in crit.AlternativeRanks)
+                {
+                    Priorities.Add(priority.Preference);
+                }
+                lista.Add(Priorities);
+            }
+
+
+            return lista.Select(a => a.ToArray()).ToArray();
+        }
+
+        public double[] GetCriteriaRanks(List<ICriteriaModel> criterias)
+        {
+            List<double> Priorities = new List<double>();
+            foreach(var crit in criterias)
+            {
+                foreach (var criteriaRank in crit.CriteriaRanks)
+                {
+                    Priorities.Add(criteriaRank.Priority);
+                }
+            }
+            return Priorities.ToArray();
+        }
         #endregion methods
 
        
