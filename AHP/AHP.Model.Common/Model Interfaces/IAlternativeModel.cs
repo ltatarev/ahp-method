@@ -10,7 +10,7 @@ namespace AHP.Model.Common.Model_Interfaces
         string AlternativeName { get; set; }
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
-        int FinalPriority { get; set; }
+        double FinalPriority { get; set; }
 
         int ProjectId { get; set; }
         IProjectModel Project { get; set; }

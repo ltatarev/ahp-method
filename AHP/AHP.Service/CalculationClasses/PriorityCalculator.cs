@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AHP.Service.Common.AHPCalculation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AHP.Service.CalculationClasses
 {
-    public class PriorityCalculator
+    public class PriorityCalculator : IPriorityCalculator
     {
         public double[] CalculatePriority(double[,] Matrix)
         {

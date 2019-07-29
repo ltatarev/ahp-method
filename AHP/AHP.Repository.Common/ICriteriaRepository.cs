@@ -15,6 +15,7 @@ namespace AHP.Repository.Common
         Task<List<ICriteriaModel>> GetCriteriasAsync(int PageNumber, int PageSize = 10);
         Task<ICriteriaModel> GetCriteriaByIdAsync(int CriteriaId);
         Task<List<ICriteriaModel>> GetCriteriasByProjectId(int ProjectId, int PageNumber, int PageSize);
+        Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(int projectId);
         ICriteriaModel InsertCriteria(ICriteriaModel criteria);
         List<ICriteriaModel> AddRange(List<ICriteriaModel> criteria);
         Task<bool> DeleteCriteriaAsync(int CriteriaID);

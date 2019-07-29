@@ -43,6 +43,12 @@ namespace AHP.Service
             return criterias;
         }
 
+        public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(int projectId)
+        {
+            var criterias = await Repository.GetCriteriasByProjectIdWithCRaAR(projectId);
+            return criterias;
+        }
+
         public async Task<bool> AddRange(List<ICriteriaModel> criteria)
         {
              Repository.AddRange(criteria);
