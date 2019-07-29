@@ -1,118 +1,146 @@
-﻿@model  List<AHP.Models.AlternativeView> 
+﻿@model  List<AHP.Models.ProjectView>
 
-        <button class="btn btnLetter btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
-        <div class="row pt-5 mt-2">
-            <div class="col text-md-left text-sm-center">
-                <h1 id="MainTitle">AHP METHOD</h1>
-                <h3 class="font-italic">All projects</h3>
-            </div>
+<button class="btn btnLetter btn-light" onclick="location.href='@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+<div class="row pt-5 mt-2">
+    <div class="col text-md-left text-sm-center">
+        <h1 id="MainTitle">AHP METHOD</h1>
+        <h3 class="font-italic">All projects</h3>
+    </div>
+</div>
+
+<div class="row mr-auto">
+    <div class="col-12">
+        <div class="row">
+            <table class="table w-50 m-auto text-centershadow table-striped table-light rounded table-borderless table-hover">
+                <thead class="thead-light">
+                    <tr class="font-weight-bold">
+                        <th scope="col" style="width: 16.66%">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Project name</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="projectBody" class="m-auto"></tbody>
+            </table>
         </div>
+    </div>
+</div>
 
-        <div class="row mr-auto">
-            <div class="col-12">
-                <div class="row">
-                    <table class="table w-50 m-auto text-centershadow table-striped table-light rounded table-borderless table-hover">
-                        <thead class="thead-light">
-                            <tr class="font-weight-bold">
-                                <th scope="col" style="width: 16.66%">#</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Project name</th>
-                                <th scope="col">Details</th>
-                            </tr>
-                        </thead>
-                        <tbody id="projectBody" class="m-auto"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <nav class="pt-3">
-            <ul class="pagination justify-content-center pagination-sm" id="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" aria-disabled="true">...</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">50</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-
-
+<nav class="navbar navbar-light justify-content-center">
+    <form class="form-inline bg-light">
+        <button class="btn btn-sm btn-outline-secondary" type="button" id="prev">Previous</button>
+        <button class="btn btn-sm btn-success" type="button" id="current">0</button>
+        <button class="btn btn-sm btn-outline-primary" type="button" id="currentNext">0</button>
+        <button class="btn btn-sm btn-outline-primary disabled" type="button" style="cursor: not-allowed">...</button>
+        <button class="btn btn-sm btn-outline-primary" type="button" id="last">0</button>
+        <button class="btn btn-sm btn-outline-secondary" type="button" id="prev">Next</button>
+    </form>
+</nav>
 
 
 @section scripts {
     <script>
-        
-    var page = 1;
 
-        let projectLen = 2;
+    var currentPage = @ViewBag.current;
+    console.log(currentPage)
 
-      //  var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
-      //  console.log(uploadedListProjects)
+    var perPage = 10;
 
-    let uploadedListProjects = [{ProjectName: "proba", Username: "lucija", Description: "prvi projekt"},{ProjectName: "proba", Username: "lucija", Description: "prvi projekt"}]
-    console.log(uploadedListProjects)
-        let body = document.getElementById("projectBody");
+    let projectLen = @ViewBag.numOfProj;
 
-        for (let i = 0; i < projectLen; i++ ) {
-            let row = document.createElement("tr");
+    let paginationLast = Math.ceil(projectLen / perPage);
 
-            let head = document.createElement("th");
-                head.setAttribute("scope", "row");
-                head.innerHTML = i + 1;
-            row.append(head);
-
-            let username = document.createElement("td");
-                username.innerHTML = uploadedListProjects[i].Username;
-            row.append(username);
-            let projectName = document.createElement("td");
-                projectName.innerHTML = uploadedListProjects[i].ProjectName;
-            row.append(projectName);
-
-            let details = document.createElement("td");
-            let detailsButton = document.createElement("button");
-                detailsButton.classList.add("btn", "btn-outline-info", "btn-sm", "btnLetter");
-                detailsButton.setAttribute("id", i);
-                detailsButton.innerHTML = "Details";
-                details.append(detailsButton);
-            row.append(details);
-
-            body.append(row);
-
-            let detailsRow = document.createElement("tr");
-                detailsRow.setAttribute("colspan", 100);
-            let tempId = `desc` + i;
-                detailsRow.setAttribute("id", tempId);
-                
-            let detailsDesc = document.createElement("td");
-                detailsDesc.innerHTML = uploadedListProjects[i].Description;
-                detailsRow.append(detailsDesc);
-                detailsRow.setAttribute("style", "display: none;");
-            body.append(detailsRow);
-        }
-
-            $('button').click(function() {
-                let id = parseInt(this.id);
-               // console.log(id);
-                let descId = `#desc` + (id.toString());
-                // console.log(descId);
-                 $( descId ).toggle();
-            })
-
-
-    function pagination() {
+    // pagination
+    if (currentPage == 1) {
+        $("#prev").addClass("disabled");
+        $("#prev").css("cursor", "not-allowed");
+    } else {
+        $("#prev").removeClass("disabled");
+        $("#prev").attr("onclick", previous)
+    }
+    
+    function previous() {
+        let cn = currentPage - 1;
+        $.ajax({
+            type: 'GET',
+            url: '/Home/AllProjects',
+            data: { page: cn },
+            success: function (result) { }
+        })
+    }
     
 
-    }
 
-       
-          
+    let current = document.getElementById("current");
+    current.innerHTML = currentPage;
+    // if currpage+1 < last
+    let currentNext = document.getElementById("currentNext");
+    let cn = currentPage + 1;
+    currentNext.innerHTML = cn;
+    
+
+    let last = document.getElementById("last");
+    last.innerHTML = paginationLast;
+
+
+
+    var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
+    //console.log(uploadedListProjects)
+
+    let body = document.getElementById("projectBody");
+
+    for (let i = 0; i < 10; i++ ) {
+                    let row = document.createElement("tr");
+
+                    let head = document.createElement("th");
+                head.setAttribute("scope", "row");
+                head.innerHTML = (i + 1) + (currentPage-1)*perPage;
+                    row.append(head);
+
+                    let username = document.createElement("td");
+                        username.innerHTML = uploadedListProjects[i].Username;
+                    row.append(username);
+                    let projectName = document.createElement("td");
+                        projectHref = document.createElement("a");
+                        projectHref.setAttribute("href", `./ChooseProject/` + uploadedListProjects[i].ProjectId);
+                        projectHref.innerHTML = uploadedListProjects[i].ProjectName;
+                    projectName.append(projectHref);
+                    row.append(projectName);
+
+                    let details = document.createElement("td");
+                    let detailsButton = document.createElement("button");
+                        detailsButton.classList.add("btn", "btn-outline-info", "btn-sm", "btnLetter");
+                        detailsButton.setAttribute("id", i);
+                        detailsButton.innerHTML = "Details";
+                        details.append(detailsButton);
+                    row.append(details);
+
+                    body.append(row);
+
+                    let detailsRow = document.createElement("tr");
+                        detailsRow.setAttribute("colspan", 100);
+                    let tempId = `desc` + i;
+                        detailsRow.setAttribute("id", tempId);
+
+                    let detailsDesc = document.createElement("td");
+                        detailsDesc.innerHTML = uploadedListProjects[i].Description;
+                        detailsRow.append(detailsDesc);
+                        detailsRow.setAttribute("style", "display: none;");
+                    body.append(detailsRow);
+                }
+
+    $('button').click(function () {
+        let id = parseInt(this.id);
+        let descId = `#desc` + (id.toString());
+        $(descId).toggle();
+    })
+
+
+
+
+
+
+
 
 
     </script>

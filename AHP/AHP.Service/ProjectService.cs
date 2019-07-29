@@ -36,7 +36,7 @@ namespace AHP.Service
         }
         public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
         {
-            var Projects =await ProjectRepository.GetProjectsAsync(pageNumber, pageSize);
+            var Projects = await ProjectRepository.GetProjectsAsync(pageNumber, pageSize);
             return Projects;
         }
 

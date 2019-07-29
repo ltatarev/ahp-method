@@ -39,14 +39,16 @@ namespace AHP.Controllers
 
         // GET: Home/AllProjects
         // public async Task<ActionResult> AllProjects()
-        public ActionResult AllProjects(int page = 1)
+        public async Task<ActionResult> AllProjects(int page = 1)
         {
             // Display view with first 10 projects
-           // int pageNum = page;
-           // var AllProjects = await ProjectService.GetProjects(pageNum, 10);
-           // var ProjectView = _mapper.Map<List<CriterionView>>(AllProjects);
-           // ViewBag.numOfProj = TODO: DOHVATITI COUNT
-            return View();
+            int pageNum = page;
+            var AllProjects = await ProjectService.GetProjects(pageNum, 10);
+            var ProjectView = _mapper.Map<List<ProjectView>>(AllProjects);
+            var count = await ProjectService.CountProjects();
+            ViewBag.current = pageNum;
+            ViewBag.numOfProj = count;
+            return View(ProjectView);
         }
 
         // POST: Home/ChooseProject
@@ -73,7 +75,7 @@ namespace AHP.Controllers
             return RedirectToAction("FinalResult", "Result", new { @id = project.ProjectId });
         }
 
-            // GET: Home/LearnMore
+        // GET: Home/LearnMore
         public ActionResult LearnMore()
         {
             // Display LearnMore view
