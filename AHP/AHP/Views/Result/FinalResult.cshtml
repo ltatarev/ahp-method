@@ -10,15 +10,15 @@
 
     <div class="col">
         <div class="row">
-            <table class="table w-50 m-auto text-center shadow table-light rounded table-borderless table-hover table-sm">
+            <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover table-sm">
                 <thead class="thead-light">
-                    <tr>
+                    <tr class="font-weight-bold">
                         <th scope="col" style="width: 16.66%">#</th>
-                        <th scope="col">Alternative</th>
+                        <th scope="col">Alternative name</th>
                         <th scope="col">Overall priority</th>
                     </tr>
                 </thead>
-                <tbody id="alternativeBody">
+                <tbody id="alternativeBody" class="final">
                     @*<tr>
                         <th scope="row">1</th>
                         <td>Audi</td>
@@ -57,6 +57,7 @@
 
         for (let i = 0; i < alternativeLen; i++ ) {
             let row = document.createElement("tr");
+            
             let head = document.createElement("th");
                 head.setAttribute("scope", "row");
                 head.innerHTML = i + 1;

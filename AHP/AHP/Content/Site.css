@@ -81,3 +81,16 @@ ol li {
     font-size: 30px;
     font-family: 'Josefin Sans', sans-serif;
 }
+
+thead {
+    letter-spacing: 2px;
+}
+
+.final tr:first-child {
+    background: rgba(92,184,92,1) !important;
+    font-weight: bold;
+}
+
+    .final tr:first-child:hover {
+        background: rgba(92,184,92,0.7) !important;
+    }
