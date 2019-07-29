@@ -12,19 +12,25 @@ namespace AHP.Service
     public class CriteriaRankService : ICriteriaRankService
     {
         #region Constructors
-        public CriteriaRankService(ICriteriaRankRepository repository)
+        public CriteriaRankService(ICriteriaRankRepository repository, IUnitOfWorkFactory uowFactory)
         {
             this.Repository = repository;
+            this.uowFactory = uowFactory;
         }
         #endregion Constructors
         #region Properties
         protected ICriteriaRankRepository Repository { get; private set; }
+        protected IUnitOfWorkFactory uowFactory;
         #endregion Properties
 
         public async Task<bool> AddRange(List<ICriteriaRankModel> criteriaRanks)
         {
-            Repository.AddRange(criteriaRanks);
-            await Repository.SaveAsync();
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                Repository.AddRange(criteriaRanks);
+                await Repository.SaveAsync();
+                uow.Commit();
+            }
             return true;
         }
 

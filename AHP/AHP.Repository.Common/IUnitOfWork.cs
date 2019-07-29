@@ -9,7 +9,7 @@ namespace AHP.Repository.Common
 {
     public interface IUnitOfWork : IDisposable
     {
-        void Commit();
+         void Commit();
 
     }
 }

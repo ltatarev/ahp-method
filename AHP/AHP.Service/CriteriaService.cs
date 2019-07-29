@@ -9,28 +9,39 @@ namespace AHP.Service
     public class CriteriaService : ICriteriaService
     {
         #region Constructors
-        public CriteriaService(ICriteriaRepository repository)
+        public CriteriaService(ICriteriaRepository repository, IUnitOfWorkFactory uowFactory)
         {
-            this.Repository = repository;            
+            this.Repository = repository;
+            this.uowFactory = uowFactory;
         }
         #endregion Constructors
 
         #region Properties        
         protected ICriteriaRepository Repository { get; private set; }
+        protected IUnitOfWorkFactory uowFactory; 
         #endregion Properties
 
         #region Methods
 
         public async Task<bool> AddCriteriaAsync(ICriteriaModel criteria)
         {
-            Repository.InsertCriteria(criteria);
-            await Repository.SaveAsync();
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+
+                Repository.InsertCriteria(criteria);
+                await Repository.SaveAsync();
+                uow.Commit();
+            }
             return true;
         }
         public async Task<bool> DeleteCriteria(int criteriaId)
         {
-            await Repository.DeleteCriteriaAsync(criteriaId);
-            await Repository.SaveAsync();
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                await Repository.DeleteCriteriaAsync(criteriaId);
+                await Repository.SaveAsync();
+                uow.Commit();
+            }
             return true;
         }
         public async Task<List<ICriteriaModel>> GetCriterias(int pageNumber, int pageSize = 10)
@@ -52,8 +63,12 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaModel> criteria)
         {
-             Repository.AddRange(criteria);
-            await Repository.SaveAsync();
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                Repository.AddRange(criteria);
+                await Repository.SaveAsync();
+                uow.Commit();
+            }
             return true;
         }
 
