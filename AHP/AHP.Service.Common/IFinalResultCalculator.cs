@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AHP.Model.Common.Model_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace AHP.Service.Common
     public interface IFinalResultCalculator
     {
         double[] AHPMethod(double[] CriteriaPreference, double[][] AlternativePreferences);
-        Task<bool> Calculate(int id);
+        Task<List<IAlternativeModel>> Calculate(int id);
     }
 }

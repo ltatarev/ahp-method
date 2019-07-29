@@ -25,7 +25,7 @@ namespace AHP.Controllers
         {
             var a = await FinalResultCalculator.Calculate(id);
             
-            return View();
+            return View(a);
         }
     }
 }
