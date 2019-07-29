@@ -1,4 +1,4 @@
-﻿@model  AHP.Models.AlternativeView
+﻿@model  List<AHP.Models.AlternativeView>
 
 <div class="container mt-5 pl-4 pt-5">
     <div class="row text-light pt-5 mt-2 text-left">
@@ -18,8 +18,8 @@
                         <th scope="col">Overall priority</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="alternativeBody">
+                    @*<tr>
                         <th scope="row">1</th>
                         <td>Audi</td>
                         <td>60%</td>
@@ -33,7 +33,7 @@
                         <th scope="row">3</th>
                         <td>Ford</td>
                         <td>10%</td>
-                    </tr>
+                    </tr>*@
                 </tbody>
             </table>
 
@@ -45,22 +45,33 @@
 
 @section scripts {
     <script>
-        //$('input[type=range]').on("click", () => {
-        //    let val = $('input[type=range]').val();
-        //    if (val < 0) {
-        //        val = 1/((-val) + 1);
-        //    }
-        //    console.log(val);
-        //});
 
-        // CREATING FORM ROW
+        let alternativeLen = @Model.Count;
 
-
-        let alternativeLen = @Model.Alternatives.Count;
-
-        let Criteria = [];
         let Alternatives = [];
 
-        var uploadedListAlternative = @Html.Raw(Json.Encode(@Model.Alternatives));
-        </script>
+        var uploadedListAlternative = @Html.Raw(Json.Encode(@Model));
+        console.log(uploadedListAlternative);
+
+        let body = document.getElementById("alternativeBody");
+
+        for (let i = 0; i < alternativeLen; i++ ) {
+            let row = document.createElement("tr");
+            let head = document.createElement("th");
+                head.setAttribute("scope", "row");
+                head.innerHTML = i + 1;
+            row.append(head);
+
+            let name = document.createElement("td");
+                name.innerHTML = uploadedListAlternative[i].AlternativeName;
+            row.append(name);
+            let priority = document.createElement("td");
+            priority.innerHTML = String(parseFloat(uploadedListAlternative[i].FinalPriority * 100).toFixed(2)) + `%`;
+            row.append(priority);
+
+            
+            body.append(row);
+        }
+
+    </script>
 }

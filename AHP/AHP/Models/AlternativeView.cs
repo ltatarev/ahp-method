@@ -10,8 +10,7 @@ namespace AHP.Models
         public int AlternativeId { get; set; }
         public int Order { get; set; }
         public string AlternativeName { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        public double FinalPriority { get; set; }
 
     }
 }
