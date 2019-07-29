@@ -22,7 +22,7 @@ namespace AHP.Repository.Common
         Task<IProjectModel> CompareProjects(string projectName, string userName);
         Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize = 10);
         Task<IProjectModel> GetProjectByIdAsync(int ProjectId);
-        Task<IProjectModel> InsertProject(IProjectModel project);
+        IProjectModel InsertProject(IProjectModel project);
         Task<bool> DeleteProject(int ProjectId);
         Task<int> SaveAsync();
         

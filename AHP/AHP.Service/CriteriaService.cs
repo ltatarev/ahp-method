@@ -14,6 +14,7 @@ namespace AHP.Service
             this.Repository = repository;            
         }
         #endregion Constructors
+
         #region Properties        
         protected ICriteriaRepository Repository { get; private set; }
         #endregion Properties
