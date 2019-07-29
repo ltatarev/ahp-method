@@ -152,7 +152,7 @@
                             desc.innerHTML = second + ` extremely more important than ` + first;
                         break;
                       default:
-                        desc.innerHTML = "Equally prefered";
+                        desc.innerHTML = first + ` equally prefered to ` + second;
                     }
 
             });
@@ -192,13 +192,25 @@
             type: 'POST',
             url: url,
             data: JSON.stringify(data),
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
             beforeSend: function () {
                 $("#divLoader").show("slow");
                 $('.container').css("filter", "blur(1px)");
                 },
+<<<<<<< Updated upstream
                         headers: {
              'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
                },
+=======
+             headers: {
+             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
+               },
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             success: function (response) {
                 console.log(response);
                 $("#divLoader").hide("slow");
