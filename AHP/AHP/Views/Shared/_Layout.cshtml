@@ -12,9 +12,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
-    @RenderBody()
-
+    <div class="container mt-5 mb-5 p-2 text-light justify-content-around">
+        @RenderBody()
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

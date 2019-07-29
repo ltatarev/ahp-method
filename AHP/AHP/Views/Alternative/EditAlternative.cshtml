@@ -5,15 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5 pl-4 pt-5">
-    <div class="row mr-auto">
-        <div class="col">
-            <h1 id="SubTitle">Edit alternative</h1>
-            <h3 class="text-light font-italic">Input your preferences considering each criterion</h3>
-        </div>
+
+<div class="row mr-auto">
+    <div class="col">
+        <h1 id="SubTitle">Edit alternative</h1>
+        <h3 class="text-light font-italic">Input your preferences considering each criterion</h3>
     </div>
 </div>
-<div class="container justify-content-md-center text-center p-2 bg-white rounded shadow" id="mainContainer">
+<div class="container-fluid justify-content-md-center text-dark text-center p-2 bg-white rounded shadow" id="mainContainer">
     @using (Html.BeginForm("EditAlternativePreference", "Alternative", FormMethod.Post, new { id = "EditAlternativeForm" }))
     {
         @*<h2 class="alert alert-info" role="alert">
@@ -147,7 +146,7 @@
             }
 
             let btn = document.createElement("button");
-            btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5");
+            btn.classList.add("btn","btn-success","btn-lg","mt-3", "mb-5","btnLetter");
             btn.setAttribute("type", "submit");
             btn.innerHTML = "Submit";
             form.append(btn);

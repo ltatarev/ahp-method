@@ -30,7 +30,7 @@ ORANGE: dd5c46
 }
 
 /*.row, .container, .col {
-    border: 2px double white;
+    border: 2px double red;
 }*/
 
 #MainTitle {
@@ -58,7 +58,7 @@ ORANGE: dd5c46
     border: none;
 }
 
-.btn {
+.btnLetter {
     border-radius: 25px;
     text-transform: uppercase;
     font-size: 12px;
@@ -71,8 +71,15 @@ ORANGE: dd5c46
     box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
 }
 
-.btn:first-child, .btn-outline-light {
-    padding-top:9px;
+.btnPlus {
+    border-radius: 35px;
+    -webkit-box-shadow: 1px 3px 12px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 3px 12px -1px rgba(0,0,0,0.3);
+    box-shadow: 1px 3px 12px -1px rgba(0,0,0,0.3);
+}
+
+.btnLetter:first-child, .btn-outline-light {
+    padding-top: 9px;
 }
 
 ol li {

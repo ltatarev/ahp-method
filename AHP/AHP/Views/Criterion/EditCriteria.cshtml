@@ -5,15 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-3 pl-4 pt-5">
-    <div class="row mr-auto">
-        <div class="col">
+
             <h1 id="SubTitle">Edit criteria</h1>
             <h3 class="text-light font-italic">Input your preferences</h3>
-        </div>
-    </div>
-</div>
-<div class="container justify-content-md-center rounded shadow text-center p-3 pt-5 bg-white">
+
+<div class="container justify-content-md-center rounded shadow text-center text-dark p-3 pt-5 bg-white">
     @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
     {
         @Html.AntiForgeryToken()
@@ -100,7 +96,7 @@
             }
 
             let btn = document.createElement("button");
-            btn.classList.add("btn","btn-success","btn-lg","mt-3");
+            btn.classList.add("btn", "btn-success", "btn-lg", "mt-3", "btnLetter");
             btn.setAttribute("type", "submit");
             btn.innerHTML = "Submit";
             form.append(btn);

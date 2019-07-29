@@ -1,7 +1,6 @@
 ﻿@model  List<AHP.Models.AlternativeView>
 
-<div class="container mt-5 pl-4 pt-5">
-    <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Home</button>
+    <button class="btn btnLetter btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Home</button>
 
     <div class="row text-light pt-5 mt-2 text-left">
         <div class="col">
@@ -21,12 +20,11 @@
                     </tr>
                 </thead>
                 <tbody id="alternativeBody" class="final">
-
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+
 
 @section scripts {
     <script>

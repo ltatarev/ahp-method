@@ -5,37 +5,32 @@
     ViewBag.Title = "AddAlternative";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h1 id="SubTitle">Add alternative</h1>
 
-<div class="container pt-5 mr-5 pb-5">
-
-    <h1 id="SubTitle">Add alternative</h1>
-
-    @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="row pt-4 pr-3">
-            <div class="col-4">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
-                </div>
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-success mr-2" onclick="addAlternative()"><i class="fas fa-plus fa-lg"></i></button>
-                <button type="button" class="btn btn-danger mr-2" onclick="removeAlternative()"><i class="fas fa-minus fa-lg"></i></button>
-                <button type="submit" class="btn btn-success pt-2">Submit</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4" id="alternative">
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
-                </div>
-            </div>
-        </div>
-    }
-</div>
 <!-- LOADER -->
 <div class="loader" id="divLoader" style="display:none;"></div>
+@using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row p-2">
+        <div class="col-6 col-md-4">
+            @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
+        </div>
+        <div class="col-3 col-md-2 justify-content-around">
+            <button type="button" class="btn btnPlus btn-success btn-sm" onclick="addAlternative()"><i class="fas fa-plus-circle pt-1 fa-lg"></i></button>
+            <button type="button" class="btn btnPlus btn-danger btn-sm" onclick="removeAlternative()"><i class="fas fa-minus-circle pt-1 fa-lg"></i></button>
+        </div>
+        <div class="col-3 float-left">
+            <button type="submit" id="submitBtn" class="btn btnLetter btn-success">Submit</button>
+        </div>
+    </div>
+    <div class="row p-2 pb-3">
+        <div class="col-6 col-md-4" id="alternative">
+            @Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete = "off" })
+        </div>
+    </div>
+
+}
 
 @section scripts {
     <script>
@@ -53,10 +48,16 @@
      let numOfAlternatives = 2;
     function addAlternative() {
         if (numOfAlternatives < 10) {
-        let formGroup = document.createElement("div");
-            formGroup.classList.add("form-group");
+            let formRow = document.createElement("div");
+            formRow.classList.add("row","pl-2","pr-2");
+            let formCol = document.createElement("div");
+            formCol.classList.add("col-6", "col-md-4");
+            let formGroup = document.createElement("div");
+            formGroup.classList.add("form-group"),
             formGroup.innerHTML = `@Html.TextBoxFor(m => m.AlternativeName, new { @class = "form-control shadow", placeholder = "Alternative name", required = "required", autocomplete="off" })`
-            $("#alternative").append(formGroup);
+            formCol.appendChild(formGroup);
+            formRow.appendChild(formCol);
+            $("#AddAlternativeForm").append(formRow);
             numOfAlternatives++;
         }
         else {
@@ -65,14 +66,14 @@
             $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
         }
     }
-    let form = document.getElementById("alternative");
+    let form = document.getElementById("AddAlternativeForm");
     function removeAlternative() {
         if (numOfAlternatives > 2) {
                 form.removeChild(form.lastChild)
                 numOfAlternatives--;
             } else {
                  warning.innerHTML = "Number of min. alternatives reached!";
-                warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+                 warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
 
                 $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
             }
@@ -80,7 +81,7 @@
     }
 
     function checkIfDuplicateExists(w){
-        return new Set(w).size !== w.length 
+        return new Set(w).size !== w.length
     }
 
         $("#AddAlternativeForm").on("submit", function () {
@@ -91,7 +92,7 @@
          // Find all input fields
          var text = $('#AddAlternativeForm').find('input[name="AlternativeName"]');
 
-        
+
         let inputText = [];
         let flag = false;
         for (let t of text) {
@@ -103,7 +104,7 @@
             $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
             flag = true;
         }
-    
+
 
          for (let t of text) {
               // Values of each input field

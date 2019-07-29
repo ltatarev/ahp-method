@@ -2,11 +2,9 @@
     background-image: url('bg.png');
     background-size: cover;
     background-attachment: fixed;
-    min-width: 1000px; 
-    width: auto !important; 
-    width: 1000px;
     font-family: 'Fira Sans', sans-serif;
     font-size: 25px;
+    text-shadow: 2px 2px 5px rgba(52,52,52,0.2);
 }
 
 .ml3 {
