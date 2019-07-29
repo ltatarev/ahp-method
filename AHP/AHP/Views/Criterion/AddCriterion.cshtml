@@ -82,15 +82,32 @@
             }
     }
 
+    function checkIfDuplicateExists(w){
+        return new Set(w).size !== w.length 
+    }
+
 
     $("#AddCriterionForm").on("submit", function () {
         event.preventDefault();
-         var token = $('input[name="__RequestVerificationToken"]').val();
          var url = '@Url.Action("AddNewCriterion", "Criterion")';
          var data = [];
 
          // Find all input fields
-         var text = $('#AddCriterionForm').find('input[name="CriteriaName"]');
+        var text = $('#AddCriterionForm').find('input[name="CriteriaName"]');
+
+        let inputText = [];
+        let flag = false;
+        for (let t of text) {
+            inputText.push(t.value);
+        }
+        if (checkIfDuplicateExists(inputText)) {
+            warning.innerHTML = "Duplicate criteria names!";
+            warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+            $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
+            flag = true;
+        }
+        // console.log(checkIfDuplicateExists(inputText));
+
          var id = @ViewBag.id;
          for (let t of text) {
               // Values of each input field
@@ -102,8 +119,8 @@
          };
 
         //console.log(JSON.stringify(data));
-
-        $.ajax({
+        if (!flag) {
+       $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
@@ -121,6 +138,7 @@
                 alert(response);
             }
         });
+            }
     });
 
     </script>

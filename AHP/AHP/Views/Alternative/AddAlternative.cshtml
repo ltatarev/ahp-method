@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5 p-4">
+<div class="container pt-5 mr-5 pb-5">
 
     <h1 id="SubTitle">Add alternative</h1>
 
@@ -79,6 +79,10 @@
 
     }
 
+    function checkIfDuplicateExists(w){
+        return new Set(w).size !== w.length 
+    }
+
         $("#AddAlternativeForm").on("submit", function () {
          event.preventDefault();
          var url = '@Url.Action("AddNewAlternative", "Alternative", new { id = @ViewBag.id })';
@@ -86,6 +90,20 @@
 
          // Find all input fields
          var text = $('#AddAlternativeForm').find('input[name="AlternativeName"]');
+
+        
+        let inputText = [];
+        let flag = false;
+        for (let t of text) {
+            inputText.push(t.value);
+        }
+        if (checkIfDuplicateExists(inputText)) {
+            warning.innerHTML = "Duplicate alternative names!";
+            warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+            $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
+            flag = true;
+        }
+    
 
          for (let t of text) {
               // Values of each input field
@@ -96,25 +114,26 @@
          };
 
         //console.log(JSON.stringify(data));
-
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: url,
-            data: JSON.stringify(data),
-                        beforeSend: function () {
-                $("#divLoader").show("slow");
-                $('.container').css("filter", "blur(1px)");
-                },
-            success: function (response) {
-                console.log(response);
-                window.location.href = '@Url.Action("EditAlternative", "Alternative", new { id = @ViewBag.id })';
-            },
-            failure: function (response) {
-                alert(response);
+            if (!flag) {
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify(data),
+                    beforeSend: function () {
+                        $("#divLoader").show("slow");
+                        $('.container').css("filter", "blur(1px)");
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '@Url.Action("EditAlternative", "Alternative", new { id = @ViewBag.id })';
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
             }
-        });
     });
 
     </script>

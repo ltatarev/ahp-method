@@ -1,46 +1,67 @@
 ﻿@model  List<AHP.Models.AlternativeView> 
 
-<div class="container text-light mt-5 pl-4 pt-5">
-    <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="row pt-5 mt-2 mr-auto">
-        <div class="col">
-            <h1 id="MainTitle">AHP METHOD</h1>
-            <h3 class="font-italic">All projects</h3>
-        </div>
-    </div>
-
-    <div class="row mr-auto">
-        <div class="col-12">
-            <div class="row">
-                <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover">
-                    <thead class="thead-light">
-                        <tr class="font-weight-bold">
-                            <th scope="col" style="width: 16.66%">#</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Project name</th>
-                            <th scope="col">Details</th>
-                        </tr>
-                    </thead>
-                    <tbody id="projectBody"></tbody>
-                </table>
+    <div class="container text-light mt-5 pl-4 pt-5">
+        <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+        <div class="row pt-5 mt-2 mr-auto">
+            <div class="col">
+                <h1 id="MainTitle">AHP METHOD</h1>
+                <h3 class="font-italic">All projects</h3>
             </div>
         </div>
+
+        <div class="row mr-auto">
+            <div class="col-12">
+                <div class="row">
+                    <table class="table w-50 m-auto text-centershadow table-striped table-light rounded table-borderless table-hover">
+                        <thead class="thead-light">
+                            <tr class="font-weight-bold">
+                                <th scope="col" style="width: 16.66%">#</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Project name</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectBody" class="m-auto"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <nav class="pt-3">
+            <ul class="pagination justify-content-center pagination-sm" id="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-disabled="true">...</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">50</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
-</div>
+
 
 @section scripts {
     <script>
         
-        let projectLen = @Model.Count;
+    var page = 1;
 
-        let Project = [];
+        let projectLen = 2;
 
-        var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
-        console.log(uploadedListProjects);
+      //  var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
+      //  console.log(uploadedListProjects)
 
+    let uploadedListProjects = [{ProjectName: "proba", Username: "lucija", Description: "prvi projekt"},{ProjectName: "proba", Username: "lucija", Description: "prvi projekt"}]
+    console.log(uploadedListProjects)
         let body = document.getElementById("projectBody");
 
-        for (let i = 0; i < alternativeLen; i++ ) {
+        for (let i = 0; i < projectLen; i++ ) {
             let row = document.createElement("tr");
 
             let head = document.createElement("th");
@@ -57,25 +78,42 @@
 
             let details = document.createElement("td");
             let detailsButton = document.createElement("button");
-                detailsButton.classList("btn btn-outline-info btn-sm");
-                detailsButton.setAttribute("onclick",showDetails())
+                detailsButton.classList.add("btn", "btn-outline-info", "btn-sm");
+                detailsButton.setAttribute("id", i);
                 detailsButton.innerHTML = "Details";
+                details.append(detailsButton);
             row.append(details);
-
-            let detailsRow = document.createElement("tr");
-                let detailsDesc = document.createElement("td");
-                detailsDesc.innerHTML = uploadedListProjects[i].Description;
-                detailsRow.setAttribute("hidden", true);
-                detailsRow.append(detailsDesc);
-            body.append(detailsRow);
-
-            showDetails() {
-                detailsRow.setAttribute("hidden", false);
-            }
 
             body.append(row);
 
-            }
+            let detailsRow = document.createElement("tr");
+                detailsRow.setAttribute("colspan", 100);
+            let tempId = `desc` + i;
+                detailsRow.setAttribute("id", tempId);
+                
+            let detailsDesc = document.createElement("td");
+                detailsDesc.innerHTML = uploadedListProjects[i].Description;
+                detailsRow.append(detailsDesc);
+                detailsRow.setAttribute("style", "display: none;");
+            body.append(detailsRow);
+        }
+
+            $('button').click(function() {
+                let id = parseInt(this.id);
+               // console.log(id);
+                let descId = `#desc` + (id.toString());
+                // console.log(descId);
+                 $( descId ).toggle();
+            })
+
+
+    function pagination() {
+    
+
+    }
+
+       
+          
 
 
     </script>
