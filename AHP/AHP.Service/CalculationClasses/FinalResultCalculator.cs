@@ -93,8 +93,8 @@ namespace AHP.Service.CalculationClasses
                 alternatives[i].FinalPriority = result[i];
                 await AlternativeService.Update(alternatives[i]);
             }
-                        
-            return alternatives;
+            var sorted = alternatives.OrderByDescending(alt => alt.FinalPriority).ToList();
+            return sorted;
         }
 
 
