@@ -190,6 +190,16 @@ namespace AHP.Service
             return true;
         }
 
+        public async Task<IAlternativeModel> Update(IAlternativeModel alternative)
+        {
+            var alternativeInDb = await Repository.GetAlternativeById(alternative.AlternativeId);
+            alternativeInDb.DateUpdated = DateTime.Now;
+            alternativeInDb.FinalPriority = alternative.FinalPriority;
+            await Repository.UpdateAlternative(alternativeInDb);
+            await Repository.SaveAsync();
+            return alternativeInDb;
+        }
+
 
         #endregion repositoryMethods
     }

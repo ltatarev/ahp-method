@@ -69,6 +69,14 @@ namespace AHP.Repository
             Context.Alternatives.Remove(alternative);
             return true;
         }
+        public async Task<IAlternativeModel> UpdateAlternative(IAlternativeModel alternative)
+        {
+            var alternativeInDb = await Context.Alternatives.FindAsync(alternative.AlternativeId);
+            Context.Entry(alternativeInDb).CurrentValues.SetValues(Mapper.Map<Alternative>(alternative));
+            
+            return alternative;
+
+        }
         public async Task<int> SaveAsync()
         {
             return await Context.SaveChangesAsync();

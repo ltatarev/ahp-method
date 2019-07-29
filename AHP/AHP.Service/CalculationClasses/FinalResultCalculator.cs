@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AHP.Model.Common.Model_Interfaces;
+using AHP.Service.Common;
+using AHP.Service.Common.AHPCalculation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,19 +9,23 @@ using System.Threading.Tasks;
 
 namespace AHP.Service.CalculationClasses
 {
-    public class FinalResultCalculator
+    public class FinalResultCalculator : IFinalResultCalculator
     {
-        public FinalResultCalculator(PriorityCalculator priorityCalculator, MatrixCreator matrixCreator, DataPreparation dataPreparation)
+        public FinalResultCalculator(IPriorityCalculator priorityCalculator,IAlternativeService alternativeService, IMatrixCreator matrixCreator, IDataPreparation dataPreparation, ICriteriaService criteriaService)
         {
             this.PriorityCalculator = priorityCalculator;
             this.MatrixCreator = matrixCreator;
             this.DataPreparation = dataPreparation;
+            this.CriteriaService = criteriaService;
+            this.AlternativeService = alternativeService;
         }
-        PriorityCalculator PriorityCalculator;
-        MatrixCreator MatrixCreator;
-        DataPreparation DataPreparation;
+        IPriorityCalculator PriorityCalculator;
+        IMatrixCreator MatrixCreator;
+        IDataPreparation DataPreparation;
+        ICriteriaService CriteriaService;
+        IAlternativeService AlternativeService;
 
-         public double[] AHPMethod(int[] CriteriaPreference, int[][] AlternativePreferences)
+        public double[] AHPMethod(double[] CriteriaPreference, double[][] AlternativePreferences)
         {
             /// <summary>
             /// Method for calculating final decision using AHP method, with given criteria preferences and alternative preference for every criterion.
@@ -36,7 +43,8 @@ namespace AHP.Service.CalculationClasses
             int numberOfAlternatives = AlternativePreferences.Length;
 
             double[] CriteriaPriority = new double[numberOfCriterions];
-            CriteriaPriority = DataPreparation.NormalizeVector(PriorityCalculator.CalculatePriority(MatrixCreator.CreateMatrix(CriteriaPreference, numberOfCriterions)));
+            var matrix = MatrixCreator.CreateMatrix(CriteriaPreference, numberOfCriterions);
+            CriteriaPriority = DataPreparation.NormalizeVector(PriorityCalculator.CalculatePriority(matrix));
 
             // Matrix containing final weights
             // w_{i,j} = priority of i-th alternative considering j-th criterion
@@ -45,7 +53,7 @@ namespace AHP.Service.CalculationClasses
             for (int i = 0; i < numberOfCriterions; i++)
             {
                 // Array of Alternative preferences considering i-th criterion
-                int[] currentAlternatives = AlternativePreferences[i];
+                double[] currentAlternatives = AlternativePreferences[i];
 
                 // Array of priorities considering i-th criterion
                 double[] AlternativePriority =DataPreparation.NormalizeVector( PriorityCalculator.CalculatePriority(MatrixCreator.CreateMatrix(currentAlternatives, numberOfAlternatives)));
@@ -68,5 +76,25 @@ namespace AHP.Service.CalculationClasses
             }
             return DataPreparation.NormalizeVector(FinalDecision);
         }
+
+        public async Task<List<IAlternativeModel>> Calculate(int id)
+        {
+            var criterias = await CriteriaService.GetCriteriasByProjectIdWithCRaAR(id);
+            var array2d = DataPreparation.Get2dArray(criterias);
+            var criteriaRanks = DataPreparation.GetCriteriaRanks(criterias);
+
+            var result = AHPMethod(criteriaRanks, array2d);
+
+            var alternatives =  await AlternativeService.GetAlternativesByProjectId(id,1,20);
+            for(int i = 0; i < alternatives.Count(); i++)
+            {
+                alternatives[i].FinalPriority = result[i];
+                await AlternativeService.Update(alternatives[i]);
+            }
+                        
+            return alternatives;
+        }
+
+
     }
 }
