@@ -72,6 +72,11 @@ namespace AHP.Repository
             Context.Projects.Remove(project);
             return true;
         }
+        public async Task<int> CountProjects()
+        {
+            var count = await Context.Projects.CountAsync();
+            return count;
+        }
         public async Task<int> SaveAsync()
         {
             return await Context.SaveChangesAsync();

@@ -45,6 +45,11 @@ namespace AHP.Service
             return await ProjectRepository.CompareProjects(projectName, userName);
         }
 
+        public async Task<int> CountProjects()
+        {
+            return await ProjectRepository.CountProjects();
+        }
+
 
         #endregion Methods
 
