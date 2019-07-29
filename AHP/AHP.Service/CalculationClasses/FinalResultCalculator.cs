@@ -39,8 +39,10 @@ namespace AHP.Service.CalculationClasses
             //int[] Kriterij = new int[(m * m - m) / 2];
             //int[] Kriterij = new int[] { 1, 3, 5 };
 
-            int numberOfCriterions = CriteriaPreference.Length;
-            int numberOfAlternatives = AlternativePreferences.Length;
+            int x = CriteriaPreference.Length;
+            int numberOfCriterions = (int) ((1 + Math.Sqrt(1 + 8 * x)) / 2);
+            int y = AlternativePreferences[0].Length;
+            int numberOfAlternatives = (int)((1 + Math.Sqrt(1 + 8 * y)) / 2);
 
             double[] CriteriaPriority = new double[numberOfCriterions];
             var matrix = MatrixCreator.CreateMatrix(CriteriaPreference, numberOfCriterions);

@@ -25,7 +25,8 @@
     }
     <div id="EditCriterionForm"></div>
 </div>
-<div class="lds-eclipse" id="divLoader" style="display:none;"></div>
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 
 @section scripts {
     <script>
@@ -196,11 +197,6 @@
                 $("#divLoader").show("slow");
                 $('.container').css("filter", "blur(1px)");
                 },
-
-                        headers: {
-             'X-VerificationToken': $("[name='__RequestVerificationToken']").val()
-               },
-
             success: function (response) {
                 console.log(response);
                 $("#divLoader").hide("slow");

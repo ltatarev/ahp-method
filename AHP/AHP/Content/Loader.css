@@ -1,103 +1,24 @@
-<<<<<<< Updated upstream
-﻿
-.lds-eclipse {
-    position: relative;
-    -webkit-animation: lds-eclipse 1s linear infinite;
-    animation: lds-eclipse 1s linear infinite;
-    width: 140px;
-    height: 140px;
-    left: 45%;
-    top: -250px;
-    z-index: 30;
-    align-content: center;
-    border-radius: 50%;
-    box-shadow: 0 10px 0 0 #0094ff;
-    -webkit-transform-origin: 70px 75px;
-    transform-origin: 70px 75px;
-}
-
-/*.lds-eclipse {
-    width: 300px !important;
-    height: 300px !important;
-    border: 2px dashed black;
-    -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-    transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-}*/
-
-
-@keyframes lds-eclipse {
-=======
-<<<<<<< Updated upstream
-﻿@keyframes lds-eclipse {
-=======
-﻿.loader {
-    border: 16px solid #f3f3f3; /* Light grey */
+.loader {
+    border: 16px solid rgba(243, 243, 243, 0.5); /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-<<<<<<< Updated upstream
-
-@-webkit-keyframes lds-eclipse {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    50% {
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-<<<<<<< Updated upstream
-}
-=======
-}
-
-
-.lds-eclipse {
     position: relative;
-    -webkit-animation: lds-eclipse 1s linear infinite;
-    animation: lds-eclipse 1s linear infinite;
-    width: 140px;
-    height: 140px;
     left: 45%;
     top: -250px;
     z-index: 30;
     align-content: center;
-    border-radius: 50%;
-    box-shadow: 0 10px 0 0 #1c4595;
-    -webkit-transform-origin: 70px 75px;
-    transform-origin: 70px 75px;
 }
 
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
-/*.lds-eclipse {
-    width: 300px !important;
-    height: 300px !important;
-    border: 2px dashed black;
-    -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-    transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-}*/
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+    100% {
+        transform: rotate(360deg);
+    }
+}
