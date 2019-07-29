@@ -1,5 +1,7 @@
 ﻿using AHP.Model.Common.Model_Interfaces;
+using AHP.Models;
 using AHP.Service.Common;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +13,24 @@ namespace AHP.Controllers
 {
     public class ResultController : Controller
     {
-        public ResultController(IFinalResultCalculator finalResultCalculator, ICriteriaService criteriaService)
+        public ResultController(IFinalResultCalculator finalResultCalculator, ICriteriaService criteriaService, IMapper mapper)
         {
             this.FinalResultCalculator = finalResultCalculator;
             this.CriteriaService = criteriaService;
+            this.Mapper = mapper;
+        
         }
         IFinalResultCalculator FinalResultCalculator;
         ICriteriaService CriteriaService;
+        IMapper Mapper;
 
 
         // GET: Result/FinalResult
         public async Task<ActionResult> FinalResult(int id)
         {
-            var a = await FinalResultCalculator.Calculate(id);
-            
-            return View(a);
+            var alternatives = await FinalResultCalculator.Calculate(id);
+            var mapped = Mapper.Map<List<AlternativeView>>(alternatives);
+            return View(mapped);
         }
     }
 }
