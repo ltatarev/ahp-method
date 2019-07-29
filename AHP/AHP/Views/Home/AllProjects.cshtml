@@ -1,4 +1,5 @@
-﻿
+﻿@model  List<AHP.Models.AlternativeView> 
+
 <div class="container text-light mt-5 pl-4 pt-5">
     <button class="btn btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
     <div class="row pt-5 mt-2 mr-auto">
@@ -6,65 +7,76 @@
             <h1 id="MainTitle">AHP METHOD</h1>
             <h3 class="font-italic">All projects</h3>
         </div>
-
     </div>
 
     <div class="row mr-auto">
         <div class="col-12">
-            <table class="table table-sm table-borderless w-50 text-center m-auto">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Project name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Date Created</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>twitter</td>
-                        <td>mdo</td>
-                    </tr>
-                </tbody>
-            </table>
-
+            <div class="row">
+                <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover">
+                    <thead class="thead-light">
+                        <tr class="font-weight-bold">
+                            <th scope="col" style="width: 16.66%">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Project name</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectBody"></tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <div class="pagination-body pt-5">
-        <ul class="pagination">
-            <li>
-                <a href="#">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </li>
-            <li><a class="active" href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </li>
-        </ul>
-
-    </div>
 </div>
+
+@section scripts {
+    <script>
+        
+        let projectLen = @Model.Count;
+
+        let Project = [];
+
+        var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
+        console.log(uploadedListProjects);
+
+        let body = document.getElementById("projectBody");
+
+        for (let i = 0; i < alternativeLen; i++ ) {
+            let row = document.createElement("tr");
+
+            let head = document.createElement("th");
+                head.setAttribute("scope", "row");
+                head.innerHTML = i + 1;
+            row.append(head);
+
+            let username = document.createElement("td");
+                username.innerHTML = uploadedListProjects[i].Username;
+            row.append(username);
+            let projectName = document.createElement("td");
+                projectName.innerHTML = uploadedListProjects[i].ProjectName;
+            row.append(projectName);
+
+            let details = document.createElement("td");
+            let detailsButton = document.createElement("button");
+                detailsButton.classList("btn btn-outline-info btn-sm");
+                detailsButton.setAttribute("onclick",showDetails())
+                detailsButton.innerHTML = "Details";
+            row.append(details);
+
+            let detailsRow = document.createElement("tr");
+                let detailsDesc = document.createElement("td");
+                detailsDesc.innerHTML = uploadedListProjects[i].Description;
+                detailsRow.setAttribute("hidden", true);
+                detailsRow.append(detailsDesc);
+            body.append(detailsRow);
+
+            showDetails() {
+                detailsRow.setAttribute("hidden", false);
+            }
+
+            body.append(row);
+
+            }
+
+
+    </script>
+}

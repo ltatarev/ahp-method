@@ -10,8 +10,6 @@ namespace AHP.Models
         public string Username { get; set; }
         public string ProjectName { get; set; }
         public string Description { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
 
     }
 }

@@ -39,17 +39,25 @@ namespace AHP.Controllers
 
         // GET: Home/AllProjects
         // public async Task<ActionResult> AllProjects()
-        public ActionResult AllProjects()
+        public ActionResult AllProjects(int page = 1)
         {
             // Display view with first 10 projects
-           // int pageNum = 1;
+           // int pageNum = page;
            // var AllProjects = await ProjectService.GetProjects(pageNum, 10);
            // var ProjectView = _mapper.Map<List<CriterionView>>(AllProjects);
+           // ViewBag.numOfProj = TODO: DOHVATITI COUNT
             return View();
         }
 
-        // GET: Home/LearnMore
-        public ActionResult LearnMore()
+        // POST: Home/ChooseProject
+        [HttpPost]
+        public ActionResult ChooseProject(int id)
+        {
+            return View();
+        }
+
+            // GET: Home/LearnMore
+            public ActionResult LearnMore()
         {
             // Display LearnMore view
             return View();
