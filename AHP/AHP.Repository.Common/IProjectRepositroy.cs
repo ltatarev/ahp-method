@@ -23,6 +23,7 @@ namespace AHP.Repository.Common
         Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize = 10);
         Task<IProjectModel> GetProjectByIdAsync(int ProjectId);
         Task<IProjectModel> InsertProject(IProjectModel project);
+        Task<IProjectModel> GetProjectsByIdWithAandC(int id);
         Task<bool> DeleteProject(int ProjectId);
         Task<int> CountProjects();
         Task<int> SaveAsync();

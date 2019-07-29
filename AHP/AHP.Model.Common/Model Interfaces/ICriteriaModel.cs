@@ -17,8 +17,8 @@ namespace AHP.Model.Common.Model_Interfaces
 
         int ProjectId { get; set; }
         IProjectModel Project { get; set; }
-        ICollection<IAlternativeRankModel> AlternativeRanks { get; set; }
-        ICollection<ICriteriaRankModel> CriteriaRanks { get; set; }
+        IList<IAlternativeRankModel> AlternativeRanks { get; set; }
+        IList<ICriteriaRankModel> CriteriaRanks { get; set; }
 
     }
 }

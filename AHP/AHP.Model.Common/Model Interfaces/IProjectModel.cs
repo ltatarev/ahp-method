@@ -13,8 +13,8 @@ namespace AHP.Model.Common.Model_Interfaces
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
 
-        ICollection<ICriteriaModel> Criterias { get; set; }
-        ICollection<IAlternativeModel> Alternatives { get; set; }
+        IList<ICriteriaModel> Criterias { get; set; }
+        IList<IAlternativeModel> Alternatives { get; set; }
 
     }
 }

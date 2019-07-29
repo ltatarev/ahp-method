@@ -21,8 +21,8 @@ namespace AHP.Model.Models
 
         public int ProjectId { get; set; }
         public IProjectModel Project { get; set; }
-        public virtual ICollection<IAlternativeRankModel> AlternativeRanks { get; set; }
-        public virtual ICollection<ICriteriaRankModel> CriteriaRanks { get; set; }
+        public virtual IList<IAlternativeRankModel> AlternativeRanks { get; set; }
+        public virtual IList<ICriteriaRankModel> CriteriaRanks { get; set; }
 
     }
 }

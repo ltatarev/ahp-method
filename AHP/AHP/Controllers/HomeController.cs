@@ -50,14 +50,31 @@ namespace AHP.Controllers
         }
 
         // POST: Home/ChooseProject
-        [HttpPost]
-        public ActionResult ChooseProject(int id)
+        
+        public async Task<ActionResult> ChooseProject(int id)
         {
-            return View();
+            var project = await ProjectService.GetProjectsByIdWithAandC(id);
+            if (project.Criterias.Count == 0)
+            {
+               return RedirectToAction("AddCriterion", "Criterion", new { @id = project.ProjectId });
+            }
+            else if (project.Criterias[0].CriteriaRanks.Count() == 0)
+            {
+              return  RedirectToAction("EditCriteria", "Criterion", new { @id = project.ProjectId });
+            }
+            else if (project.Alternatives.Count == 0)
+            {
+              return  RedirectToAction("AddAlternative", "Alternative", new { @id = project.ProjectId });
+            }
+            else if (project.Criterias[0].AlternativeRanks.Count() == 0)
+            {
+              return  RedirectToAction("EditAlternative", "Alternative", new { @id = project.ProjectId });
+            }
+            return RedirectToAction("FinalResult", "Result", new { @id = project.ProjectId });
         }
 
             // GET: Home/LearnMore
-            public ActionResult LearnMore()
+        public ActionResult LearnMore()
         {
             // Display LearnMore view
             return View();

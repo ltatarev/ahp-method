@@ -50,6 +50,19 @@ namespace AHP.Repository
             return Mapper.Map<IProjectModel>(project);
         }
 
+
+        public async Task<IProjectModel> GetProjectsByIdWithAandC(int id)
+        {
+            var project = await Context.Projects.Where(p => p.ProjectId == id).
+                                                 Include(p => p.Alternatives).
+                                                 Include(p => p.Criterias.Select(c => c.AlternativeRanks)).
+                                                 Include(p => p.Criterias.Select(c => c.CriteriaRanks)).FirstOrDefaultAsync();
+            var projectinDb = Mapper.Map<IProjectModel>(project);
+            return projectinDb;                                    
+                                                 
+        }
+
+
         public async Task<IProjectModel> GetProjectByIdAsync(int ProjectId)
         {
             var project = await Context.Projects.FindAsync(ProjectId);
