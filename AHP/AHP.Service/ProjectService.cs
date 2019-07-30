@@ -13,27 +13,36 @@ namespace AHP.Service
     public class ProjectService : IProjectService
     {
         #region Constructors
-        public ProjectService(IProjectRepository projectRepository, IUnitOfWorkFactory unitOfWorkFactory)
+        public ProjectService(IProjectRepository projectRepository, IUnitOfWorkFactory uowFactory)
         {
             this.ProjectRepository = projectRepository;
-            this.UnitOfWorkFactory = unitOfWorkFactory;
+            this.uowFactory = uowFactory;
         }
         #endregion Constructors
 
         #region Properties
-        protected IUnitOfWorkFactory UnitOfWorkFactory;
+        protected IUnitOfWorkFactory uowFactory;
         protected IProjectRepository ProjectRepository { get; private set; }
         #endregion Properties
 
         #region Methods
         
-       public async Task<IProjectModel>AddProjectAsync(IProjectModel project)
+       public async Task<bool> AddProjectAsync(IProjectModel project)
         {
+<<<<<<< HEAD
             project.DateCreated = DateTime.Now;
             project.DateUpdated = DateTime.Now;
             await ProjectRepository.InsertProject(project);
           
             return project;
+=======
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                await ProjectRepository.InsertProject(project);
+                uow.Commit();
+            }
+            return true;
+>>>>>>> bc3958fcd4f25396d4790e0ee72781721f96633b
         }
         public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
         {

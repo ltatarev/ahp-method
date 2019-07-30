@@ -12,13 +12,15 @@ namespace AHP.Service
     public class AlternativeService : IAlternativeService
     {
         #region Constructors
-        public AlternativeService(IAlternativeRepository repository)
+        public AlternativeService(IAlternativeRepository repository, IUnitOfWorkFactory uowFactory)
         {
             this.Repository = repository;
+            this.uowFactory = uowFactory;
         }
         #endregion Constructors
         #region Properties
         protected IAlternativeRepository Repository { get; private set; }
+        protected IUnitOfWorkFactory uowFactory;
         #endregion Properties
 
         #region Methods
@@ -185,6 +187,7 @@ namespace AHP.Service
         }
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
+<<<<<<< HEAD
             var order = 1;
             foreach (var alter in alternatives)
             {
@@ -196,17 +199,27 @@ namespace AHP.Service
             }
             Repository.AddRange(alternatives);
             await Repository.SaveAsync();
+=======
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                await Repository.AddRange(alternatives);
+                uow.Commit();
+            }
+>>>>>>> bc3958fcd4f25396d4790e0ee72781721f96633b
             return true;
         }
 
         public async Task<IAlternativeModel> Update(IAlternativeModel alternative)
         {
-            var alternativeInDb = await Repository.GetAlternativeById(alternative.AlternativeId);
-            alternativeInDb.DateUpdated = DateTime.Now;
-            alternativeInDb.FinalPriority = alternative.FinalPriority;
-            await Repository.UpdateAlternative(alternativeInDb);
-            await Repository.SaveAsync();
-            return alternativeInDb;
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                var alternativeInDb = await Repository.GetAlternativeById(alternative.AlternativeId);
+                alternativeInDb.DateUpdated = DateTime.Now;
+                alternativeInDb.FinalPriority = alternative.FinalPriority;
+                await Repository.UpdateAlternative(alternativeInDb);
+                uow.Commit();
+                return alternativeInDb;
+            }
         }
 
 

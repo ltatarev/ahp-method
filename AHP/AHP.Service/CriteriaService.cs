@@ -10,27 +10,37 @@ namespace AHP.Service
     public class CriteriaService : ICriteriaService
     {
         #region Constructors
-        public CriteriaService(ICriteriaRepository repository)
+        public CriteriaService(ICriteriaRepository repository, IUnitOfWorkFactory uowFactory)
         {
-            this.Repository = repository;            
+            this.Repository = repository;
+            this.uowFactory = uowFactory;
         }
         #endregion Constructors
+
         #region Properties        
         protected ICriteriaRepository Repository { get; private set; }
+        protected IUnitOfWorkFactory uowFactory; 
         #endregion Properties
 
         #region Methods
 
         public async Task<bool> AddCriteriaAsync(ICriteriaModel criteria)
         {
-            Repository.InsertCriteria(criteria);
-            await Repository.SaveAsync();
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+
+                await Repository.InsertCriteria(criteria);
+                uow.Commit();
+            }
             return true;
         }
         public async Task<bool> DeleteCriteria(int criteriaId)
         {
-            await Repository.DeleteCriteriaAsync(criteriaId);
-            await Repository.SaveAsync();
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                await Repository.DeleteCriteriaAsync(criteriaId);
+                uow.Commit();
+            }
             return true;
         }
         public async Task<List<ICriteriaModel>> GetCriterias(int pageNumber, int pageSize = 10)
@@ -52,6 +62,7 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaModel> criteria)
         {
+<<<<<<< HEAD
             var order = 1;
             foreach (var crit in criteria)
             {
@@ -62,6 +73,13 @@ namespace AHP.Service
             }
             Repository.AddRange(criteria);
             await Repository.SaveAsync();
+=======
+            using (var uow = uowFactory.CreateUnitOfWork())
+            {
+                await Repository.AddRange(criteria);
+                uow.Commit();
+            }
+>>>>>>> bc3958fcd4f25396d4790e0ee72781721f96633b
             return true;
         }
 

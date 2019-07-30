@@ -44,16 +44,19 @@ namespace AHP.Repository
             return Mapper.Map<ICriteriaRankModel>(critRank);
         }      
 
-        public ICriteriaRankModel InsertCriteriaRank(ICriteriaRankModel criteriaRank)
+        public async Task<ICriteriaRankModel> InsertCriteriaRank(ICriteriaRankModel criteriaRank)
         {
             var mapped = Mapper.Map<CriteriaRank>(criteriaRank);
             Context.CriteriaRanks.Add(mapped);
+            await Context.SaveChangesAsync();
             return criteriaRank;
         }
 
-        public List<ICriteriaRankModel> AddRange(List<ICriteriaRankModel> criteriaRanks)
+        public async Task<List<ICriteriaRankModel>> AddRange(List<ICriteriaRankModel> criteriaRanks)
         {
-            Context.CriteriaRanks.AddRange(Mapper.Map<List<CriteriaRank>>(criteriaRanks));
+            var mapped = Mapper.Map<List<CriteriaRank>>(criteriaRanks);
+            Context.CriteriaRanks.AddRange(mapped);
+            await Context.SaveChangesAsync();
             return criteriaRanks;
         }
 
@@ -61,6 +64,7 @@ namespace AHP.Repository
         {
             var criteriaRank = await Context.CriteriaRanks.FindAsync(criterRankId);
             Context.CriteriaRanks.Remove(criteriaRank);
+            await Context.SaveChangesAsync();
             return true;
         }
         public async Task<int> SaveAsync()

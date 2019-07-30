@@ -11,15 +11,15 @@ namespace AHP.Repository
     class UnitOfWorkFactory : IUnitOfWorkFactory
     {
 
-        private AHPContext _context;
+        private AHPContext Context;
         public UnitOfWorkFactory(AHPContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public IUnitOfWork CreateUnitOfWork()
         {
-            return new UnitOfWork(_context);
+            return new UnitOfWork();
         }
 
     }

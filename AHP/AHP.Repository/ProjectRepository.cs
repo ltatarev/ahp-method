@@ -18,13 +18,10 @@ namespace AHP.Repository
     {
         #region Constructor
 
-        IUnitOfWorkFactory uowFactory;
-
-        public ProjectRepository(AHPContext context, IMapper mapper, IUnitOfWorkFactory uowFactory)
+        public ProjectRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
             this.Mapper = mapper;
-            this.uowFactory = uowFactory;
         }
 
         #endregion Constructor
@@ -72,18 +69,17 @@ namespace AHP.Repository
 
         public async Task<IProjectModel> InsertProject(IProjectModel project)
         {
-            var unitOfWork = uowFactory.CreateUnitOfWork();
             var mapped = Mapper.Map<IProjectModel, Project>(project);
-            await unitOfWork.AddAsync(mapped);
-            await unitOfWork.CommitAsync();
+            Context.Projects.Add(mapped);
+            await Context.SaveChangesAsync();
             return project;
         }
 
         public async Task<bool> DeleteProject(int ProjectId)
         {
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var project = await Context.Projects.FindAsync(ProjectId);
-            Context.Projects.Remove(project);
+            var proj = await Context.Projects.FindAsync(ProjectId);
+            Context.Projects.Remove(proj);
+            await Context.SaveChangesAsync();
             return true;
         }
         public async Task<int> CountProjects()
