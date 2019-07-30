@@ -42,70 +42,78 @@
 @section scripts {
     <script>
 
-            var currentPage = @ViewBag.current;
-            //console.log(currentPage)
+    var currentPage = @ViewBag.current;
+    //console.log(currentPage)
 
-            var perPage = 10;
+    var perPage = 10;
 
-            let projectLen = @ViewBag.numOfProj;
+    let projectLen = @ViewBag.numOfProj;
 
-            let paginationLast = Math.ceil(projectLen / perPage);
+    let paginationLast = Math.ceil(projectLen / perPage);
 
             //// P A G I N A T I O N
-    if (currentPage == 1) {
-        // FIRST
-                $("#first").addClass("disabled");
-        $("#first").css("cursor", "not-allowed");
-        // CURRENT PREV
-        $("#currentPrev").css("display", "none");
-        // PREVIOUS
-                $("#prev").addClass("disabled");
-        $("#prev").css("cursor", "not-allowed");
-        // CURRENT NEXT
-                let currentNext = document.getElementById("currentNext");
-                let cn = currentPage + 1;
-                currentNext.innerHTML = cn;
-                $("#currentNext").click(function () {
-                        let cne = currentPage + 1;
-                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
-                        window.location.href = url.replace('__page__', cne);
-                });
-                       $("#next").click(function () {
-                        let cne = currentPage + 1;
-                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
-                        window.location.href = url.replace('__page__', cne);
-                       });
-                               $("#last").click(function () {
-                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
-                        window.location.href = url.replace('__page__', paginationLas);
-                   });
-    } else if (currentPage == (paginationLast - 1)) {
-     
-                   $("#next").addClass("disabled");
-        $("#next").css("cursor", "not-allowed");
-                           $("#last").addClass("disabled");
-        $("#last").css("cursor", "not-allowed");
-
-            } else {
-                   $("#prev").click(function () {
-                        let cn = currentPage - 1;
-                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
-                        window.location.href = url.replace('__page__', cn);
-                   });
-
-              }
-
-
-            let current = document.getElementById("current");
-            current.classList.add("active");
-            current.innerHTML = currentPage;
-            // if currpage+1 < last
-
-
-
-            //let last = document.getElementById("last");
-            //last.innerHTML = paginationLast;
-
+if (currentPage == 1) {
+  // FIRST
+  $("#first").addClass("disabled");
+  $("#first").css("cursor", "not-allowed");
+  // CURRENT PREV
+  $("#currentPrev").css("display", "none");
+  // PREVIOUS
+  $("#prev").addClass("disabled");
+  $("#prev").css("cursor", "not-allowed");
+  // CURRENT NEXT
+  let currentNext = document.getElementById("currentNext");
+  let cn = currentPage + 1;
+  currentNext.innerHTML = cn;
+  $("#currentNext").click(function() {
+    let cne = currentPage + 1;
+    var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+    window.location.href = url.replace("__page__", cne);
+  });
+  $("#next").click(function() {
+    let cne = currentPage + 1;
+    var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+    window.location.href = url.replace("__page__", cne);
+  });
+  $("#last").click(function() {
+    var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+    window.location.href = url.replace("__page__", paginationLas);
+  });
+} else if (currentPage == paginationLast - 1) {
+  $("#next").addClass("disabled");
+  $("#next").css("cursor", "not-allowed");
+  $("#last").addClass("disabled");
+  $("#last").css("cursor", "not-allowed");
+    // FIRST
+    $("#first").removeClass("disabled");
+    $("#first").css("cursor", "default");
+    // CURRENT PREV
+    $("#currentPrev").css("display", "");
+    $("#currentPrev").click(function() {
+        let cne = currentPage - 1;
+        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+        window.location.href = url.replace("__page__", cne);
+      });
+    // PREVIOUS
+    $("#prev").removeClass("disabled");
+    $("#prev").css("cursor", "default");
+    // CURRENT NEXT
+    $("#currentNext").css("display", "none");
+    $("#first").click(function() {
+      var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+      window.location.href = url.replace("__page__", 1);
+    });
+    $("#prev").click(function() {
+      var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+      window.location.href = url.replace("__page__", paginationLas-1);
+    });
+} else {
+  $("#prev").click(function() {
+    let cn = currentPage - 1;
+    var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+    window.location.href = url.replace("__page__", cn);
+  });
+}
 
             //------------------------------------------------------------------------------------
             var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
@@ -115,8 +123,9 @@
 
     for (let i = 0; i < 10; i++) {
         let page = (i + 1) + (currentPage - 1) * perPage;
-        if (page < projectLen) {
-                let row= document.createElement("tr");
+        if (page <= projectLen) {
+            console.log(page);
+                let row = document.createElement("tr");
 
                 let head = document.createElement("th");
                 head.setAttribute("scope", "row");

@@ -105,17 +105,17 @@
             flag = true;
         }
 
-
+         let id = @ViewBag.id
          for (let t of text) {
               // Values of each input field
               // console.log(t.value);
              data.push({
                  AlternativeName: t.value,
-                 ProjectId: @ViewBag.id
+                 ProjectId: id
              })
          };
 
-        //console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
             if (!flag) {
                 $.ajax({
                     contentType: 'application/json; charset=utf-8',
