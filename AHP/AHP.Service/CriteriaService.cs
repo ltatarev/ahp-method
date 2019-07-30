@@ -29,7 +29,6 @@ namespace AHP.Service
             {
 
                 await Repository.InsertCriteria(criteria);
-                await Repository.SaveAsync();
                 uow.Commit();
             }
             return true;
