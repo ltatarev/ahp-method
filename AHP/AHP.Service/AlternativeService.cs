@@ -187,7 +187,7 @@ namespace AHP.Service
         }
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
-<<<<<<< HEAD
+
             var order = 1;
             foreach (var alter in alternatives)
             {
@@ -197,15 +197,13 @@ namespace AHP.Service
                 order++;
                // alter.ProjectId = id;
             }
-            Repository.AddRange(alternatives);
-            await Repository.SaveAsync();
-=======
+
             using (var uow = uowFactory.CreateUnitOfWork())
             {
                 await Repository.AddRange(alternatives);
                 uow.Commit();
             }
->>>>>>> bc3958fcd4f25396d4790e0ee72781721f96633b
+
             return true;
         }
 

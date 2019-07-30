@@ -62,7 +62,6 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaModel> criteria)
         {
-<<<<<<< HEAD
             var order = 1;
             foreach (var crit in criteria)
             {
@@ -71,15 +70,12 @@ namespace AHP.Service
                 crit.Order = order;
                 order++;
             }
-            Repository.AddRange(criteria);
-            await Repository.SaveAsync();
-=======
             using (var uow = uowFactory.CreateUnitOfWork())
             {
                 await Repository.AddRange(criteria);
                 uow.Commit();
             }
->>>>>>> bc3958fcd4f25396d4790e0ee72781721f96633b
+
             return true;
         }
 
