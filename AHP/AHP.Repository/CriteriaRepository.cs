@@ -62,16 +62,19 @@ namespace AHP.Repository
             return mapped;
         }
 
-        public ICriteriaModel InsertCriteria(ICriteriaModel criteria)
+        public async Task<ICriteriaModel> InsertCriteria(ICriteriaModel criteria)
         {
             var mapped = Mapper.Map<ICriteriaModel, Criteria>(criteria);
-            Context.Criterias.Add(mapped);            
+            Context.Criterias.Add(mapped);
+            await Context.SaveChangesAsync();
             return criteria;
         }
 
-        public  List<ICriteriaModel> AddRange(List<ICriteriaModel> criteria)
+        public async Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria)
         {
-            Context.Criterias.AddRange(Mapper.Map<List<Criteria>>(criteria));
+            var mapped = Mapper.Map<List<Criteria>>(criteria);
+            Context.Criterias.AddRange(mapped);
+            await Context.SaveChangesAsync();
             return criteria;
         }
 
@@ -79,6 +82,7 @@ namespace AHP.Repository
         {
             var crit = await Context.Criterias.FindAsync(CriteriaID);
             Context.Criterias.Remove(crit);
+            await Context.SaveChangesAsync();
             return true;
         }
 

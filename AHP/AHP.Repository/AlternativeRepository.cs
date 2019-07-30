@@ -51,15 +51,18 @@ namespace AHP.Repository
             return Mapper.Map<List<IAlternativeModel>>(alternatives);
         }                
 
-        public  IAlternativeModel InsertAlternative(IAlternativeModel alternative)
+        public async Task<IAlternativeModel> InsertAlternative(IAlternativeModel alternative)
         {
             var mapped = Mapper.Map<Alternative>(alternative);
             Context.Alternatives.Add(mapped);
+            await Context.SaveChangesAsync();
             return alternative;
         }
-        public List<IAlternativeModel> AddRange(List<IAlternativeModel> alternatives)
+        public async Task<List<IAlternativeModel>> AddRange(List<IAlternativeModel> alternatives)
         {
-            Context.Alternatives.AddRange(Mapper.Map<List<Alternative>>(alternatives));
+            var mapped = Mapper.Map<List<Alternative>>(alternatives);
+            Context.Alternatives.AddRange(mapped);
+            await Context.SaveChangesAsync();
             return alternatives;
         }
 
@@ -67,6 +70,7 @@ namespace AHP.Repository
         {
             var alternative = await Context.Alternatives.FindAsync(AlternativeId);
             Context.Alternatives.Remove(alternative);
+            await Context.SaveChangesAsync();
             return true;
         }
         public async Task<IAlternativeModel> UpdateAlternative(IAlternativeModel alternative)

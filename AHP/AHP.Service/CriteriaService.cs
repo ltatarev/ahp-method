@@ -28,7 +28,7 @@ namespace AHP.Service
             using (var uow = uowFactory.CreateUnitOfWork())
             {
 
-                Repository.InsertCriteria(criteria);
+                await Repository.InsertCriteria(criteria);
                 await Repository.SaveAsync();
                 uow.Commit();
             }
@@ -65,7 +65,7 @@ namespace AHP.Service
         {
             using (var uow = uowFactory.CreateUnitOfWork())
             {
-                Repository.AddRange(criteria);
+                await Repository.AddRange(criteria);
                 await Repository.SaveAsync();
                 uow.Commit();
             }

@@ -31,8 +31,7 @@ namespace AHP.Service
         {
             using (var uow = uowFactory.CreateUnitOfWork())
             {
-                ProjectRepository.InsertProject(project);
-                await ProjectRepository.SaveAsync();
+                await ProjectRepository.InsertProject(project);
                 uow.Commit();
             }
             return true;

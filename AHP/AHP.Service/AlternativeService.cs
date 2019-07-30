@@ -189,7 +189,7 @@ namespace AHP.Service
         {
             using (var uow = uowFactory.CreateUnitOfWork())
             {
-                Repository.AddRange(alternatives);
+                await Repository.AddRange(alternatives);
                 await Repository.SaveAsync();
                 uow.Commit();
             }

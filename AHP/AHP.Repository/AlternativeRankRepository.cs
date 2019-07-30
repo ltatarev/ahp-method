@@ -44,10 +44,11 @@ namespace AHP.Repository
             return Mapper.Map<IAlternativeRankModel>(alterRank);
         }
 
-        public IAlternativeRankModel InsertAlternativeRank(IAlternativeRankModel alterRank)
+        public async Task<IAlternativeRankModel> InsertAlternativeRank(IAlternativeRankModel alterRank)
         {
             var mapped = Mapper.Map<Project>(alterRank);
-            Context.Projects.Add(mapped);            
+            Context.Projects.Add(mapped);
+            await Context.SaveChangesAsync();
             return alterRank;
         }
 
@@ -55,11 +56,14 @@ namespace AHP.Repository
         {
             var alterRank = await Context.AlternativeRanks.FindAsync(alterRankId);
             Context.AlternativeRanks.Remove(alterRank);
+            await Context.SaveChangesAsync();
             return true;
         }
-        public List<IAlternativeRankModel> AddRange(List<IAlternativeRankModel> alternativeRanks)
+        public async Task<List<IAlternativeRankModel>> AddRange(List<IAlternativeRankModel> alternativeRanks)
         {
-            Context.AlternativeRanks.AddRange(Mapper.Map<List<AlternativeRank>>(alternativeRanks));
+            var mapped = Mapper.Map<List<AlternativeRank>>(alternativeRanks);
+            Context.AlternativeRanks.AddRange(mapped);
+            await Context.SaveChangesAsync();
             return alternativeRanks;
         }
 

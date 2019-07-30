@@ -53,10 +53,11 @@ namespace AHP.Repository
             return Mapper.Map<Project, IProjectModel>(project);
         }
 
-        public IProjectModel InsertProject(IProjectModel project)
+        public async Task<IProjectModel> InsertProject(IProjectModel project)
         {
             var mapped = Mapper.Map<IProjectModel, Project>(project);
             Context.Projects.Add(mapped);
+            await Context.SaveChangesAsync();
             return project;
         }
 
@@ -64,6 +65,7 @@ namespace AHP.Repository
         {
             var proj = await Context.Projects.FindAsync(ProjectId);
             Context.Projects.Remove(proj);
+            await Context.SaveChangesAsync();
             return true;
         }
         public async Task<int> SaveAsync()

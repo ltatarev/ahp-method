@@ -27,7 +27,7 @@ namespace AHP.Service
         {
             using (var uow = uowFactory.CreateUnitOfWork())
             {
-                Repository.AddRange(criteriaRanks);
+                await Repository.AddRange(criteriaRanks);
                 await Repository.SaveAsync();
                 uow.Commit();
             }

@@ -13,8 +13,8 @@ namespace AHP.Repository.Common
     {
         Task<List<ICriteriaRankModel>> GetCriteriaRanks(int pageNumber, int pageSize);
         Task<ICriteriaRankModel> GetCriteriaRankById(int criteriaRankId);
-        ICriteriaRankModel InsertCriteriaRank(ICriteriaRankModel criteriaRank);
-        List<ICriteriaRankModel> AddRange(List<ICriteriaRankModel> criteriaRanks);
+        Task<ICriteriaRankModel> InsertCriteriaRank(ICriteriaRankModel criteriaRank);
+        Task<List<ICriteriaRankModel>> AddRange(List<ICriteriaRankModel> criteriaRanks);
         Task<bool> DeleteCriteriaRank(int criterRankId);
         Task<int> SaveAsync();
     }
