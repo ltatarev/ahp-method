@@ -77,7 +77,8 @@ namespace AHP.Repository
         {
             var alternativeInDb = await Context.Alternatives.FindAsync(alternative.AlternativeId);
             Context.Entry(alternativeInDb).CurrentValues.SetValues(Mapper.Map<Alternative>(alternative));
-            
+            await Context.SaveChangesAsync();
+
             return alternative;
 
         }

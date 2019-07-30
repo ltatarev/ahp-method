@@ -203,7 +203,6 @@ namespace AHP.Service
                 alternativeInDb.DateUpdated = DateTime.Now;
                 alternativeInDb.FinalPriority = alternative.FinalPriority;
                 await Repository.UpdateAlternative(alternativeInDb);
-                await Repository.SaveAsync();
                 uow.Commit();
                 return alternativeInDb;
             }
