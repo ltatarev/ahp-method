@@ -46,7 +46,8 @@ namespace AHP.Repository
 
         public async Task<IProjectModel> CompareProjects(string projectName, string userName)
         {
-            var project = await Context.Projects.Where(p => p.ProjectName == projectName).Where(p => p.Username == userName).FirstOrDefaultAsync();
+            //var project = await Context.Projects.Where(p => p.ProjectName == projectName).Where(p => p.Username == userName).FirstOrDefaultAsync();
+            var project = await Context.Projects.FirstOrDefaultAsync(p => p.ProjectName == projectName && p.Username == userName);
             return Mapper.Map<IProjectModel>(project);
         }
 
