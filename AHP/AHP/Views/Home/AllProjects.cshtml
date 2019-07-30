@@ -1,6 +1,6 @@
 ﻿@model  List<AHP.Models.ProjectView>
 
-<button class="btn btnLetter btn-light" onclick="location.href='@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+<button class="btn btnLetter btn-light" onclick="location.href = '@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
 <div class="row pt-5 mt-2">
     <div class="col text-md-left text-sm-center">
         <h1 id="MainTitle">AHP METHOD</h1>
@@ -28,12 +28,13 @@
 
 <nav class="navbar navbar-light justify-content-center">
     <form class="form-inline bg-light">
-        <button class="btn btn-sm btn-outline-secondary" type="button" id="prev">Previous</button>
-        <button class="btn btn-sm btn-success" type="button" id="current">0</button>
+        <button class="btn btn-sm btn-outline-info" type="button" id="first">First</button>
+        <button class="btn btn-sm btn-outline-secondary" type="button" id="prev">Prev</button>
+        <button class="btn btn-sm btn-outline-primary" type="button" id="currentPrev">0</button>
+        <button class="btn btn-sm btn-outline-primary" type="button" id="current">0</button>
         <button class="btn btn-sm btn-outline-primary" type="button" id="currentNext">0</button>
-        <button class="btn btn-sm btn-outline-primary disabled" type="button" style="cursor: not-allowed">...</button>
-        <button class="btn btn-sm btn-outline-primary" type="button" id="last">0</button>
-        <button class="btn btn-sm btn-outline-secondary" type="button" id="prev">Next</button>
+        <button class="btn btn-sm btn-outline-secondary" type="button" id="next">Next</button>
+        <button class="btn btn-sm btn-outline-info" type="button" id="last">Last</button>
     </form>
 </nav>
 
@@ -41,107 +42,126 @@
 @section scripts {
     <script>
 
-    var currentPage = @ViewBag.current;
-    console.log(currentPage)
+            var currentPage = @ViewBag.current;
+            //console.log(currentPage)
 
-    var perPage = 10;
+            var perPage = 10;
 
-    let projectLen = @ViewBag.numOfProj;
+            let projectLen = @ViewBag.numOfProj;
 
-    let paginationLast = Math.ceil(projectLen / perPage);
+            let paginationLast = Math.ceil(projectLen / perPage);
 
-    // pagination
+            //// P A G I N A T I O N
     if (currentPage == 1) {
-        $("#prev").addClass("disabled");
+        // FIRST
+                $("#first").addClass("disabled");
+        $("#first").css("cursor", "not-allowed");
+        // CURRENT PREV
+        $("#currentPrev").css("display", "none");
+        // PREVIOUS
+                $("#prev").addClass("disabled");
         $("#prev").css("cursor", "not-allowed");
-    } else {
-        $("#prev").removeClass("disabled");
-        $("#prev").attr("onclick", previous)
-    }
-    
-    function previous() {
-        let cn = currentPage - 1;
-        $.ajax({
-            type: 'GET',
-            url: '/Home/AllProjects',
-            data: { page: cn },
-            success: function (result) { }
-        })
-    }
-    
+        // CURRENT NEXT
+                let currentNext = document.getElementById("currentNext");
+                let cn = currentPage + 1;
+                currentNext.innerHTML = cn;
+                $("#currentNext").click(function () {
+                        let cne = currentPage + 1;
+                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+                        window.location.href = url.replace('__page__', cne);
+                });
+                       $("#next").click(function () {
+                        let cne = currentPage + 1;
+                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+                        window.location.href = url.replace('__page__', cne);
+                       });
+                               $("#last").click(function () {
+                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+                        window.location.href = url.replace('__page__', paginationLas);
+                   });
+    } else if (currentPage == (paginationLast - 1)) {
+     
+                   $("#next").addClass("disabled");
+        $("#next").css("cursor", "not-allowed");
+                           $("#last").addClass("disabled");
+        $("#last").css("cursor", "not-allowed");
+
+            } else {
+                   $("#prev").click(function () {
+                        let cn = currentPage - 1;
+                        var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+                        window.location.href = url.replace('__page__', cn);
+                   });
+
+              }
 
 
-    let current = document.getElementById("current");
-    current.innerHTML = currentPage;
-    // if currpage+1 < last
-    let currentNext = document.getElementById("currentNext");
-    let cn = currentPage + 1;
-    currentNext.innerHTML = cn;
-    
-
-    let last = document.getElementById("last");
-    last.innerHTML = paginationLast;
+            let current = document.getElementById("current");
+            current.classList.add("active");
+            current.innerHTML = currentPage;
+            // if currpage+1 < last
 
 
 
-    var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
-    //console.log(uploadedListProjects)
+            //let last = document.getElementById("last");
+            //last.innerHTML = paginationLast;
 
-    let body = document.getElementById("projectBody");
 
-    for (let i = 0; i < 10; i++ ) {
-                    let row = document.createElement("tr");
+            //------------------------------------------------------------------------------------
+            var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
+            //console.log(uploadedListProjects)
 
-                    let head = document.createElement("th");
+            let body = document.getElementById("projectBody");
+
+    for (let i = 0; i < 10; i++) {
+        let page = (i + 1) + (currentPage - 1) * perPage;
+        if (page < projectLen) {
+                let row= document.createElement("tr");
+
+                let head = document.createElement("th");
                 head.setAttribute("scope", "row");
-                head.innerHTML = (i + 1) + (currentPage-1)*perPage;
-                    row.append(head);
+                head.innerHTML = (i + 1) + (currentPage - 1) * perPage;
+                row.append(head);
 
-                    let username = document.createElement("td");
-                        username.innerHTML = uploadedListProjects[i].Username;
-                    row.append(username);
-                    let projectName = document.createElement("td");
-                        projectHref = document.createElement("a");
-                        projectHref.setAttribute("href", `./ChooseProject/` + uploadedListProjects[i].ProjectId);
-                        projectHref.innerHTML = uploadedListProjects[i].ProjectName;
-                    projectName.append(projectHref);
-                    row.append(projectName);
+                let username = document.createElement("td");
+                username.innerHTML = uploadedListProjects[i].Username;
+                row.append(username);
+                let projectName = document.createElement("td");
+                projectHref = document.createElement("a");
+                projectHref.setAttribute("href", `./ChooseProject/` + uploadedListProjects[i].ProjectId);
+                projectHref.innerHTML = uploadedListProjects[i].ProjectName;
+                projectName.append(projectHref);
+                row.append(projectName);
 
-                    let details = document.createElement("td");
-                    let detailsButton = document.createElement("button");
-                        detailsButton.classList.add("btn", "btn-outline-info", "btn-sm", "btnLetter");
-                        detailsButton.setAttribute("id", i);
-                        detailsButton.innerHTML = "Details";
-                        details.append(detailsButton);
-                    row.append(details);
+                let details = document.createElement("td");
+                let detailsButton = document.createElement("button");
+                detailsButton.classList.add("btn", "btn-outline-info", "btn-sm", "btnLetter");
+                detailsButton.setAttribute("id", i);
+                detailsButton.innerHTML = "Details";
+                details.append(detailsButton);
+                row.append(details);
 
-                    body.append(row);
+                body.append(row);
 
-                    let detailsRow = document.createElement("tr");
-                        detailsRow.setAttribute("colspan", 100);
-                    let tempId = `desc` + i;
-                        detailsRow.setAttribute("id", tempId);
+                let detailsRow = document.createElement("tr");
+                detailsRow.setAttribute("colspan", 100);
+                let tempId = `desc` + i;
+                detailsRow.setAttribute("id", tempId);
 
-                    let detailsDesc = document.createElement("td");
-                        detailsDesc.innerHTML = uploadedListProjects[i].Description;
-                        detailsRow.append(detailsDesc);
-                        detailsRow.setAttribute("style", "display: none;");
-                    body.append(detailsRow);
-                }
+            let detailsDesc = document.createElement("td");
+                detailsDesc.setAttribute("colspan", 100);
+                detailsDesc.innerHTML = uploadedListProjects[i].Description;
+                detailsRow.append(detailsDesc);
+                detailsRow.setAttribute("style", "display: none;");
+                body.append(detailsRow);
+            }
+        }
 
     $('button').click(function () {
         let id = parseInt(this.id);
         let descId = `#desc` + (id.toString());
         $(descId).toggle();
     })
-
-
-
-
-
-
-
-
 
     </script>
 }

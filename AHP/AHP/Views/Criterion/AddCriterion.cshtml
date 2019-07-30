@@ -5,7 +5,8 @@
     ViewBag.Title = "AddCriterion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 <h1 id="SubTitle">Add criteria</h1>
 
 @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
@@ -25,13 +26,12 @@
         </div>
     </div>
     <div class="row p-2">
-        <div class="col-6 col-md-4" id="criteria">
+        <div class="col-6 col-md-4 pb-2" id="criteria">
             @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
         </div>
     </div>
 }
-<!-- LOADER -->
-<div class="loader" id="divLoader" style="display:none;"></div>
+
 
 @section scripts {
     <script>
@@ -50,11 +50,11 @@
     function addCriterion() {
         if (numOfCriteria < 10) {
             let formRow = document.createElement("div");
-            formRow.classList.add("row","p-2");
+            formRow.classList.add("row","pl-2","pr-1");
             let formCol = document.createElement("div");
             formCol.classList.add("col-6", "col-md-4");
             let formGroup = document.createElement("div");
-            formGroup.classList.add("form-group"),
+            formGroup.classList.add("form-group")
             formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete="off" })`;
             formCol.appendChild(formGroup);
             formRow.appendChild(formCol);

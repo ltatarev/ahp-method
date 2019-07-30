@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 
-            <h1 id="SubTitle">Edit criteria</h1>
-            <h3 class="text-light font-italic">Input your preferences</h3>
+<h1 id="SubTitle">Edit criteria</h1>
+<h3 class="text-light font-italic">Input your preferences</h3>
 
 <div class="container justify-content-md-center rounded shadow text-center text-dark p-3 pt-5 bg-white">
     @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
@@ -21,8 +23,6 @@
     }
     <div id="EditCriterionForm"></div>
 </div>
-<!-- LOADER -->
-<div class="loader" id="divLoader" style="display:none;"></div>
 
 @section scripts {
     <script>

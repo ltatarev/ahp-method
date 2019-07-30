@@ -86,7 +86,7 @@
 
         $("#AddAlternativeForm").on("submit", function () {
          event.preventDefault();
-         var url = '@Url.Action("AddNewAlternative", "Alternative", new { id = @ViewBag.id })';
+         var url = '@Url.Action("AddNewAlternative", "Alternative")';
          var data = [];
 
          // Find all input fields
@@ -110,7 +110,8 @@
               // Values of each input field
               // console.log(t.value);
              data.push({
-                 AlternativeName: t.value
+                 AlternativeName: t.value,
+                 ProjectId: @ViewBag.id
              })
          };
 

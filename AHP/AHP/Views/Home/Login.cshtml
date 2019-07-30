@@ -2,8 +2,9 @@
 
 <!-- ADDING NEW PROJECT -->
 
-<button class="btn btnLetter btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
-
+<button class="btn btnLetter btn-light" onclick="location.href='@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 <h3 id="SubTitle" class="text-light text-md-left text-sm-center">Add new project</h3>
 
 <div class="col-12 ml-5">
@@ -39,16 +40,16 @@
     }
 </div>
 
-    <!-- LOADER -->
-    <div class="loader" id="divLoader" style="display:none;"></div>
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
 
 
-    @section scripts {
-        <script>
-            $("form").submit(function () {
-                $("#divLoader").show("fast");
-                $('.container').css("filter", "blur(0.5px)");
-            })
-        </script>
+@section scripts {
+    <script>
+        $("form").submit(function () {
+            $("#divLoader").show("fast");
+            $('.container').css("filter", "blur(0.5px)");
+        })
+    </script>
 
-    }
+}
