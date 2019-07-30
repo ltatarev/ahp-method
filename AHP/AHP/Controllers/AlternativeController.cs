@@ -13,7 +13,7 @@ namespace AHP.Controllers
 {
     public class AlternativeController : Controller
     {
-
+        #region ctor and properties
         public AlternativeController(IAlternativeService alternativeService,
                                     ICriteriaService criteriaService,
                                     IAlternativeRankService alternativeRankService,
@@ -28,6 +28,7 @@ namespace AHP.Controllers
         IAlternativeService AlternativeService;
         IAlternativeRankService AlternativeRankService;
         IMapper _mapper;
+        #endregion
 
         // GET: Alterntive/AddAlternative
         public ActionResult AddAlternative(int id)
@@ -58,20 +59,21 @@ namespace AHP.Controllers
 
         // POST: Alterntive/AddNewAlternative
         [HttpPost]
-        public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives, int id)
+        public async Task<JsonResult> AddNewAlternative(List<AlternativeView> alternatives)
         {
             if (ModelState.IsValid)
             {
-                var order = 1;
+                
                 var mapped = _mapper.Map<List<IAlternativeModel>>(alternatives);
-                foreach (var alter in mapped)
-                {
-                    alter.DateCreated = DateTime.Now;
-                    alter.DateUpdated = DateTime.Now;
-                    alter.Order = order;
-                    order++;
-                    alter.ProjectId = id;
-                }
+                //var order = 1;
+                //foreach (var alter in mapped)
+                //{
+                //    alter.DateCreated = DateTime.Now;
+                //    alter.DateUpdated = DateTime.Now;
+                //    alter.Order = order;
+                //    order++;
+                //    alter.ProjectId = id;
+                //}
 
                 var status = await AlternativeService.AddRange(mapped);
 

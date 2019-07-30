@@ -185,6 +185,15 @@ namespace AHP.Service
         }
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
+            var order = 1;
+            foreach (var alter in alternatives)
+            {
+                alter.DateCreated = DateTime.Now;
+                alter.DateUpdated = DateTime.Now;
+                alter.Order = order;
+                order++;
+               // alter.ProjectId = id;
+            }
             Repository.AddRange(alternatives);
             await Repository.SaveAsync();
             return true;

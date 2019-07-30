@@ -37,8 +37,7 @@ namespace AHP.Controllers
             return View();
         }
 
-        // GET: Home/AllProjects
-        // public async Task<ActionResult> AllProjects()
+        // GET: Home/AllProjects        
         public async Task<ActionResult> AllProjects(int page = 1)
         {
             // Display view with first 10 projects
@@ -96,9 +95,8 @@ namespace AHP.Controllers
                 }
                 else
                 {
-                    mapped.DateCreated = DateTime.Now;
-                    mapped.DateUpdated = DateTime.Now;
                     var status = await ProjectService.AddProjectAsync(mapped);
+
                     var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
 
                     return RedirectToAction("AddCriterion", "Criterion", new { id = pro.ProjectId });

@@ -14,6 +14,7 @@ namespace AHP.Controllers
 {
     public class CriterionController : Controller
     {
+        #region ctor and property
         public CriterionController(ICriteriaService criteriaService, ICriteriaRankService criteriaRankService, IMapper mapper)
         {
             this._mapper = mapper;
@@ -23,6 +24,7 @@ namespace AHP.Controllers
         public IMapper _mapper { get; set; }
         public ICriteriaService CriteriaService { get; set; }
         public ICriteriaRankService CriteriaRankService;
+        #endregion
 
         // GET: Criterion/AddCriterion
         public ActionResult AddCriterion(int id)
@@ -38,16 +40,7 @@ namespace AHP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);
-                var order = 1;
-                foreach (var crit in mapped)
-                {
-                    crit.DateCreated = DateTime.Now;
-                    crit.DateUpdated = DateTime.Now;
-                    crit.Order = order;
-                    order++;
-                }
-
+                var mapped = _mapper.Map<List<ICriteriaModel>>(Criteria);           
                 var status = await CriteriaService.AddRange(mapped);
                 return Json("Success");
             }
@@ -61,7 +54,6 @@ namespace AHP.Controllers
         // GET: Criterion/EditCriterion
         public async Task<ActionResult> EditCriteria(int id)
         {
-            // IList<CriterionView> Criteria = new List<CriterionView>();
             var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
             var CriterionView = _mapper.Map<List<CriterionView>>(CriteriasInProject);
             ViewBag.id = id;
@@ -74,14 +66,8 @@ namespace AHP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);
-                foreach (var cr in mapped)
-                {
-                    cr.DateCreated = DateTime.Now;
-                    cr.DateUpdated = DateTime.Now;
-                }
+                var mapped = _mapper.Map<List<ICriteriaRankModel>>(CriteriaRank);               
                 await CriteriaRankService.AddRange(mapped);
-
                 return Json("Success");
             }
             else

@@ -23,6 +23,11 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaRankModel> criteriaRanks)
         {
+            foreach (var cr in criteriaRanks)
+            {
+                cr.DateCreated = DateTime.Now;
+                cr.DateUpdated = DateTime.Now;
+            }
             Repository.AddRange(criteriaRanks);
             await Repository.SaveAsync();
             return true;

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AHP.Service.Common;
 using AHP.Repository.Common;
 using AHP.Model.Common.Model_Interfaces;
+using System;
 
 namespace AHP.Service
 {
@@ -51,7 +52,15 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaModel> criteria)
         {
-             Repository.AddRange(criteria);
+            var order = 1;
+            foreach (var crit in criteria)
+            {
+                crit.DateCreated = DateTime.Now;
+                crit.DateUpdated = DateTime.Now;
+                crit.Order = order;
+                order++;
+            }
+            Repository.AddRange(criteria);
             await Repository.SaveAsync();
             return true;
         }

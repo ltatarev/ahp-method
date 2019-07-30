@@ -29,7 +29,8 @@ namespace AHP.Service
         
        public async Task<IProjectModel>AddProjectAsync(IProjectModel project)
         {
-         
+            project.DateCreated = DateTime.Now;
+            project.DateUpdated = DateTime.Now;
             await ProjectRepository.InsertProject(project);
           
             return project;

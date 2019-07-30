@@ -11,6 +11,8 @@ namespace AHP.Models
         public int Order { get; set; }
         public string AlternativeName { get; set; }
         public double FinalPriority { get; set; }
+        public int ProjectId { get; set; }
+
 
     }
 }
