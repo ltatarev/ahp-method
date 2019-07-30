@@ -12,7 +12,7 @@
     <div class="col-12">
         <div class="row">
             <table class="table w-50 m-auto text-centershadow table-striped table-light rounded table-borderless table-hover">
-                <thead class="thead-light">
+                <thead class="thead-light rounded">
                     <tr class="font-weight-bold">
                         <th scope="col" style="width: 16.66%">#</th>
                         <th scope="col">Username</th>
@@ -31,7 +31,7 @@
         <button class="btn btn-sm btn-outline-info m-1" type="button" id="first">First</button>
         <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="prev">Prev</button>
         <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentPrev">0</button>
-        <button class="btn btn-sm btn-outline-primary m-1" type="button" id="current">0</button>
+        <button class="btn btn-sm btn-outline-success m-1" type="button" id="current">0</button>
         <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentNext">0</button>
         <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="next">Next</button>
         <button class="btn btn-sm btn-outline-info m-1" type="button" id="last">Last</button>
@@ -195,12 +195,12 @@ if (projectLen < 10) {
                 body.append(row);
 
                 let detailsRow = document.createElement("tr");
-                detailsRow.setAttribute("colspan", 100);
                 let tempId = `desc` + i;
                 detailsRow.setAttribute("id", tempId);
 
             let detailsDesc = document.createElement("td");
                 detailsDesc.setAttribute("colspan", 100);
+                detailsDesc.classList.add("text-center");
                 detailsDesc.innerHTML = uploadedListProjects[i].Description;
                 detailsRow.append(detailsDesc);
                 detailsRow.setAttribute("style", "display: none;");
