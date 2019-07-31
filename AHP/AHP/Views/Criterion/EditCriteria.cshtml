@@ -11,7 +11,7 @@
 <h1 id="SubTitle">Edit criteria</h1>
 <h3 class="text-light font-italic">Input your preferences</h3>
 
-<div class="container justify-content-md-center rounded shadow text-center text-dark p-3 pt-5 bg-white">
+<div class="container justify-content-md-center rounded shadow text-center text-dark p-2 pt-5 bg-white" id="formDiv">
     @using (Html.BeginForm("EditCriterionPreference", "Criterion", FormMethod.Post, new { id = "EditCriterionForm" }))
     {
         @Html.AntiForgeryToken()
@@ -191,6 +191,7 @@
             data: JSON.stringify(data),
             beforeSend: function () {
                 $("#divLoader").show("slow");
+                $("#formDiv").fadeOut("fast");
                 $('.container').css("filter", "blur(1px)");
                 },
             success: function (response) {

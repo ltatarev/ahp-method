@@ -129,8 +129,9 @@
             type: 'POST',
             url: url,
             data: JSON.stringify(data),
-                        beforeSend: function () {
+            beforeSend: function () {
                 $("#divLoader").show("slow");
+                $("#AddCriterionForm").hide()
                 $('.container').css("filter", "blur(1px)");
                 },
             success: function (response) {
