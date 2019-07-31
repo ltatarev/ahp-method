@@ -59,13 +59,9 @@
     <Compile Include="Entities\CriteriaRank.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="IAHPContext.cs" />
-    <Compile Include="Migrations\201907261103034_initial.cs" />
-    <Compile Include="Migrations\201907261103034_initial.Designer.cs">
-      <DependentUpon>201907261103034_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907281950123_changedToDouble.cs" />
-    <Compile Include="Migrations\201907281950123_changedToDouble.Designer.cs">
-      <DependentUpon>201907281950123_changedToDouble.cs</DependentUpon>
+    <Compile Include="Migrations\201907311138358_init.cs" />
+    <Compile Include="Migrations\201907311138358_init.Designer.cs">
+      <DependentUpon>201907311138358_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,11 +71,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907261103034_initial.resx">
-      <DependentUpon>201907261103034_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907281950123_changedToDouble.resx">
-      <DependentUpon>201907281950123_changedToDouble.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907311138358_init.resx">
+      <DependentUpon>201907311138358_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

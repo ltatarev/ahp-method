@@ -12,12 +12,12 @@ namespace AHP.Repository.Common
 	public interface IAlternativeRepository
 	{
         Task<List<IAlternativeModel>> GetAlternativesAsync(int pageNumber, int pageSize);
-        Task<IAlternativeModel> GetAlternativeById(int alternativeId);
-        Task<List<IAlternativeModel>> GetAlternativesByProjectId(int ProjectId, int pageNumber, int pageSize = 10);
+        Task<IAlternativeModel> GetAlternativeById(Guid alternativeId);
+        Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid ProjectId, int pageNumber, int pageSize = 10);
         Task<IAlternativeModel> InsertAlternative(IAlternativeModel alternative);
         Task<List<IAlternativeModel>> AddRange(List<IAlternativeModel> alternatives);
         Task<IAlternativeModel> UpdateAlternative(IAlternativeModel alternative);
-        Task<bool> DeleteAlternative(int AlternativeId);
+        Task<bool> DeleteAlternative(Guid AlternativeId);
         Task<int> SaveAsync();
     }
 }

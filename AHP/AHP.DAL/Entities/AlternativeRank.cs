@@ -11,8 +11,7 @@ namespace AHP.DAL.Entities
     public class AlternativeRank
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AlternativeRankId { get; set; }
+        public Guid AlternativeRankId { get; set; }
         public int Alternative1 { get; set; }
         public int Alternative2 { get; set; }
         public double Preference { get; set; }
@@ -20,7 +19,7 @@ namespace AHP.DAL.Entities
         public DateTime DateUpdated { get; set; }
 
 
-        public int CriteriaId { get; set; }
+        public Guid CriteriaId { get; set; }
         public Criteria Criteria { get; set; }
     }
 }

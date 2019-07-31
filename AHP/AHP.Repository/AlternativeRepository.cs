@@ -39,13 +39,13 @@ namespace AHP.Repository
             return Mapper.Map<List<IAlternativeModel>>(alternatives);
         }
 
-        public async Task<IAlternativeModel> GetAlternativeById(int alternativeId)
+        public async Task<IAlternativeModel> GetAlternativeById(Guid alternativeId)
         {
             var alternative = await Context.Alternatives.FindAsync(alternativeId);
             return Mapper.Map<IAlternativeModel>(alternative);
         }                
 
-        public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(int ProjectId, int pageNumber, int pageSize=10)
+        public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid ProjectId, int pageNumber, int pageSize=10)
         {
             var alternatives = await Context.Alternatives.Where(a => a.ProjectId == ProjectId).OrderBy(a => a.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return Mapper.Map<List<IAlternativeModel>>(alternatives);
@@ -66,7 +66,7 @@ namespace AHP.Repository
             return alternatives;
         }
 
-        public async Task<bool> DeleteAlternative(int AlternativeId)
+        public async Task<bool> DeleteAlternative(Guid AlternativeId)
         {
             var alternative = await Context.Alternatives.FindAsync(AlternativeId);
             Context.Alternatives.Remove(alternative);

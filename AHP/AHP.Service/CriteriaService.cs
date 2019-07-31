@@ -34,7 +34,7 @@ namespace AHP.Service
             }
             return true;
         }
-        public async Task<bool> DeleteCriteria(int criteriaId)
+        public async Task<bool> DeleteCriteria(Guid criteriaId)
         {
             using (var uow = uowFactory.CreateUnitOfWork())
             {
@@ -48,13 +48,13 @@ namespace AHP.Service
             var criterias = await Repository.GetCriteriasAsync(pageNumber, pageSize);
             return criterias;
         }
-        public async Task<List<ICriteriaModel>> GetCriteriasByProjectId(int projectId,int pageNumber, int pageSize = 10)
+        public async Task<List<ICriteriaModel>> GetCriteriasByProjectId(Guid projectId,int pageNumber, int pageSize = 10)
         {
             var criterias = await Repository.GetCriteriasByProjectId(projectId, pageNumber, pageSize);
             return criterias;
         }
 
-        public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(int projectId)
+        public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId)
         {
             var criterias = await Repository.GetCriteriasByProjectIdWithCRaAR(projectId);
             return criterias;
@@ -62,6 +62,7 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaModel> criteria)
         {
+            Guid g;
             var order = 1;
             foreach (var crit in criteria)
             {

@@ -38,7 +38,7 @@ namespace AHP.Repository
             return Mapper.Map<List<IAlternativeRankModel>>(alternativeRanks);
         }
 
-        public async Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(int alterRankId)
+        public async Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(Guid alterRankId)
         {
             var alterRank = await Context.AlternativeRanks.FindAsync(alterRankId);
             return Mapper.Map<IAlternativeRankModel>(alterRank);
@@ -52,7 +52,7 @@ namespace AHP.Repository
             return alterRank;
         }
 
-        public async Task<bool> DeleteAlternativeRank(int alterRankId)
+        public async Task<bool> DeleteAlternativeRank(Guid alterRankId)
         {
             var alterRank = await Context.AlternativeRanks.FindAsync(alterRankId);
             Context.AlternativeRanks.Remove(alterRank);

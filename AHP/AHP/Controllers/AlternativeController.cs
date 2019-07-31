@@ -31,7 +31,7 @@ namespace AHP.Controllers
         #endregion
 
         // GET: Alterntive/AddAlternative
-        public ActionResult AddAlternative(int id)
+        public ActionResult AddAlternative(Guid id)
         {
             // Display View with form for adding Alternatives
             ViewBag.id = id;
@@ -39,7 +39,7 @@ namespace AHP.Controllers
         }
 
         // GET: Alterntive/EditAlternative
-        public async Task<ActionResult> EditAlternative(int id)
+        public async Task<ActionResult> EditAlternative(Guid id)
         {
             ViewBag.id = id;
             var alternatives = await AlternativeService.GetAlternativesByProjectId(id, 1);

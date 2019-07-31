@@ -10,7 +10,7 @@ namespace AHP.Service.Common
     public interface IAlternativeService
     {
         Task<bool> AddRange(List<IAlternativeModel> alternatives);
-        Task<List<IAlternativeModel>> GetAlternativesByProjectId(int projectId, int pageNumber, int pageSize = 10);
+        Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid projectId, int pageNumber, int pageSize = 10);
         Task<IAlternativeModel> Update(IAlternativeModel alternative);
     }
 }

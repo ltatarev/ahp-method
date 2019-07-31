@@ -49,7 +49,7 @@ namespace AHP.Repository
         }
 
 
-        public async Task<IProjectModel> GetProjectsByIdWithAandC(int id)
+        public async Task<IProjectModel> GetProjectsByIdWithAandC(Guid id)
         {
             var project = await Context.Projects.Where(p => p.ProjectId == id).
                                                  Include(p => p.Alternatives).
@@ -61,7 +61,7 @@ namespace AHP.Repository
         }
 
 
-        public async Task<IProjectModel> GetProjectByIdAsync(int ProjectId)
+        public async Task<IProjectModel> GetProjectByIdAsync(Guid ProjectId)
         {
             var project = await Context.Projects.FindAsync(ProjectId);
             return Mapper.Map<Project, IProjectModel>(project);
@@ -75,7 +75,7 @@ namespace AHP.Repository
             return project;
         }
 
-        public async Task<bool> DeleteProject(int ProjectId)
+        public async Task<bool> DeleteProject(Guid ProjectId)
         {
             var proj = await Context.Projects.FindAsync(ProjectId);
             Context.Projects.Remove(proj);

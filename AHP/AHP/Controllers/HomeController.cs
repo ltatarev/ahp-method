@@ -52,7 +52,7 @@ namespace AHP.Controllers
 
         // POST: Home/ChooseProject
         
-        public async Task<ActionResult> ChooseProject(int id)
+        public async Task<ActionResult> ChooseProject(Guid id)
         {
             var project = await ProjectService.GetProjectsByIdWithAandC(id);
             if (project.Criterias.Count == 0)
@@ -85,6 +85,7 @@ namespace AHP.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateProject(ProjectView project)
         {
+            Guid id = Guid.NewGuid();
             if (ModelState.IsValid)
             {
                 var mapped = _mapper.Map<ProjectView, IProjectModel>(project);
@@ -95,11 +96,11 @@ namespace AHP.Controllers
                 }
                 else
                 {
+                    mapped.ProjectId = id;
                     var status = await ProjectService.AddProjectAsync(mapped);
 
-                    var pro = await ProjectService.CompareProjects(mapped.ProjectName, mapped.Username);
 
-                    return RedirectToAction("AddCriterion", "Criterion", new { id = pro.ProjectId });
+                    return RedirectToAction("AddCriterion", "Criterion", new { id = id });
                 }
             }
             return View();

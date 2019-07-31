@@ -10,7 +10,7 @@ namespace AHP.Models
         public int Alternative1 { get; set; }
         public int Alternative2 { get; set; }
         public float Preference { get; set; }
-        public int CriteriaId { get; set; }
+        public Guid CriteriaId { get; set; }
 
     }
 }

@@ -12,10 +12,10 @@ namespace AHP.Repository.Common
     public interface ICriteriaRankRepository
     {
         Task<List<ICriteriaRankModel>> GetCriteriaRanks(int pageNumber, int pageSize);
-        Task<ICriteriaRankModel> GetCriteriaRankById(int criteriaRankId);
+        Task<ICriteriaRankModel> GetCriteriaRankById(Guid criteriaRankId);
         Task<ICriteriaRankModel> InsertCriteriaRank(ICriteriaRankModel criteriaRank);
         Task<List<ICriteriaRankModel>> AddRange(List<ICriteriaRankModel> criteriaRanks);
-        Task<bool> DeleteCriteriaRank(int criterRankId);
+        Task<bool> DeleteCriteriaRank(Guid criterRankId);
         Task<int> SaveAsync();
     }
 }

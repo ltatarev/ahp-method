@@ -10,14 +10,14 @@ namespace AHP.Model.Models
     public class AlternativeRankModel : IAlternativeRankModel
     {
 
-        public int AlternativeRankId { get; set; }
+        public Guid AlternativeRankId { get; set; }
         public int Alternative1 { get; set; }
         public int Alternative2 { get; set; }
         public float Preference { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
-        public int CriteriaId { get; set; }
+        public Guid CriteriaId { get; set; }
         public ICriteriaModel Criteria { get; set; }
 
     }

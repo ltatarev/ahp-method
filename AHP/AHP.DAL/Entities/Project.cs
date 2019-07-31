@@ -10,7 +10,7 @@ namespace AHP.DAL.Entities
     public class Project
     {
         [Key]
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
         [StringLength(50), Required]
         public string Username { get; set; }
         [StringLength(50), Required]

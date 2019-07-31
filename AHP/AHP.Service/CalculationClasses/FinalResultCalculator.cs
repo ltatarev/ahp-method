@@ -79,7 +79,7 @@ namespace AHP.Service.CalculationClasses
             return DataPreparation.NormalizeVector(FinalDecision);
         }
 
-        public async Task<List<IAlternativeModel>> Calculate(int id)
+        public async Task<List<IAlternativeModel>> Calculate(Guid id)
         {
             var criterias = await CriteriaService.GetCriteriasByProjectIdWithCRaAR(id);
             var array2d = DataPreparation.Get2dArray(criterias);

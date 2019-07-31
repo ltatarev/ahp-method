@@ -11,8 +11,7 @@ namespace AHP.DAL.Entities
     public class CriteriaRank
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CriteriaRankId { get; set; }
+        public Guid CriteriaRankId { get; set; }
 
         public int Column { get; set; }
 
@@ -22,7 +21,7 @@ namespace AHP.DAL.Entities
 
         public DateTime DateUpdated { get; set; }
 
-        public int CriteriaId { get; set; }
+        public Guid CriteriaId { get; set; }
         public Criteria Criteria { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace AHP.DAL.Entities
     public class Criteria
     {
         [Key]
-        public int CriteriaId { get; set; }
+        //public Guid CriteriaId { get; set; }
         public int Order { get; set; }
         public string CriteriaName { get; set; }
         public double Priority { get; set; }
@@ -18,7 +18,7 @@ namespace AHP.DAL.Entities
         public DateTime DateUpdated { get; set; }
 
 
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
         public Project Project { get; set; }
         public virtual ICollection<AlternativeRank> AlternativeRanks { get; set; }
         public virtual ICollection<CriteriaRank> CriteriaRanks{ get; set; }

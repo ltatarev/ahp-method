@@ -42,20 +42,20 @@ namespace AHP.Repository
             return mapped;
         }
 
-        public async Task<ICriteriaModel> GetCriteriaByIdAsync(int CriteriaId)
+        public async Task<ICriteriaModel> GetCriteriaByIdAsync(Guid CriteriaId)
         {
             var criteria = await Context.Criterias.FindAsync(CriteriaId);
             return Mapper.Map<Criteria, ICriteriaModel>(criteria);
         }        
 
-        public async Task<List<ICriteriaModel>> GetCriteriasByProjectId(int ProjectId, int PageNumber, int PageSize)
+        public async Task<List<ICriteriaModel>> GetCriteriasByProjectId(Guid ProjectId, int PageNumber, int PageSize)
         {
             var criterias = await Context.Criterias.Where(c=>c.ProjectId==ProjectId).OrderBy(P => P.DateCreated).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
             var mapped = Mapper.Map<List<ICriteriaModel>>(criterias);
             return mapped;
         }
 
-        public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(int projectId)
+        public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId)
         {
             var criterias = await Context.Criterias.Where(c => c.ProjectId == projectId).Include(c => c.AlternativeRanks).Include(c => c.CriteriaRanks).ToListAsync();
             var mapped = Mapper.Map<List<ICriteriaModel>>(criterias);
@@ -78,7 +78,7 @@ namespace AHP.Repository
             return criteria;
         }
 
-        public async Task<bool> DeleteCriteriaAsync(int CriteriaID)
+        public async Task<bool> DeleteCriteriaAsync(Guid CriteriaID)
         {
             var crit = await Context.Criterias.FindAsync(CriteriaID);
             Context.Criterias.Remove(crit);

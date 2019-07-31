@@ -51,7 +51,7 @@ namespace AHP.Service
             return await ProjectRepository.CompareProjects(projectName, userName);
         }
 
-        public async Task<IProjectModel> GetProjectsByIdWithAandC(int id)
+        public async Task<IProjectModel> GetProjectsByIdWithAandC(Guid id)
         {
             return await ProjectRepository.GetProjectsByIdWithAandC(id);
         }

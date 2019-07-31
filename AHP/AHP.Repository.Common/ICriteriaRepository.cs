@@ -13,12 +13,12 @@ namespace AHP.Repository.Common
 	{
         
         Task<List<ICriteriaModel>> GetCriteriasAsync(int PageNumber, int PageSize = 10);
-        Task<ICriteriaModel> GetCriteriaByIdAsync(int CriteriaId);
-        Task<List<ICriteriaModel>> GetCriteriasByProjectId(int ProjectId, int PageNumber, int PageSize);
-        Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(int projectId);
+        Task<ICriteriaModel> GetCriteriaByIdAsync(Guid CriteriaId);
+        Task<List<ICriteriaModel>> GetCriteriasByProjectId(Guid ProjectId, int PageNumber, int PageSize);
+        Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId);
         Task<ICriteriaModel> InsertCriteria(ICriteriaModel criteria);
         Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria);
-        Task<bool> DeleteCriteriaAsync(int CriteriaID);
+        Task<bool> DeleteCriteriaAsync(Guid CriteriaID);
         Task<int> SaveAsync();
 
     }

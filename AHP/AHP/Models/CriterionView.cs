@@ -7,11 +7,11 @@ namespace AHP.Models
 {
     public class CriterionView
     {
-        public int CriteriaId { get; set; }
+        public Guid CriteriaId { get; set; }
         public int Order { get; set; }
         public string CriteriaName { get; set; }
         public float Priority { get; set; }
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
     }
 
 }

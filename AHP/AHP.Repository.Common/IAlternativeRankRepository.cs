@@ -12,10 +12,10 @@ namespace AHP.Repository.Common
     public interface IAlternativeRankRepository
     {
         Task<List<IAlternativeRankModel>> GetAlternativeRanks(int pageNumber, int pageSize);
-        Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(int alterRankId);
+        Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(Guid alterRankId);
         Task<IAlternativeRankModel> InsertAlternativeRank(IAlternativeRankModel alterRank);
         Task<List<IAlternativeRankModel>> AddRange(List<IAlternativeRankModel> alternativeRanks);
-        Task<bool> DeleteAlternativeRank(int alterRankId);
+        Task<bool> DeleteAlternativeRank(Guid alterRankId);
         Task<int> SaveAsync();
     }
 }

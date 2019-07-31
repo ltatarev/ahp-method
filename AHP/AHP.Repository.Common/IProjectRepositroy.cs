@@ -21,10 +21,10 @@ namespace AHP.Repository.Common
         //Example for checking if first project was added
         Task<IProjectModel> CompareProjects(string projectName, string userName);
         Task<List<IProjectModel>> GetProjectsAsync(int PageNumber, int PageSize = 10);
-        Task<IProjectModel> GetProjectByIdAsync(int ProjectId);
+        Task<IProjectModel> GetProjectByIdAsync(Guid ProjectId);
         Task<IProjectModel> InsertProject(IProjectModel project);
-        Task<IProjectModel> GetProjectsByIdWithAandC(int id);
-        Task<bool> DeleteProject(int ProjectId);
+        Task<IProjectModel> GetProjectsByIdWithAandC(Guid id);
+        Task<bool> DeleteProject(Guid ProjectId);
         Task<int> CountProjects();
         Task<int> SaveAsync();
         

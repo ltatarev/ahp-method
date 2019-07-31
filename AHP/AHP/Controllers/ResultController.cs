@@ -26,7 +26,7 @@ namespace AHP.Controllers
 
 
         // GET: Result/FinalResult
-        public async Task<ActionResult> FinalResult(int id)
+        public async Task<ActionResult> FinalResult(Guid id)
         {
             var alternatives = await FinalResultCalculator.Calculate(id);
             var mapped = Mapper.Map<List<AlternativeView>>(alternatives);

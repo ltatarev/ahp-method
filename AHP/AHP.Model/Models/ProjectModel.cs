@@ -10,7 +10,7 @@ namespace AHP.Model.Models
     public class ProjectModel : IProjectModel
     {
 
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
         public string Username { get; set; }
         public string ProjectName { get; set; }
         public string Description { get; set; }

@@ -38,7 +38,7 @@ namespace AHP.Repository
             return Mapper.Map<List<ICriteriaRankModel>>(critRanks);
         }
 
-        public async Task<ICriteriaRankModel> GetCriteriaRankById(int criteriaRankId)
+        public async Task<ICriteriaRankModel> GetCriteriaRankById(Guid criteriaRankId)
         {
             var critRank = await Context.CriteriaRanks.FindAsync(criteriaRankId);
             return Mapper.Map<ICriteriaRankModel>(critRank);
@@ -60,7 +60,7 @@ namespace AHP.Repository
             return criteriaRanks;
         }
 
-        public async Task<bool> DeleteCriteriaRank(int criterRankId)
+        public async Task<bool> DeleteCriteriaRank(Guid criterRankId)
         {
             var criteriaRank = await Context.CriteriaRanks.FindAsync(criterRankId);
             Context.CriteriaRanks.Remove(criteriaRank);

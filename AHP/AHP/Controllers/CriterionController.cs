@@ -27,7 +27,7 @@ namespace AHP.Controllers
         #endregion
 
         // GET: Criterion/AddCriterion
-        public ActionResult AddCriterion(int id)
+        public ActionResult AddCriterion(Guid id)
         {
             // Display View with form for adding Criteria
             ViewBag.id = id;
@@ -52,7 +52,7 @@ namespace AHP.Controllers
         }
 
         // GET: Criterion/EditCriterion
-        public async Task<ActionResult> EditCriteria(int id)
+        public async Task<ActionResult> EditCriteria(Guid id)
         {
             var CriteriasInProject = await CriteriaService.GetCriteriasByProjectId(id, 1);
             var CriterionView = _mapper.Map<List<CriterionView>>(CriteriasInProject);

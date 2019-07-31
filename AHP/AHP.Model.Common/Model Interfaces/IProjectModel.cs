@@ -6,7 +6,7 @@ namespace AHP.Model.Common.Model_Interfaces
     public interface IProjectModel
     {
 
-        int ProjectId { get; set; }
+        Guid ProjectId { get; set; }
         string Username { get; set; }
         string ProjectName { get; set; }
         string Description { get; set; }
