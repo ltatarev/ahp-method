@@ -7,8 +7,8 @@
     animation: spin 2s linear infinite;
     align-content: center;
     position: fixed;
-    left: 40%;
-    top: 30%;
+    left: 45%;
+    top: 50%;
     z-index: 9999;
 }
 
