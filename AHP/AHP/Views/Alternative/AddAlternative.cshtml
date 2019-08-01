@@ -105,7 +105,7 @@
             flag = true;
         }
 
-         let id = @ViewBag.id
+         let id =  @Html.Raw(Json.Encode(@ViewBag.id));
          for (let t of text) {
               // Values of each input field
               // console.log(t.value);
