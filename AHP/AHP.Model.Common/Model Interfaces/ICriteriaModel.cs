@@ -13,8 +13,7 @@ namespace AHP.Model.Common.Model_Interfaces
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
 
-        // second part not sure for IProjectModel
-
+        
         Guid ProjectId { get; set; }
         IProjectModel Project { get; set; }
         IList<IAlternativeRankModel> AlternativeRanks { get; set; }

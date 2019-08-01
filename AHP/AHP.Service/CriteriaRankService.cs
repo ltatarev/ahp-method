@@ -12,15 +12,15 @@ namespace AHP.Service
     public class CriteriaRankService : ICriteriaRankService
     {
         #region Constructors
-        public CriteriaRankService(ICriteriaRankRepository repository, IUnitOfWorkFactory uowFactory)
+        public CriteriaRankService(ICriteriaRankRepository criteriaRankRepository, IUnitOfWorkFactory uowFactory)
         {
-            this.Repository = repository;
-            this.uowFactory = uowFactory;
+            this._criteriaRankRepository = criteriaRankRepository;
+            this._uowFactory = uowFactory;
         }
         #endregion Constructors
         #region Properties
-        protected ICriteriaRankRepository Repository { get; private set; }
-        protected IUnitOfWorkFactory uowFactory;
+        protected ICriteriaRankRepository _criteriaRankRepository { get; private set; }
+        protected IUnitOfWorkFactory _uowFactory;
         #endregion Properties
 
         public async Task<bool> AddRange(List<ICriteriaRankModel> criteriaRanks)
@@ -30,11 +30,12 @@ namespace AHP.Service
             {
                 cr.DateCreated = DateTime.Now;
                 cr.DateUpdated = DateTime.Now;
+                cr.CriteriaRankId = Guid.NewGuid();                
             }
 
-            using (var uow = uowFactory.CreateUnitOfWork())
+            using (var uow = _uowFactory.CreateUnitOfWork())
             {
-                await Repository.AddRange(criteriaRanks);
+                await _criteriaRankRepository.AddRange(criteriaRanks);
                 uow.Commit();
             }
 

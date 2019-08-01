@@ -20,41 +20,38 @@ namespace AHP.Controllers
             this._mapper = mapper;
             this.ProjectService = projectService;
         }
-        public IMapper _mapper { get; set; }
-        public IProjectService ProjectService { get; set; }
+        protected IMapper _mapper { get; set; }
+        protected IProjectService ProjectService { get; set; }
 
         // GET: Home/Index
         public ActionResult Index()
         {
-            // Display Index view
             return View();
         }
 
         // GET: Home/Login
         public ActionResult Login()
         {
-            // Display view for adding new project
             return View();
         }
 
         // GET: Home/AllProjects        
         public async Task<ActionResult> AllProjects(int page = 1)
-        {
-            // Display view with first 10 projects
-            int pageNum = page;
-            var AllProjects = await ProjectService.GetProjects(pageNum, 10);
+        {                        
+            var AllProjects = await ProjectService.GetProjects(page, 10);
             var ProjectView = _mapper.Map<List<ProjectView>>(AllProjects);
             var count = await ProjectService.CountProjects();
-            ViewBag.current = pageNum;
+
+            ViewBag.current = page;
             ViewBag.numOfProj = count;
             return View(ProjectView);
         }
 
-        // POST: Home/ChooseProject
-        
+        // POST: Home/ChooseProject        
         public async Task<ActionResult> ChooseProject(Guid id)
         {
-            var project = await ProjectService.GetProjectsByIdWithAandC(id);
+            var project = await ProjectService.GetProjectsByIdWithAandC(id);  // Gets projects with lazy loaded criterias and alternatives
+
             if (project.Criterias.Count == 0)
             {
                return RedirectToAction("AddCriterion", "Criterion", new { @id = project.ProjectId });
@@ -77,7 +74,6 @@ namespace AHP.Controllers
         // GET: Home/LearnMore
         public ActionResult LearnMore()
         {
-            // Display LearnMore view
             return View();
         }
 
@@ -85,7 +81,7 @@ namespace AHP.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateProject(ProjectView project)
         {
-            Guid id = Guid.NewGuid();
+            
             if (ModelState.IsValid)
             {
                 var mapped = _mapper.Map<ProjectView, IProjectModel>(project);
@@ -96,11 +92,10 @@ namespace AHP.Controllers
                 }
                 else
                 {
-                    mapped.ProjectId = id;
+                    mapped.ProjectId = Guid.NewGuid();
                     var status = await ProjectService.AddProjectAsync(mapped);
 
-
-                    return RedirectToAction("AddCriterion", "Criterion", new { id = id });
+                    return RedirectToAction("AddCriterion", "Criterion", new { id = mapped.ProjectId });
                 }
             }
             return View();

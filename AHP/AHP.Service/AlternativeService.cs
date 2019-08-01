@@ -12,27 +12,27 @@ namespace AHP.Service
     public class AlternativeService : IAlternativeService
     {
         #region Constructors
-        public AlternativeService(IAlternativeRepository repository, IUnitOfWorkFactory uowFactory)
+        public AlternativeService(IAlternativeRepository alternativeRepository, IUnitOfWorkFactory uowFactory)
         {
-            this.Repository = repository;
-            this.uowFactory = uowFactory;
+            this._alternativeRepository = alternativeRepository;
+            this._uowFactory = uowFactory;
         }
         #endregion Constructors
         #region Properties
-        protected IAlternativeRepository Repository { get; private set; }
-        protected IUnitOfWorkFactory uowFactory;
+        private IAlternativeRepository _alternativeRepository;
+        private IUnitOfWorkFactory _uowFactory;
         #endregion Properties
 
         #region Methods
 
         public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid projectId, int pageNumber, int pageSize = 10)
         {
-            var criterias = await Repository.GetAlternativesByProjectId(projectId, pageNumber,pageSize);
-            return criterias;
+            var alternatives = await _alternativeRepository.GetAlternativesByProjectId(projectId, pageNumber,pageSize);
+            return alternatives;
         }
+
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
-
             var order = 1;
             foreach (var alter in alternatives)
             {
@@ -40,12 +40,12 @@ namespace AHP.Service
                 alter.DateUpdated = DateTime.Now;
                 alter.Order = order;
                 order++;
-               // alter.ProjectId = id;
+                alter.AlternativeId = Guid.NewGuid();
             }
 
-            using (var uow = uowFactory.CreateUnitOfWork())
+            using (var uow = _uowFactory.CreateUnitOfWork())
             {
-                await Repository.AddRange(alternatives);
+                await _alternativeRepository.AddRange(alternatives);
                 uow.Commit();
             }
 
@@ -54,15 +54,16 @@ namespace AHP.Service
 
         public async Task<IAlternativeModel> Update(IAlternativeModel alternative)
         {
-            using (var uow = uowFactory.CreateUnitOfWork())
-            {
-                var alternativeInDb = await Repository.GetAlternativeById(alternative.AlternativeId);
-                alternativeInDb.DateUpdated = DateTime.Now;
-                alternativeInDb.FinalPriority = alternative.FinalPriority;
-                await Repository.UpdateAlternative(alternativeInDb);
-                uow.Commit();
-                return alternativeInDb;
+            var alternativeInDb = await _alternativeRepository.GetAlternativeById(alternative.AlternativeId);
+            alternativeInDb.DateUpdated = DateTime.Now;
+            alternativeInDb.FinalPriority = alternative.FinalPriority;
+
+            using (var uow = _uowFactory.CreateUnitOfWork())
+            {                            
+                await _alternativeRepository.UpdateAlternative(alternativeInDb);
+                uow.Commit();                
             }
+            return alternativeInDb;
         }
 
 

@@ -12,72 +12,74 @@ namespace AHP.Service
         #region Constructors
         public CriteriaService(ICriteriaRepository repository, IUnitOfWorkFactory uowFactory)
         {
-            this.Repository = repository;
-            this.uowFactory = uowFactory;
+            this._criteriaRepository = repository;
+            this._uowFactory = uowFactory;
         }
         #endregion Constructors
 
         #region Properties        
-        protected ICriteriaRepository Repository { get; private set; }
-        protected IUnitOfWorkFactory uowFactory; 
+        private ICriteriaRepository _criteriaRepository;
+        private IUnitOfWorkFactory _uowFactory; 
         #endregion Properties
 
         #region Methods
 
-        public async Task<bool> AddCriteriaAsync(ICriteriaModel criteria)
+        public async Task<ICriteriaModel> AddCriteriaAsync(ICriteriaModel criteria)
         {
-            using (var uow = uowFactory.CreateUnitOfWork())
+            using (var uow = _uowFactory.CreateUnitOfWork())
             {
-
-                await Repository.InsertCriteria(criteria);
+                criteria.CriteriaId = Guid.NewGuid();
+                await _criteriaRepository.InsertCriteria(criteria);
                 uow.Commit();
             }
-            return true;
+            return criteria;
         }
+
         public async Task<bool> DeleteCriteria(Guid criteriaId)
         {
-            using (var uow = uowFactory.CreateUnitOfWork())
+            using (var uow = _uowFactory.CreateUnitOfWork())
             {
-                await Repository.DeleteCriteriaAsync(criteriaId);
+                await _criteriaRepository.DeleteCriteriaAsync(criteriaId);
                 uow.Commit();
             }
             return true;
         }
+
         public async Task<List<ICriteriaModel>> GetCriterias(int pageNumber, int pageSize = 10)
         {
-            var criterias = await Repository.GetCriteriasAsync(pageNumber, pageSize);
+            var criterias = await _criteriaRepository.GetCriteriasAsync(pageNumber, pageSize);
             return criterias;
         }
+
         public async Task<List<ICriteriaModel>> GetCriteriasByProjectId(Guid projectId,int pageNumber, int pageSize = 10)
         {
-            var criterias = await Repository.GetCriteriasByProjectId(projectId, pageNumber, pageSize);
+            var criterias = await _criteriaRepository.GetCriteriasByProjectId(projectId, pageNumber, pageSize);
             return criterias;
         }
 
         public async Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId)
         {
-            var criterias = await Repository.GetCriteriasByProjectIdWithCRaAR(projectId);
+            var criterias = await _criteriaRepository.GetCriteriasByProjectIdWithCRaAR(projectId);
             return criterias;
         }
 
-        public async Task<bool> AddRange(List<ICriteriaModel> criteria)
-        {
-            Guid g;
+        public async Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria)
+        {            
             var order = 1;
             foreach (var crit in criteria)
             {
                 crit.DateCreated = DateTime.Now;
                 crit.DateUpdated = DateTime.Now;
+                crit.CriteriaId = Guid.NewGuid();
                 crit.Order = order;
                 order++;
             }
-            using (var uow = uowFactory.CreateUnitOfWork())
+            using (var uow = _uowFactory.CreateUnitOfWork())
             {
-                await Repository.AddRange(criteria);
+                await _criteriaRepository.AddRange(criteria);
                 uow.Commit();
             }
-
-            return true;
+            return criteria;
         }
 
         #endregion Methods

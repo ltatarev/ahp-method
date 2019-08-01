@@ -37,7 +37,7 @@ namespace AHP.Service.CalculationClasses
             }
 
             return NormalizedVector;
-        }  //posebna klasa
+        } 
 
         public double[][] Get2dArray(List<ICriteriaModel> criterias)
         {
@@ -45,12 +45,12 @@ namespace AHP.Service.CalculationClasses
 
             foreach(var crit in criterias)
             {
-                List<double> Priorities = new List<double>();
+                List<double>priorities = new List<double>();
                 foreach(var priority in crit.AlternativeRanks)
                 {
-                    Priorities.Add(priority.Preference);
+                    priorities.Add(priority.Preference);
                 }
-                lista.Add(Priorities);
+                lista.Add(priorities);
             }
 
 
@@ -59,15 +59,15 @@ namespace AHP.Service.CalculationClasses
 
         public double[] GetCriteriaRanks(List<ICriteriaModel> criterias)
         {
-            List<double> Priorities = new List<double>();
+            List<double> priorities = new List<double>();
             foreach(var crit in criterias)
             {
                 foreach (var criteriaRank in crit.CriteriaRanks)
                 {
-                    Priorities.Add(criteriaRank.Priority);
+                    priorities.Add(criteriaRank.Priority);
                 }
             }
-            return Priorities.ToArray();
+            return priorities.ToArray();
         }
         #endregion methods
 

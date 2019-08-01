@@ -12,25 +12,31 @@ namespace AHP.Service
     public class AlternativeRankService : IAlternativeRankService
     {
         #region Constructors
-        public AlternativeRankService(IAlternativeRankRepository repository, IUnitOfWorkFactory uowFactory)
+        public AlternativeRankService(IAlternativeRankRepository alternativeRankService, IUnitOfWorkFactory uowFactory)
         {
-            this.Repository = repository;
-            this.uowFactory = uowFactory;
+            this._alternativeRankRepository = alternativeRankService;           
+            this._uowFactory = uowFactory;
         }
         #endregion Constructors
 
         #region Properties
-        protected IAlternativeRankRepository Repository { get; private set; }
-        protected IUnitOfWorkFactory uowFactory;
+        private IAlternativeRankRepository _alternativeRankRepository;
+        private IUnitOfWorkFactory _uowFactory;
         #endregion Properties
 
         #region Methods
 
         public async Task<bool> AddRange(List<IAlternativeRankModel> alternativeRanks)
         {
-            using (var uow = uowFactory.CreateUnitOfWork())
+            foreach(var ar in alternativeRanks)
             {
-                await Repository.AddRange(alternativeRanks);
+                ar.DateCreated = DateTime.Now;
+                ar.DateUpdated = DateTime.Now;
+                ar.AlternativeRankId = Guid.NewGuid();
+            }
+            using (var uow = _uowFactory.CreateUnitOfWork())
+            {
+                await _alternativeRankRepository.AddRange(alternativeRanks);
                 uow.Commit();
             }
             return true;

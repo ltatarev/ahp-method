@@ -10,8 +10,8 @@ namespace AHP.Service.Common
 {
     public interface ICriteriaService
     {
-        Task<bool> AddCriteriaAsync(ICriteriaModel criteria);
-        Task<bool> AddRange(List<ICriteriaModel> criteria);
+        Task<ICriteriaModel> AddCriteriaAsync(ICriteriaModel criteria);
+        Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria);
         Task<List<ICriteriaModel>> GetCriteriasByProjectId(Guid projectId, int pageNumber, int pageSize = 10);
         Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId);
     }

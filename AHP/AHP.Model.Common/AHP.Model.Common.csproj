@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Model Interfaces\IAlternativeModel.cs" />
     <Compile Include="Model Interfaces\IAlternativeRankModel.cs" />
     <Compile Include="Model Interfaces\ICriteriaModel.cs" />

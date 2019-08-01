@@ -17,8 +17,7 @@ namespace AHP.Model.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
-        // second part not sure for IProjectModel
-
+       
         public Guid ProjectId { get; set; }
         public IProjectModel Project { get; set; }
         public virtual IList<IAlternativeRankModel> AlternativeRanks { get; set; }

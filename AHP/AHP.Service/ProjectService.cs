@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AHP.Service.Common;
 using AHP.Repository.Common;
-using AHP.DAL.Entities;
 using AHP.Model.Common.Model_Interfaces;
 
 namespace AHP.Service
@@ -15,50 +12,50 @@ namespace AHP.Service
         #region Constructors
         public ProjectService(IProjectRepository projectRepository, IUnitOfWorkFactory uowFactory)
         {
-            this.ProjectRepository = projectRepository;
-            this.uowFactory = uowFactory;
+            this._projectRepository = projectRepository;
+            this._uowFactory = uowFactory;
         }
         #endregion Constructors
 
         #region Properties
-        protected IUnitOfWorkFactory uowFactory;
-        protected IProjectRepository ProjectRepository { get; private set; }
+        protected IUnitOfWorkFactory _uowFactory;
+        protected IProjectRepository _projectRepository;
         #endregion Properties
 
         #region Methods
         
-       public async Task<bool> AddProjectAsync(IProjectModel project)
+       public async Task<IProjectModel> AddProjectAsync(IProjectModel project)
         {
-
             project.DateCreated = DateTime.Now;
             project.DateUpdated = DateTime.Now;          
 
-            using (var uow = uowFactory.CreateUnitOfWork())
+            using (var uow = _uowFactory.CreateUnitOfWork())
             {
-                await ProjectRepository.InsertProject(project);
+                await _projectRepository.InsertProject(project);
                 uow.Commit();
             }
-            return true;
+            return project;
         }
+
         public async Task<List<IProjectModel>> GetProjects(int pageNumber, int pageSize = 10)
         {
-            var Projects = await ProjectRepository.GetProjectsAsync(pageNumber, pageSize);
-            return Projects;
+            var projects = await _projectRepository.GetProjectsAsync(pageNumber, pageSize);
+            return projects;
         }
 
         public async Task<IProjectModel> CompareProjects(string projectName, string userName)
         {
-            return await ProjectRepository.CompareProjects(projectName, userName);
+            return await _projectRepository.CompareProjects(projectName, userName);
         }
 
         public async Task<IProjectModel> GetProjectsByIdWithAandC(Guid id)
         {
-            return await ProjectRepository.GetProjectsByIdWithAandC(id);
+            return await _projectRepository.GetProjectsByIdWithAandC(id);
         }
 
         public async Task<int> CountProjects()
         {
-            return await ProjectRepository.CountProjects();
+            return await _projectRepository.CountProjects();
         }
 
 
