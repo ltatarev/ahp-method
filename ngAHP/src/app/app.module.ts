@@ -16,7 +16,7 @@ import { EditCriteriaComponent } from './components/edit-criteria/edit-criteria.
 import { EditAlternativeComponent } from './components/edit-alternative/edit-alternative.component';
 import { AddAlternativeComponent } from './components/add-alternative/add-alternative.component';
 import { FinalResultComponent } from './components/final-result/final-result.component';
-import { LearnMoreComponent } from './components/home/learn-more/learn-more.component'
+import { LearnMoreComponent } from './components/learn-more/learn-more.component';
 
 @NgModule({
   declarations: [

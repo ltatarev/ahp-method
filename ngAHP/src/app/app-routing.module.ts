@@ -6,22 +6,21 @@ import { EditCriteriaComponent } from './components/edit-criteria/edit-criteria.
 import { AddAlternativeComponent } from './components/add-alternative/add-alternative.component';
 import { FinalResultComponent } from './components/final-result/final-result.component';
 import { AllProjectsComponent } from './components/all-projects/all-projects.component';
-import { LearnMoreComponent } from './components/home/learn-more/learn-more.component';
 import { EditAlternativeComponent } from './components/edit-alternative/edit-alternative.component';
+import { LearnMoreComponent } from './components/learn-more/learn-more.component';
+import { NewProjectComponent } from './components/new-project/new-project.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: 'home', component: HomeComponent,
-  children: [
-    { path: '', redirectTo: 'home', pathMatch: 'full'},
-    { path: 'learnMore', component: LearnMoreComponent }]},
+  { path: 'home', component: HomeComponent},
+  { path: "learnMore", component: LearnMoreComponent},
   { path: "allProjects", component: AllProjectsComponent},
   { path: "addNewC", component: AddCriteriaComponent},
   { path: "editCriteria", component: EditCriteriaComponent},
   { path: "editAlternative", component: EditAlternativeComponent},
   { path: "addAlternative", component: AddAlternativeComponent},
   { path: "finalResult", component: FinalResultComponent},
-  { path: "allProjects", component: AllProjectsComponent},
+  { path: "newProject", component: NewProjectComponent},
   { path: "**", redirectTo: "home" }
 ];
 
