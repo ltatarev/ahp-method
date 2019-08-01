@@ -42,27 +42,26 @@ namespace AHP.Service.CalculationClasses
         public double[][] Get2dArray(List<ICriteriaModel> criterias)
         {
             List<List<double>> lista = new List<List<double>>();
-
-            foreach(var crit in criterias)
+            var sorted = criterias.OrderBy(c => c.Order).ToList();
+            foreach(var crit in sorted)
             {
                 List<double>priorities = new List<double>();
-                foreach(var priority in crit.AlternativeRanks)
+                var sortedByAlternatives = crit.AlternativeRanks.OrderBy(ar => ar.Alternative1).ThenBy(ar => ar.Alternative2).ToList();
+                foreach(var priority in sortedByAlternatives)
                 {
                     priorities.Add(priority.Preference);
-                }
+                }               
                 lista.Add(priorities);
             }
-
-
             return lista.Select(a => a.ToArray()).ToArray();
         }
 
         public double[] GetCriteriaRanks(List<ICriteriaModel> criterias)
         {
             List<double> priorities = new List<double>();
-            foreach(var crit in criterias)
-            {
-                foreach (var criteriaRank in crit.CriteriaRanks)
+            foreach(var crit in criterias.OrderBy(c=>c.Order))
+            {                
+                foreach (var criteriaRank in crit.CriteriaRanks.OrderBy(ce=>ce.Column))
                 {
                     priorities.Add(criteriaRank.Priority);
                 }

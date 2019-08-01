@@ -82,6 +82,7 @@ namespace AHP.Service.CalculationClasses
         public async Task<List<IAlternativeModel>> Calculate(Guid id)
         {
             var criterias = await CriteriaService.GetCriteriasByProjectIdWithCRaAR(id);
+
             var array2d = DataPreparation.Get2dArray(criterias);
             var criteriaRanks = DataPreparation.GetCriteriaRanks(criterias);
 

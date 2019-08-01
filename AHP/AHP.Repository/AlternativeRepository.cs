@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AHP.DAL;
 using AHP.DAL.Entities;
-using AHP.Model;
-using AHP.Model.Common;
 using AHP.Model.Common.Model_Interfaces;
 using AHP.Repository.Common;
 using AutoMapper;
@@ -20,73 +17,69 @@ namespace AHP.Repository
 
             public AlternativeRepository(AHPContext context, IMapper mapper)
         {
-            this.Context = context;
-            this.Mapper = mapper;
+            this._context = context;
+            this._mapper = mapper;
         }
 
         #endregion Constructor
-        #region Properties
-
-        //Context was protected
-        private IMapper Mapper;
-        private AHPContext Context { get; set; }
+        #region Properties        
+        private IMapper _mapper;
+        private AHPContext _context;
 
         #endregion Properties
-        #region Methods   
-        public async Task<List<IAlternativeModel>> GetAlternativesAsync(int pageNumber, int pageSize=10)
-        {
-            var alternatives = await Context.Alternatives.OrderBy(a => a.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return Mapper.Map<List<IAlternativeModel>>(alternatives);
-        }
+        #region Methods  
 
         public async Task<IAlternativeModel> GetAlternativeById(Guid alternativeId)
         {
-            var alternative = await Context.Alternatives.FindAsync(alternativeId);
-            return Mapper.Map<IAlternativeModel>(alternative);
+            var alternative = await _context.Alternatives.FindAsync(alternativeId);
+            return _mapper.Map<IAlternativeModel>(alternative);
         }                
 
-        public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid ProjectId, int pageNumber, int pageSize=10)
+        public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid projectId, int pageNumber, int pageSize=10)
         {
-            var alternatives = await Context.Alternatives.Where(a => a.ProjectId == ProjectId).OrderBy(a => a.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return Mapper.Map<List<IAlternativeModel>>(alternatives);
+            var alternatives = await _context.Alternatives.Where(a => a.ProjectId == projectId).
+                                                           OrderBy(a => a.DateCreated).
+                                                           Skip((pageNumber - 1) * pageSize).
+                                                           Take(pageSize).
+                                                           ToListAsync();
+
+            return _mapper.Map<List<IAlternativeModel>>(alternatives);
         }                
 
         public async Task<IAlternativeModel> InsertAlternative(IAlternativeModel alternative)
         {
-            var mapped = Mapper.Map<Alternative>(alternative);
-            Context.Alternatives.Add(mapped);
-            await Context.SaveChangesAsync();
+            var mapped = _mapper.Map<Alternative>(alternative);
+            _context.Alternatives.Add(mapped);
+            await _context.SaveChangesAsync();
             return alternative;
         }
+
         public async Task<List<IAlternativeModel>> AddRange(List<IAlternativeModel> alternatives)
         {
-            var mapped = Mapper.Map<List<Alternative>>(alternatives);
-            Context.Alternatives.AddRange(mapped);
-            await Context.SaveChangesAsync();
+            var mapped = _mapper.Map<List<Alternative>>(alternatives);
+            _context.Alternatives.AddRange(mapped);
+            await _context.SaveChangesAsync();
             return alternatives;
         }
 
-        public async Task<bool> DeleteAlternative(Guid AlternativeId)
+        public async Task<bool> DeleteAlternative(Guid alternativeId)
         {
-            var alternative = await Context.Alternatives.FindAsync(AlternativeId);
-            Context.Alternatives.Remove(alternative);
-            await Context.SaveChangesAsync();
+            var alternative = await _context.Alternatives.FindAsync(alternativeId);
+            _context.Alternatives.Remove(alternative);
+            await _context.SaveChangesAsync();
             return true;
         }
+
         public async Task<IAlternativeModel> UpdateAlternative(IAlternativeModel alternative)
         {
-            var alternativeInDb = await Context.Alternatives.FindAsync(alternative.AlternativeId);
-            Context.Entry(alternativeInDb).CurrentValues.SetValues(Mapper.Map<Alternative>(alternative));
-            await Context.SaveChangesAsync();
+            var alternativeInDb = await _context.Alternatives.FindAsync(alternative.AlternativeId);
+            _context.Entry(alternativeInDb).CurrentValues.SetValues(_mapper.Map<Alternative>(alternative));
+            await _context.SaveChangesAsync();
 
             return alternative;
-
-        }
-        public async Task<int> SaveAsync()
-        {
-            return await Context.SaveChangesAsync();
         }
 
+       
         #endregion Methods
     }
 }

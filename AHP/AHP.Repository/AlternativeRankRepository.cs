@@ -19,14 +19,14 @@ namespace AHP.Repository
         #region Constructor
             public AlternativeRankRepository(AHPContext context, IMapper mapper)
         {
-            this.Context = context;
-            this.Mapper = mapper;
+            this._context = context;
+            this._mapper = mapper;
         }
         #endregion Constructor
 
         #region Properties    
-        private IMapper Mapper;
-        private AHPContext Context { get; set; }
+        private IMapper _mapper;
+        private AHPContext _context;
 
         #endregion Properties
 
@@ -34,44 +34,40 @@ namespace AHP.Repository
 
         public async Task<List<IAlternativeRankModel>> GetAlternativeRanks(int pageNumber, int pageSize=10)
         {
-            var alternativeRanks = await Context.AlternativeRanks.OrderBy(ar => ar.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return Mapper.Map<List<IAlternativeRankModel>>(alternativeRanks);
+            var alternativeRanks = await _context.AlternativeRanks.OrderBy(ar => ar.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return _mapper.Map<List<IAlternativeRankModel>>(alternativeRanks);
         }
 
         public async Task<IAlternativeRankModel> GetAlternativeRankByIdAsync(Guid alterRankId)
         {
-            var alterRank = await Context.AlternativeRanks.FindAsync(alterRankId);
-            return Mapper.Map<IAlternativeRankModel>(alterRank);
+            var alterRank = await _context.AlternativeRanks.FindAsync(alterRankId);
+            return _mapper.Map<IAlternativeRankModel>(alterRank);
         }
 
         public async Task<IAlternativeRankModel> InsertAlternativeRank(IAlternativeRankModel alterRank)
         {
             var mapped = Mapper.Map<Project>(alterRank);
-            Context.Projects.Add(mapped);
-            await Context.SaveChangesAsync();
+            _context.Projects.Add(mapped);
+            await _context.SaveChangesAsync();
             return alterRank;
         }
 
         public async Task<bool> DeleteAlternativeRank(Guid alterRankId)
         {
-            var alterRank = await Context.AlternativeRanks.FindAsync(alterRankId);
-            Context.AlternativeRanks.Remove(alterRank);
-            await Context.SaveChangesAsync();
+            var alterRank = await _context.AlternativeRanks.FindAsync(alterRankId);
+            _context.AlternativeRanks.Remove(alterRank);
+            await _context.SaveChangesAsync();
             return true;
         }
         public async Task<List<IAlternativeRankModel>> AddRange(List<IAlternativeRankModel> alternativeRanks)
         {
-            var mapped = Mapper.Map<List<AlternativeRank>>(alternativeRanks);
-            Context.AlternativeRanks.AddRange(mapped);
-            await Context.SaveChangesAsync();
+            var mapped = _mapper.Map<List<AlternativeRank>>(alternativeRanks);
+            _context.AlternativeRanks.AddRange(mapped);
+            await _context.SaveChangesAsync();
             return alternativeRanks;
         }
 
-        public async Task<int> SaveAsync()
-        {
-            return await Context.SaveChangesAsync();
-        }
-
+        
         #endregion Methods
     }
 }

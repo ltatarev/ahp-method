@@ -41,13 +41,13 @@ namespace AHP.Controllers
         public async Task<ActionResult> EditAlternative(Guid id)
         {
             ViewBag.id = id;
-            var alternatives = await _alternativeService.GetAlternativesByProjectId(id, 1);
+            var alternatives = await _alternativeService.GetAlternativesByProjectId(id, 1);            
             var criterias = await _criteriaService.GetCriteriasByProjectId(id, 1);
 
             var criteriaAlternativeView = new CriteriaAlternativeView();
 
-            var mappedAlternatives = _mapper.Map<IList<AlternativeView>>(alternatives);
-            var mappedCriterias = _mapper.Map<IList<CriterionView>>(criterias);
+            var mappedAlternatives = _mapper.Map<IList<AlternativeView>>(alternatives.OrderBy(a=>a.Order));
+            var mappedCriterias = _mapper.Map<IList<CriterionView>>(criterias.OrderBy(c=>c.Order));
 
             criteriaAlternativeView.Alternatives = mappedAlternatives;
             criteriaAlternativeView.Criterias = mappedCriterias;

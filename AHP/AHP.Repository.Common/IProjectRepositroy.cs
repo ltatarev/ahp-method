@@ -26,7 +26,7 @@ namespace AHP.Repository.Common
         Task<IProjectModel> GetProjectsByIdWithAandC(Guid id);
         Task<bool> DeleteProject(Guid ProjectId);
         Task<int> CountProjects();
-        Task<int> SaveAsync();
+      
         
         #endregion Methods
     }

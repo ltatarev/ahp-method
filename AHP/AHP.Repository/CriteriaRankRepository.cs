@@ -20,13 +20,13 @@ namespace AHP.Repository
         #region Constructor
             public CriteriaRankRepository(AHPContext context, IMapper mapper)
         {
-            this.Context = context;
-            this.Mapper = mapper;
+            this._context = context;
+            this._mapper = mapper;
         }
         #endregion Constructor
         #region Properties        
-        private IMapper Mapper;
-        private AHPContext Context { get; set; }
+        private IMapper _mapper;
+        private AHPContext _context;
 
         #endregion Properties
 
@@ -34,46 +34,46 @@ namespace AHP.Repository
 
         public async Task<List<ICriteriaRankModel>> GetCriteriaRanks(int pageNumber, int pageSize=10)
         {
-            var critRanks = await Context.CriteriaRanks.OrderBy(cr => cr.DateCreated).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return Mapper.Map<List<ICriteriaRankModel>>(critRanks);
+            var critRanks = await _context.CriteriaRanks.OrderBy(cr => cr.DateCreated).
+                                                        Skip((pageNumber - 1) * pageSize).
+                                                        Take(pageSize).
+                                                        ToListAsync();
+
+            return _mapper.Map<List<ICriteriaRankModel>>(critRanks);
         }
 
         public async Task<ICriteriaRankModel> GetCriteriaRankById(Guid criteriaRankId)
         {
-            var critRank = await Context.CriteriaRanks.FindAsync(criteriaRankId);
-            return Mapper.Map<ICriteriaRankModel>(critRank);
+            var critRank = await _context.CriteriaRanks.FindAsync(criteriaRankId);
+            return _mapper.Map<ICriteriaRankModel>(critRank);
         }      
 
         public async Task<ICriteriaRankModel> InsertCriteriaRank(ICriteriaRankModel criteriaRank)
         {
-            var mapped = Mapper.Map<CriteriaRank>(criteriaRank);
-            Context.CriteriaRanks.Add(mapped);
-            await Context.SaveChangesAsync();
+            var mapped = _mapper.Map<CriteriaRank>(criteriaRank);
+            _context.CriteriaRanks.Add(mapped);
+            await _context.SaveChangesAsync();
             return criteriaRank;
         }
 
         public async Task<List<ICriteriaRankModel>> AddRange(List<ICriteriaRankModel> criteriaRanks)
         {
-            var mapped = Mapper.Map<List<CriteriaRank>>(criteriaRanks);
-            Context.CriteriaRanks.AddRange(mapped);
-            await Context.SaveChangesAsync();
+            var mapped = _mapper.Map<List<CriteriaRank>>(criteriaRanks);
+            _context.CriteriaRanks.AddRange(mapped);
+            await _context.SaveChangesAsync();
             return criteriaRanks;
         }
 
         public async Task<bool> DeleteCriteriaRank(Guid criterRankId)
         {
-            var criteriaRank = await Context.CriteriaRanks.FindAsync(criterRankId);
-            Context.CriteriaRanks.Remove(criteriaRank);
-            await Context.SaveChangesAsync();
+            var criteriaRank = await _context.CriteriaRanks.FindAsync(criterRankId);
+            _context.CriteriaRanks.Remove(criteriaRank);
+            await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<int> SaveAsync()
-        {
-            return await Context.SaveChangesAsync();
-        }
 
-
-
+        public async Task<int> SaveAsync() => await _context.SaveChangesAsync();
+        
         #endregion Methods
     }
 }

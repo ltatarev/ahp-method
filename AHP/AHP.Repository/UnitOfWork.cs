@@ -18,12 +18,12 @@ namespace AHP.Repository
         public UnitOfWork()
         {
             transactionScope = new TransactionScope(
-               TransactionScopeOption.RequiresNew,
-               new TransactionOptions()
-               {
-                   IsolationLevel = IsolationLevel.ReadCommitted
-               },
-               TransactionScopeAsyncFlowOption.Enabled);
+                TransactionScopeOption.RequiresNew,
+                new TransactionOptions()
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted
+                },
+                TransactionScopeAsyncFlowOption.Enabled);
         }
 
         public void Commit()

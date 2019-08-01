@@ -56,7 +56,9 @@ namespace AHP.Controllers
         public async Task<ActionResult> EditCriteria(Guid id)
         {
             var criteriasInProject = await _criteriaService.GetCriteriasByProjectId(id, 1);
-            var criterionView = _mapper.Map<List<CriterionView>>(criteriasInProject);
+            var sorted = criteriasInProject.OrderBy(c => c.Order).ToList();
+
+            var criterionView = _mapper.Map<List<CriterionView>>(sorted);
             ViewBag.id = id;
             return View(criterionView);
         }

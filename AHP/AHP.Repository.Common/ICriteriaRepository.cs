@@ -19,7 +19,7 @@ namespace AHP.Repository.Common
         Task<ICriteriaModel> InsertCriteria(ICriteriaModel criteria);
         Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria);
         Task<bool> DeleteCriteriaAsync(Guid CriteriaID);
-        Task<int> SaveAsync();
+       
 
     }
 }
