@@ -7,13 +7,13 @@ namespace AHP.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class dropPriority : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(dropPriority));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907311138358_init"; }
+            get { return "201908010659505_dropPriority"; }
         }
         
         string IMigrationMetadata.Source

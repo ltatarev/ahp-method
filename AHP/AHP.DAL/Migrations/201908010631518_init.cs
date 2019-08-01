@@ -18,24 +18,24 @@ namespace AHP.DAL.Migrations
                         DateCreated = c.DateTime(nullable: false),
                         DateUpdated = c.DateTime(nullable: false),
                         CriteriaId = c.Guid(nullable: false),
-                        Criteria_Order = c.Int(),
                     })
                 .PrimaryKey(t => t.AlternativeRankId)
-                .ForeignKey("dbo.Criteria", t => t.Criteria_Order)
-                .Index(t => t.Criteria_Order);
+                .ForeignKey("dbo.Criteria", t => t.CriteriaId, cascadeDelete: true)
+                .Index(t => t.CriteriaId);
             
             CreateTable(
                 "dbo.Criteria",
                 c => new
                     {
-                        Order = c.Int(nullable: false, identity: true),
+                        CriteriaId = c.Guid(nullable: false),
+                        Order = c.Int(nullable: false),
                         CriteriaName = c.String(),
                         Priority = c.Double(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
                         DateUpdated = c.DateTime(nullable: false),
                         ProjectId = c.Guid(nullable: false),
                     })
-                .PrimaryKey(t => t.Order)
+                .PrimaryKey(t => t.CriteriaId)
                 .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
                 .Index(t => t.ProjectId);
             
@@ -49,11 +49,10 @@ namespace AHP.DAL.Migrations
                         DateCreated = c.DateTime(nullable: false),
                         DateUpdated = c.DateTime(nullable: false),
                         CriteriaId = c.Guid(nullable: false),
-                        Criteria_Order = c.Int(),
                     })
                 .PrimaryKey(t => t.CriteriaRankId)
-                .ForeignKey("dbo.Criteria", t => t.Criteria_Order)
-                .Index(t => t.Criteria_Order);
+                .ForeignKey("dbo.Criteria", t => t.CriteriaId, cascadeDelete: true)
+                .Index(t => t.CriteriaId);
             
             CreateTable(
                 "dbo.Projects",
@@ -90,12 +89,12 @@ namespace AHP.DAL.Migrations
         {
             DropForeignKey("dbo.Criteria", "ProjectId", "dbo.Projects");
             DropForeignKey("dbo.Alternatives", "ProjectId", "dbo.Projects");
-            DropForeignKey("dbo.CriteriaRanks", "Criteria_Order", "dbo.Criteria");
-            DropForeignKey("dbo.AlternativeRanks", "Criteria_Order", "dbo.Criteria");
+            DropForeignKey("dbo.CriteriaRanks", "CriteriaId", "dbo.Criteria");
+            DropForeignKey("dbo.AlternativeRanks", "CriteriaId", "dbo.Criteria");
             DropIndex("dbo.Alternatives", new[] { "ProjectId" });
-            DropIndex("dbo.CriteriaRanks", new[] { "Criteria_Order" });
+            DropIndex("dbo.CriteriaRanks", new[] { "CriteriaId" });
             DropIndex("dbo.Criteria", new[] { "ProjectId" });
-            DropIndex("dbo.AlternativeRanks", new[] { "Criteria_Order" });
+            DropIndex("dbo.AlternativeRanks", new[] { "CriteriaId" });
             DropTable("dbo.Alternatives");
             DropTable("dbo.Projects");
             DropTable("dbo.CriteriaRanks");

@@ -59,9 +59,13 @@
     <Compile Include="Entities\CriteriaRank.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="IAHPContext.cs" />
-    <Compile Include="Migrations\201907311138358_init.cs" />
-    <Compile Include="Migrations\201907311138358_init.Designer.cs">
-      <DependentUpon>201907311138358_init.cs</DependentUpon>
+    <Compile Include="Migrations\201908010631518_init.cs" />
+    <Compile Include="Migrations\201908010631518_init.Designer.cs">
+      <DependentUpon>201908010631518_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908010659505_dropPriority.cs" />
+    <Compile Include="Migrations\201908010659505_dropPriority.Designer.cs">
+      <DependentUpon>201908010659505_dropPriority.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,8 +75,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907311138358_init.resx">
-      <DependentUpon>201907311138358_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908010631518_init.resx">
+      <DependentUpon>201908010631518_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908010659505_dropPriority.resx">
+      <DependentUpon>201908010659505_dropPriority.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

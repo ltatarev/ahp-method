@@ -10,10 +10,9 @@ namespace AHP.DAL.Entities
     public class Criteria
     {
         [Key]
-        //public Guid CriteriaId { get; set; }
+        public Guid CriteriaId { get; set; }
         public int Order { get; set; }
-        public string CriteriaName { get; set; }
-        public double Priority { get; set; }
+        public string CriteriaName { get; set; }        
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
