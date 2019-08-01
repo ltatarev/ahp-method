@@ -11,7 +11,6 @@
 
 @using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
 {
-    @Html.AntiForgeryToken()
     <div class="row p-2">
         <div class="col-6 col-md-4">
             @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
@@ -62,10 +61,7 @@
 
             numOfCriteria++;
 
-            @*let formGroup = document.createElement("div");
-            formGroup.classList.add("form-group", "pt-3");
-            formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete="off" })`
-            $("#criteria").append(formGroup);*@
+
         }
         else {
             warning.innerHTML = "Number of max. criteria reached!";
@@ -109,19 +105,19 @@
             $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
             flag = true;
         }
-        // console.log(checkIfDuplicateExists(inputText));
+        console.log(checkIfDuplicateExists(inputText));
 
-         var id = @ViewBag.id;
+         var id = @Html.Raw(Json.Encode(@ViewBag.id));
          for (let t of text) {
               // Values of each input field
-              // console.log(t.value);
+             console.log(t.value);
              data.push({
                  CriteriaName: t.value,
                  ProjectId: id
              })
          };
 
-        //console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         if (!flag) {
        $.ajax({
             contentType: 'application/json; charset=utf-8',
