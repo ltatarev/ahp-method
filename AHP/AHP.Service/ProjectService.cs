@@ -27,8 +27,8 @@ namespace AHP.Service
        public async Task<IProjectModel> AddProjectAsync(IProjectModel project)
         {
             project.DateCreated = DateTime.Now;
-            project.DateUpdated = DateTime.Now;          
-
+            project.DateUpdated = DateTime.Now;
+            project.Status = 0;
             using (var uow = _uowFactory.CreateUnitOfWork())
             {
                 await _projectRepository.InsertProject(project);
@@ -48,9 +48,28 @@ namespace AHP.Service
             return await _projectRepository.CompareProjects(projectName, userName);
         }
 
+        public async Task<IProjectModel> GetProjectByIdAsync(Guid projectId)
+        {
+            return await _projectRepository.GetProjectByIdAsync(projectId);
+        }
+
         public async Task<IProjectModel> GetProjectsByIdWithAandC(Guid id)
         {
             return await _projectRepository.GetProjectsByIdWithAandC(id);
+        }
+
+        public async Task<IProjectModel> Update(IProjectModel project)
+        {
+            var projectInDb = await _projectRepository.GetProjectByIdAsync(project.ProjectId);
+            projectInDb.DateUpdated = DateTime.Now;
+            projectInDb.Status = project.Status;
+
+            using (var uow = _uowFactory.CreateUnitOfWork())
+            {
+                await _projectRepository.UpdateProject(projectInDb);
+                uow.Commit();
+            }
+            return projectInDb;
         }
 
         public async Task<int> CountProjects()

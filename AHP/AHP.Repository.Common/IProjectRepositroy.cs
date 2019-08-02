@@ -24,6 +24,7 @@ namespace AHP.Repository.Common
         Task<IProjectModel> GetProjectByIdAsync(Guid ProjectId);
         Task<IProjectModel> InsertProject(IProjectModel project);
         Task<IProjectModel> GetProjectsByIdWithAandC(Guid id);
+        Task<IProjectModel> UpdateProject(IProjectModel project);
         Task<bool> DeleteProject(Guid ProjectId);
         Task<int> CountProjects();
       

@@ -25,6 +25,7 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<ICriteriaRankModel> criteriaRanks)
         {
+            //TO DO - update project status to 2
 
             foreach (var cr in criteriaRanks)
             {

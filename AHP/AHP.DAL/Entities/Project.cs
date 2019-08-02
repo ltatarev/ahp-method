@@ -16,6 +16,7 @@ namespace AHP.DAL.Entities
         [StringLength(50), Required]
         public string ProjectName { get; set; }
         public string Description { get; set; }
+        public byte Status { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 

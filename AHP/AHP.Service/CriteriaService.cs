@@ -10,14 +10,16 @@ namespace AHP.Service
     public class CriteriaService : ICriteriaService
     {
         #region Constructors
-        public CriteriaService(ICriteriaRepository repository, IUnitOfWorkFactory uowFactory)
+        public CriteriaService(ICriteriaRepository repository, IProjectRepository projectRepository, IUnitOfWorkFactory uowFactory)
         {
             this._criteriaRepository = repository;
             this._uowFactory = uowFactory;
+            this._projectRepository = projectRepository;
         }
         #endregion Constructors
 
-        #region Properties        
+        #region Properties      
+        private IProjectRepository _projectRepository;
         private ICriteriaRepository _criteriaRepository;
         private IUnitOfWorkFactory _uowFactory; 
         #endregion Properties
@@ -64,7 +66,12 @@ namespace AHP.Service
         }
 
         public async Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria)
-        {            
+        {
+            
+            var project = await _projectRepository.GetProjectByIdAsync(criteria[0].ProjectId);
+            project.Status = 1;
+            project.DateUpdated = DateTime.Now;
+
             var order = 1;
             foreach (var crit in criteria)
             {
@@ -73,10 +80,12 @@ namespace AHP.Service
                 crit.CriteriaId = Guid.NewGuid();
                 crit.Order = order;
                 order++;
+                
             }
             using (var uow = _uowFactory.CreateUnitOfWork())
             {
                 await _criteriaRepository.AddRange(criteria);
+                await _projectRepository.UpdateProject(project);
                 uow.Commit();
             }
             return criteria;

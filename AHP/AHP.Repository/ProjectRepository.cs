@@ -78,6 +78,14 @@ namespace AHP.Repository
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<IProjectModel> UpdateProject(IProjectModel project)
+        {
+            var projectInDb = await _context.Projects.FindAsync(project.ProjectId);
+            _context.Entry(projectInDb).CurrentValues.SetValues(_mapper.Map<Project>(project));
+            await _context.SaveChangesAsync();
+
+            return project;
+        }
 
         public async Task<int> CountProjects() => await _context.Projects.CountAsync();
                

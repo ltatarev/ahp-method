@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -160,6 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -245,6 +248,28 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AHP.Common\AHP.Common.csproj">
+      <Project>{31ffa47e-0499-48ff-91e6-44fceb367c08}</Project>
+      <Name>AHP.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Model.Common\AHP.Model.Common.csproj">
+      <Project>{59a56bbc-72e7-4d07-b218-bda9d97ed662}</Project>
+      <Name>AHP.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Repository.Common\AHP.Repository.Common.csproj">
+      <Project>{515c59cf-af01-4a28-9586-1a66297569cb}</Project>
+      <Name>AHP.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Service.Common\AHP.Service.Common.csproj">
+      <Project>{4aeee877-ae10-412e-92f9-60d0a4166013}</Project>
+      <Name>AHP.Service.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP\AHP.csproj">
+      <Project>{7e3b70c3-8f4f-46f3-8b9b-e4ec1a97db29}</Project>
+      <Name>AHP</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

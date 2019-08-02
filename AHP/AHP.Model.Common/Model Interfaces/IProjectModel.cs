@@ -10,6 +10,7 @@ namespace AHP.Model.Common.Model_Interfaces
         string Username { get; set; }
         string ProjectName { get; set; }
         string Description { get; set; }
+        byte Status { get; set; }
         DateTime DateCreated { get; set; }
         DateTime DateUpdated { get; set; }
 

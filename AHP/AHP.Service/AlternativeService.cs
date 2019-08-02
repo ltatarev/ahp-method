@@ -33,6 +33,7 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
+            //TO DO - update project status to 3
             var order = 1;
             foreach (var alter in alternatives)
             {

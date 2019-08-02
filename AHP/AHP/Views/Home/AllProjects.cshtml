@@ -8,10 +8,22 @@
     </div>
 </div>
 
-<div class="row mr-auto">
+
+            <table id="projectsTable" class="table-light m-auto table-striped text-dark table-hover" >
+                <thead class="thead-light rounded">
+                    <tr class="font-weight-bold">
+                        <th >Project</th>
+                        <th >User</th>
+                        <th >Choose</th>
+                    </tr>
+                </thead>
+                <tbody ></tbody>
+            </table>
+
+@*<div class="row mr-auto">
     <div class="col-12">
         <div class="row">
-            <table class="table w-50 m-auto text-centershadow table-striped table-light rounded table-borderless table-hover">
+            <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover">
                 <thead class="thead-light rounded">
                     <tr class="font-weight-bold">
                         <th scope="col" style="width: 16.66%">#</th>
@@ -24,9 +36,9 @@
             </table>
         </div>
     </div>
-</div>
+</div>*@
 
-<nav class="navbar navbar-light justify-content-center">
+@*<nav class="navbar navbar-light justify-content-center">
     <form class="form-inline bg-light rounded">
         <button class="btn btn-sm btn-outline-info m-1" type="button" id="first">First</button>
         <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="prev">Prev</button>
@@ -36,13 +48,49 @@
         <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="next">Next</button>
         <button class="btn btn-sm btn-outline-info m-1" type="button" id="last">Last</button>
     </form>
-</nav>
+</nav>*@
 
 
 @section scripts {
     <script>
 
-    var currentPage = @ViewBag.current;
+        $(document).ready(function () {
+            $("#projectsTable").DataTable({
+                columnDefs: [
+                    { "orderable": false, "targets": 2 },
+                    { "width": "20%", "targets": 2 },
+                    { "className": "dt-center", "targets": "_all" }
+                ],
+                ajax: {
+                    url: "/api/home/allprojects",
+                    dataSrc: "",
+                    "bProcessing": false,
+                    "bServerSide": false,
+                    "deferRender": false
+                },
+                columns: [
+                    {
+                        data: "username"
+                    },
+                    {
+                        data : "projectName"
+                    }, 
+                    {
+                        data: "projectId",
+                        render: function (data) {
+                            return "<button class='btn-js btn btn-outline-info btn-sm btnLetter' data-project-id="+data+">Choose</button>"
+                        }
+                    }
+                ]
+            });
+            $("#projectsTable").on("click", ".btn-js", function () {
+                console.log("stiso si me" + $(this).attr("data-project-id"))
+                window.location.replace("./chooseproject/" + $(this).attr("data-project-id"));
+            });
+        });      
+
+
+    @*var currentPage = @ViewBag.current;
     console.log("CURRENT PAGE", currentPage)
 
     var perPage = 10;
@@ -51,16 +99,16 @@
     console.log("projectLen", projectLen)
 
     let paginationLast = Math.ceil(projectLen / perPage);
-    console.log("paginationLast", paginationLast)
-            //// P A G I N A T I O N
+    console.log("paginationLast", paginationLast)*@
+            @*//// P A G I N A T I O N
 if (projectLen < 10) {
     $("#first").addClass("disabled");
     $("#first").css("cursor", "not-allowed");
     $("#prev").addClass("disabled");
     $("#prev").css("cursor", "not-allowed");
 
-    
-    $("#current").html(currentPage);  
+
+    $("#current").html(currentPage);
     $("#current").addClass("active");
 
     $("#currentPrev").css("display","none");
@@ -77,7 +125,7 @@ if (projectLen < 10) {
         $("#prev").addClass("disabled");
         $("#prev").css("cursor", "not-allowed");
 
-        $("#current").html(currentPage);    
+        $("#current").html(currentPage);
         $("#current").addClass("active");
 
         $("#currentPrev").css("display","none");
@@ -87,7 +135,7 @@ if (projectLen < 10) {
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
             window.location.href = url.replace("__page__", cne);
           });
-        
+
         $("#next").click(function() {
             let cne = currentPage + 1;
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
@@ -106,19 +154,19 @@ if (projectLen < 10) {
         $("#prev").click(function() {
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
             window.location.href = url.replace("__page__", currentPage - 1);
-          }); 
+          });
 
-        $("#current").html(currentPage);   
+        $("#current").html(currentPage);
         $("#current").addClass("active");
 
         $("#currentPrev").html(currentPage-1)
         $("#currentPrev").click(function() {
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
             window.location.href = url.replace("__page__", currentPage - 1);
-          });   
+          });
 
         $("#currentNext").css("display","none");
-        
+
         $("#next").addClass("disabled");
         $("#next").css("cursor", "not-allowed");
         $("#last").addClass("disabled");
@@ -133,20 +181,20 @@ if (projectLen < 10) {
             window.location.href = url.replace("__page__", currentPage - 1);
           });
 
-        $("#current").html(currentPage);   
+        $("#current").html(currentPage);
         $("#current").addClass("active");
 
         $("#currentPrev").html(currentPage-1)
         $("#currentPrev").click(function() {
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
             window.location.href = url.replace("__page__", currentPage - 1);
-          });   
+          });
         $("#currentNext").html(currentPage + 1);
         $("#currentNext").click(function() {
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
             window.location.href = url.replace("__page__", currentPage + 1);
-          });   
-        
+          });
+
         $("#next").click(function() {
             let cne = currentPage + 1;
             var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
@@ -157,9 +205,9 @@ if (projectLen < 10) {
             window.location.href = url.replace("__page__", paginationLast);
           });
     }
-}
+}*@
             //------------------------------------------------------------------------------------
-            var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
+            @*var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
             //console.log(uploadedListProjects)
 
             let body = document.getElementById("projectBody");
@@ -212,7 +260,7 @@ if (projectLen < 10) {
         let id = parseInt(this.id);
         let descId = `#desc` + (id.toString());
         $(descId).toggle();
-    })
+    })*@
 
     </script>
 }

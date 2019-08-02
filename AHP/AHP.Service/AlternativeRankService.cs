@@ -28,7 +28,8 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<IAlternativeRankModel> alternativeRanks)
         {
-            foreach(var ar in alternativeRanks)
+            //TO DO - update project status to 4
+            foreach (var ar in alternativeRanks)
             {
                 ar.DateCreated = DateTime.Now;
                 ar.DateUpdated = DateTime.Now;

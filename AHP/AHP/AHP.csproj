@@ -53,6 +53,9 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.2.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
@@ -150,10 +153,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AutoMapper\ApiMapper.cs" />
     <Compile Include="AutoMapper\RepositoryMapper.cs" />
     <Compile Include="AutoMapper\DIModule.cs" />
     <Compile Include="AutoMapper\MVCMapper.cs" />
     <Compile Include="Controllers\AlternativeController.cs" />
+    <Compile Include="Controllers\api\HomeController.cs" />
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
@@ -165,6 +170,11 @@
     <Compile Include="Models\CriteriaAlternativeView.cs" />
     <Compile Include="Models\CriteriaRankView.cs" />
     <Compile Include="Models\CriterionView.cs" />
+    <Compile Include="Models\Dto\AlternativeDto.cs" />
+    <Compile Include="Models\Dto\AlternativeRankDto.cs" />
+    <Compile Include="Models\Dto\CriteriaDto.cs" />
+    <Compile Include="Models\Dto\CriteriaRankDto.cs" />
+    <Compile Include="Models\Dto\ProjectDto.cs" />
     <Compile Include="Models\ProjectView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -177,6 +187,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Loader.css" />

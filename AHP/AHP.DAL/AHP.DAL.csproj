@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201908010659505_dropPriority.Designer.cs">
       <DependentUpon>201908010659505_dropPriority.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908021142384_projectStatus.cs" />
+    <Compile Include="Migrations\201908021142384_projectStatus.Designer.cs">
+      <DependentUpon>201908021142384_projectStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908010659505_dropPriority.resx">
       <DependentUpon>201908010659505_dropPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908021142384_projectStatus.resx">
+      <DependentUpon>201908021142384_projectStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
