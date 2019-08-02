@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
+using System.Reflection;
+using Autofac.Integration.WebApi;
 
 namespace AHP
 {
@@ -30,14 +32,17 @@ namespace AHP
             {
                 cfg.AddProfile(new MVCMapper());
                 cfg.AddProfile(new RepositoryMapper());
+                cfg.AddProfile(new ApiMapper());
             })).AsSelf().SingleInstance();
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>().InstancePerLifetimeScope();
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
             var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));            
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)container);
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

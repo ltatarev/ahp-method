@@ -21,7 +21,7 @@ namespace AHP.Controllers
             this.ProjectService = projectService;
         }
         protected IMapper _mapper { get; set; }
-        protected IProjectService ProjectService { get; set; }
+        protected IProjectService ProjectService;
 
         // GET: Home/Index
         public ActionResult Index()
