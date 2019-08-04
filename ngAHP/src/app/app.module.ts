@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 // import every material component before using
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { HomeComponent } from './components/home/home.component';
 import { AllProjectsComponent } from './components/all-projects/all-projects.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
@@ -17,6 +18,8 @@ import { EditAlternativeComponent } from './components/edit-alternative/edit-alt
 import { AddAlternativeComponent } from './components/add-alternative/add-alternative.component';
 import { FinalResultComponent } from './components/final-result/final-result.component';
 import { LearnMoreComponent } from './components/learn-more/learn-more.component';
+
+
 
 @NgModule({
   declarations: [

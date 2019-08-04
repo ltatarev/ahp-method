@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: "learnMore", component: LearnMoreComponent},
   { path: "allProjects", component: AllProjectsComponent},
-  { path: "addNewC", component: AddCriteriaComponent},
+  { path: "addCriterion", component: AddCriteriaComponent},
   { path: "editCriteria", component: EditCriteriaComponent},
   { path: "editAlternative", component: EditAlternativeComponent},
   { path: "addAlternative", component: AddAlternativeComponent},

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-new-project',
   templateUrl: './new-project.component.html',
@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewProjectComponent implements OnInit {
 
-  constructor() { }
+  newProject: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.newProject = this.fb.group({
+      Username: ['',Validators.required],
+      ProjectName: ['', Validators.required],
+      Description: ['',[Validators.required,Validators.maxLength(50)]]
+    });
+  }
+
+
+  onSubmit() {
+    let newProject: any = this.newProject.value;
+    console.log(newProject);
   }
 
 }

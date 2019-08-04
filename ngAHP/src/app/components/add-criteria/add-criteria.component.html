@@ -1,18 +1,29 @@
-<!-- LOADER -->
 <div class="loader" id="divLoader" style="display:none;"></div>
 <h1 id="SubTitle">Add criteria</h1>
+
+<form [formGroup]="addCriteriaForm" (ngSubmit)="onSubmit()">
     <div class="row p-2">
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-lg-5">
+            <div formArrayName="criteriaArray">
+                <div *ngFor="let c of criteriaForms.controls; let i=index" [formGroupName]="i">
+                    <div class="input-group mb-3">
+                        <input type="text" required class="form-control" placeholder="Criterion name"
+                            formControlName="criteriaName" autocomplete="off">
+                        <div *ngIf="minLen()" class="input-group-append">
+                            <button type="button" class="btn btnPlus btn-danger btn-sm" [disabled]="!minLen()"
+                                (click)="deleteCriteria(i)"><i class="fas fa-minus-circle fa-lg pt-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-3 col-md-2 justify-content-around">
-            <button type="button" class="btn btnPlus btn-success btn-sm" onclick="addCriterion()"><i class="fas fa-plus-circle fa-lg pt-1"></i></button>
-            <button type="button" class="btn btnPlus btn-danger btn-sm" onclick="removeCriterion()"><i class="fas fa-minus-circle fa-lg pt-1"></i></button>
-        </div>
-        <div class="col-3 float-left">
-            <button type="submit" id="submitBtn" class="btn btnLetter btn-success">Submit</button>
+        <div class="col-5 col-md-3 align-content-around">
+            <button type="button" class="btn btnPlus btn-success btn-sm m-1"
+             (click)="addCriteria()" [disabled]="maxLen()">
+                <i class="fas fa-plus-circle fa-lg pt-1"></i></button>
+
+            <button type="submit" class="btn btnLetter btn-success m-1"
+                [disabled]="addCriteriaForm.invalid">Submit</button>
         </div>
     </div>
-    <div class="row p-2">
-        <div class="col-6 col-md-4 pb-2" id="criteria">
-  </div>
-    </div>
+</form>

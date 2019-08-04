@@ -1,32 +1,26 @@
-<button class="btn btnLetter btn-light" [routerLink]="['/home']"><i class="fas fa-arrow-left"></i> Back</button>
-<!-- LOADER -->
-<div class="loader" id="divLoader" style="display:none;"></div>
-<h3 id="SubTitle" class="text-light text-md-left text-sm-center">Add new project</h3>
-
-<div class="col-12 ml-5">
-  <div class="row pt-5">
-            <div class="col-6 col-md-4">
-                <div class="form-group pt-1">
-           </div>
-            </div>
+<div class="container">
+    <button class="btn btnLetter btn-light text-left" [routerLink]="['/home']"><i class="fas fa-arrow-left"></i>
+        Back</button>
+    <!-- LOADER -->
+    <div class="loader" id="divLoader" style="display:none;"></div>
+    <h3 id="SubTitle" class="text-light text-left">Add new project</h3>
+<div class="row mt-3">
+    <div class="col-5 offset-3">
+    <form [formGroup]="newProject" class="mr-auto" (ngSubmit)="onSubmit()" #project="ngForm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="Username" placeholder="Username" formControlName="Username"
+                autocomplete="off">
         </div>
-        <div class="row">
-            <div class="col-6 col-md-4">
-                <div class="form-group pt-1">
+        <div class="form-group">
+            <input type="text" required class="form-control" id="ProjectName" placeholder="Project name"
+                formControlName="ProjectName" autocomplete="off">
         </div>
-            </div>
+        <div class="form-group">
+            <textarea class="form-control" rows="3" id="Description" placeholder="Description"
+                formControlName="Description" autocomplete="off"></textarea>
         </div>
-        <div class="row pb-5">
-            <div class="col-6 col-md-4">
-                <div class="form-group">
-   </div>
-            </div>
-            <div class="col-2">
-                <button type="submit" class="btn btnLetter btn-success"><i class="fas fa-check-circle pt-1 fa-lg"></i></button>
-            </div>
-
-        </div>
+        <button type="submit" class="btn btn-success btnLetter float-right" [disabled]="project.form.invalid">Submit</button>
+    </form>
 </div>
-
-<!-- LOADER -->
-<div class="loader" id="divLoader" style="display:none;"></div>
+</div>
+</div>
