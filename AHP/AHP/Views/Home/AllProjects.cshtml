@@ -9,15 +9,17 @@
 </div>
 
 
-            <table id="projectsTable" class="table-light m-auto table-striped text-dark table-hover" >
+            <table id="projectsTable" class="table table-light m-auto table-striped text-dark table-hover" style="width:100%" >
                 <thead class="thead-light rounded">
-                    <tr class="font-weight-bold">
-                        <th >Project</th>
-                        <th >User</th>
-                        <th >Choose</th>
+                    <tr class="font-weight-bold text-center">
+
+                        <th>Project</th>
+                        <th>User</th>
+                        <th>Status</th>
+                        <th>Choose</th>
                     </tr>
                 </thead>
-                <tbody ></tbody>
+                <tbody class="text-center"> </tbody>
             </table>
 
 @*<div class="row mr-auto">
@@ -56,8 +58,20 @@
 
         $(document).ready(function () {
             $("#projectsTable").DataTable({
+                
+                "rowCallback": function (row, data) {
+                    console.log(data.status);
+                    $('td', row).addClass("align-middle")
+                    if (data.status == "5") {
+                        $('td', row).addClass("font-weight-bold")
+                        $('td', row).css("background","#98fb98")
+
+                        $('button', row).removeClass("btn-outline-info")
+                        $('button', row).addClass("btn-outline-dark")
+                    }
+                },
                 columnDefs: [
-                    { "orderable": false, "targets": 2 },
+                    { "orderable": false, "targets": 3 },
                     { "width": "20%", "targets": 2 },
                     { "className": "dt-center", "targets": "_all" }
                 ],
@@ -68,7 +82,7 @@
                     "bServerSide": false,
                     "deferRender": false
                 },
-                columns: [
+                columns: [                    
                     {
                         data: "username"
                     },
@@ -76,9 +90,15 @@
                         data : "projectName"
                     }, 
                     {
+                        data: "status",
+                        render: function (data) {
+                            return (data/5)*100 + "%"
+                        }
+                    },
+                    {
                         data: "projectId",
                         render: function (data) {
-                            return "<button class='btn-js btn btn-outline-info btn-sm btnLetter' data-project-id="+data+">Choose</button>"
+                            return "<button class='btn-js btn btn-outline-info btn-sm btnLetter' data-project-id=" + data + ">Choose</button>"
                         }
                     }
                 ]

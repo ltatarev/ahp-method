@@ -36,7 +36,7 @@ namespace AHP
                       "~/Content/Placeholder.css",
                       "~/Content/Loader.css",
                       "~/Content/Pagination.css",
-                      "~/content/datatables/css/datatables.bootstrap.css"
+                      "~/content/datatables/css"
 ));
         }
     }

@@ -31,7 +31,7 @@ namespace AHP.Repository
 
         public async Task<IAlternativeModel> GetAlternativeById(Guid alternativeId)
         {
-            var alternative = await _context.Alternatives.FindAsync(alternativeId);
+            var alternative = await _context.Alternatives.Where(a => a.AlternativeId == alternativeId).Include(a => a.Project).FirstOrDefaultAsync();
             return _mapper.Map<IAlternativeModel>(alternative);
         }                
 

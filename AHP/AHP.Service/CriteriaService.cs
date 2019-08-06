@@ -69,7 +69,7 @@ namespace AHP.Service
         {
             
             var project = await _projectRepository.GetProjectByIdAsync(criteria[0].ProjectId);
-            project.Status = 1;
+            project.Status = 2;
             project.DateUpdated = DateTime.Now;
 
             var order = 1;

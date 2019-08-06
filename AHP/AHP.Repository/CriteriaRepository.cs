@@ -48,7 +48,7 @@ namespace AHP.Repository
 
         public async Task<ICriteriaModel> GetCriteriaByIdAsync(Guid criteriaId)
         {
-            var criteria = await _context.Criterias.FindAsync(criteriaId);
+            var criteria = await _context.Criterias.Where(c => c.CriteriaId == criteriaId).Include(c => c.Project).FirstOrDefaultAsync();
             return _mapper.Map<Criteria, ICriteriaModel>(criteria);
         }        
 

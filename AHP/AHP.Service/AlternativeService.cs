@@ -12,13 +12,15 @@ namespace AHP.Service
     public class AlternativeService : IAlternativeService
     {
         #region Constructors
-        public AlternativeService(IAlternativeRepository alternativeRepository, IUnitOfWorkFactory uowFactory)
+        public AlternativeService(IAlternativeRepository alternativeRepository, IProjectRepository projectRepository, IUnitOfWorkFactory uowFactory)
         {
             this._alternativeRepository = alternativeRepository;
+            this._projectRepository = projectRepository;
             this._uowFactory = uowFactory;
         }
         #endregion Constructors
         #region Properties
+        private IProjectRepository _projectRepository;
         private IAlternativeRepository _alternativeRepository;
         private IUnitOfWorkFactory _uowFactory;
         #endregion Properties
@@ -33,7 +35,9 @@ namespace AHP.Service
 
         public async Task<bool> AddRange(List<IAlternativeModel> alternatives)
         {
-            //TO DO - update project status to 3
+            var project =await _projectRepository.GetProjectByIdAsync(alternatives[0].ProjectId);
+            project.Status = 4;
+            project.DateUpdated = DateTime.Now;
             var order = 1;
             foreach (var alter in alternatives)
             {
@@ -46,6 +50,7 @@ namespace AHP.Service
 
             using (var uow = _uowFactory.CreateUnitOfWork())
             {
+                await _projectRepository.UpdateProject(project);
                 await _alternativeRepository.AddRange(alternatives);
                 uow.Commit();
             }

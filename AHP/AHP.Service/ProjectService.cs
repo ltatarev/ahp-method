@@ -28,7 +28,7 @@ namespace AHP.Service
         {
             project.DateCreated = DateTime.Now;
             project.DateUpdated = DateTime.Now;
-            project.Status = 0;
+            project.Status = 1;
             using (var uow = _uowFactory.CreateUnitOfWork())
             {
                 await _projectRepository.InsertProject(project);
