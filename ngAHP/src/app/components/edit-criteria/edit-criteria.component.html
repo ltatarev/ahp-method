@@ -4,11 +4,30 @@
 <h1 id="SubTitle">Edit criteria</h1>
 <h3 class="text-light font-italic">Input your preferences</h3>
 
-<div class="container justify-content-md-center rounded shadow text-center text-dark p-2 pt-5 bg-white" id="formDiv">
-<div class="row p-2">
-                <div class="col-3 text-center">criteria 1</div>
-                <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
-                <div class="col-3 text-center">criteria 2</div>
-            </div>
-    <div id="EditCriterionForm"></div>
+<div class="container justify-content-md-center rounded shadow text-center text-dark p-4 w-75 bg-white" id="formDiv">
+
+<form [formGroup]="editCriteriaForm" (ngSubmit)="onSubmit()" #editCriteria="ngForm">
+  
+    <div class="row" class="text-center">
+        <p class="lead" style="font-size:15px; letter-spacing:1px; font-style: italic;">Equally prefered</p>
+    </div>
+
+    <div formArrayName="criteriaArray">
+        <div *ngFor="let c of editCriteriaForm.controls; let i=index">
+            
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group" class="row">
+        <div class="col-3 text-center">criteria 1</div>
+        <div class="col-6"><input id="slider1" type="range" min="-8" max="9" step="1"></div>
+        <div class="col-3 text-center">criteria 2</div>
+    </div>
+
+    <button type="submit" class="btn btn-success btnLetter m-auto" [disabled]="editCriteria.invalid">Submit</button>
+   
+</form>
 </div>

@@ -19,4 +19,23 @@ export class ProjectService {
   constructor(private http: HttpClient, private _router: Router) {
    }
 
+   private handleError<T>(operation: string = "operation", result?: T) {
+    return (response: any): Observable<T> => {
+      console.log(response.error.errmsg, response.statusText);
+      return of(result as T);
+    }
+  }
+
+  newProject(project: Project): Observable<any> {
+    return this.http.post<any>(this.projectUrl, project)
+              .pipe(
+                tap(
+                  (response: { project: Project }) => {
+                    this._router.navigate(['addCriterion', project.ProjectId]);
+                  }
+                ),
+                catchError(this.handleError<any>('register', project))
+              )
+  }
+
 }

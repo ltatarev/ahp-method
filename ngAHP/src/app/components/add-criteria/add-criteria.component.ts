@@ -6,6 +6,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from "@angular/forms";
   templateUrl: "./add-criteria.component.html",
   styleUrls: ["./add-criteria.component.css"]
 })
+
 export class AddCriteriaComponent implements OnInit {
   addCriteriaForm: FormGroup;
 

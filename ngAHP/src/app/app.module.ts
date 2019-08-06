@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { ReactiveFormsModule } from '@angular/forms'
 
 // import every material component before using
@@ -38,9 +40,10 @@ import { LearnMoreComponent } from './components/learn-more/learn-more.component
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

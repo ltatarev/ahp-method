@@ -5,19 +5,15 @@
     <div class="loader" id="divLoader" style="display:none;"></div>
     <h3 id="SubTitle" class="text-light text-left">Add new project</h3>
 <div class="row mt-3">
-    <div class="col-5 offset-3">
-    <form [formGroup]="newProject" class="mr-auto" (ngSubmit)="onSubmit()" #project="ngForm">
+    <div class="col-5 mr-auto">
+    <form [formGroup]="newProject"(ngSubmit)="onSubmit()" #project="ngForm">
         <div class="form-group">
-            <input type="text" class="form-control" id="Username" placeholder="Username" formControlName="Username"
+            <input type="text" class="form-control" name="Username" id="Username" placeholder="Username" formControlName="Username"
                 autocomplete="off">
         </div>
         <div class="form-group">
-            <input type="text" required class="form-control" id="ProjectName" placeholder="Project name"
+            <input type="text" required class="form-control" name="ProjectName" id="ProjectName" placeholder="Project name"
                 formControlName="ProjectName" autocomplete="off">
-        </div>
-        <div class="form-group">
-            <textarea class="form-control" rows="3" id="Description" placeholder="Description"
-                formControlName="Description" autocomplete="off"></textarea>
         </div>
         <button type="submit" class="btn btn-success btnLetter float-right" [disabled]="project.form.invalid">Submit</button>
     </form>
