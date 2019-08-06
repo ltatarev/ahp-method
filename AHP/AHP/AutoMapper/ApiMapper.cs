@@ -13,10 +13,10 @@ namespace AHP.AutoMapper
         public ApiMapper()
         {
             CreateMap<ProjectDto, IProjectModel>().ReverseMap();
-            //CreateMap<CriterionView, ICriteriaModel>().ReverseMap();
-            //CreateMap<AlternativeView, IAlternativeModel>().ReverseMap();
+            CreateMap<CriterionDto, ICriteriaModel>().ReverseMap();
+          // CreateMap<AlternativeView, IAlternativeModel>().ReverseMap();
             //CreateMap<AlternativeRankView, IAlternativeRankModel>().ReverseMap();
-            //CreateMap<CriteriaRankView, ICriteriaRankModel>().ReverseMap();
+            CreateMap<CriteriaRankDto, ICriteriaRankModel>().ReverseMap();
 
         }
 

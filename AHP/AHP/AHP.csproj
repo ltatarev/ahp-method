@@ -158,6 +158,8 @@
     <Compile Include="AutoMapper\DIModule.cs" />
     <Compile Include="AutoMapper\MVCMapper.cs" />
     <Compile Include="Controllers\AlternativeController.cs" />
+    <Compile Include="Controllers\api\AlternativeController.cs" />
+    <Compile Include="Controllers\api\CriterionController.cs" />
     <Compile Include="Controllers\api\HomeController.cs" />
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,6 +172,8 @@
     <Compile Include="Models\CriteriaAlternativeView.cs" />
     <Compile Include="Models\CriteriaRankView.cs" />
     <Compile Include="Models\CriterionView.cs" />
+    <Compile Include="Models\Dto\CriteriaRankDto.cs" />
+    <Compile Include="Models\Dto\CriterionDto.cs" />
     <Compile Include="Models\Dto\ProjectDto.cs" />
     <Compile Include="Models\ProjectView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
