@@ -132,9 +132,14 @@
                                     $.ajax({
                                         url: "/api/home/deleteproject/" + button.attr("data-project-id"),
                                         method: "DELETE",
-
                                         success: function () {
-                                            button.parents("tr").remove();
+                                            button.parents("tr")
+                                                .children('td')
+                                                .animate({ padding: 0 })
+                                                .wrapInner('<div />')
+                                                .children()
+                                                .slideUp(function () { $(this).closest('tr').remove(); });
+                                            
                                         }
                                     });
                             }

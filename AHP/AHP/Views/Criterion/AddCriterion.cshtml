@@ -45,9 +45,11 @@
     warning.setAttribute("style","display:none; border: 2px solid red; font-weight: bold;")
 
     let subtitle = document.getElementById("SubTitle");
-    subtitle.after(warning);
+        subtitle.after(warning);
 
-    let numOfCriteria = 2;
+//dodavanje inputa za kriterij
+        let numOfCriteria = 2;
+
     function addCriterion() {
         if (numOfCriteria < 10) {
             let formRow = document.createElement("div");
@@ -60,10 +62,7 @@
             formCol.appendChild(formGroup);
             formRow.appendChild(formCol);
             $("#AddCriterionForm").append(formRow);
-
             numOfCriteria++;
-
-
         }
         else {
             warning.innerHTML = "Number of max. criteria reached!";

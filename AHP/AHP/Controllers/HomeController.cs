@@ -58,9 +58,7 @@ namespace AHP.Controllers
                 case 3: return RedirectToAction("AddAlternative", "Alternative", new { @id = project.ProjectId });
                 case 4: return RedirectToAction("EditAlternative", "Alternative", new { @id = project.ProjectId });
                 default: return RedirectToAction("FinalResult", "Result", new { @id = project.ProjectId });
-
-            }
-           
+            }           
         }
 
         // GET: Home/LearnMore

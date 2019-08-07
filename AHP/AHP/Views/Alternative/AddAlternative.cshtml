@@ -5,8 +5,9 @@
     ViewBag.Title = "AddAlternative";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 id="SubTitle">Add alternative</h1>
+<button class="btn btnLetter btn-light" onclick="location.href='@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Home</button>
 
+<h1 id="SubTitle">Add alternative</h1>
 <!-- LOADER -->
 <div class="loader" id="divLoader" style="display:none;"></div>
 @using (Html.BeginForm("AddAlternative", "Alternative", FormMethod.Post, new { id = "AddAlternativeForm" }))

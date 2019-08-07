@@ -27,9 +27,9 @@ namespace AHP.Controllers
         #endregion
 
         // GET: Criterion/AddCriterion
-        public ActionResult AddCriterion(Guid id)
+        public async Task<ActionResult> AddCriterion(Guid id)
         {
-            // Display View with form for adding Criteria
+            
             ViewBag.id = id;
             return View();
         }
@@ -37,8 +37,7 @@ namespace AHP.Controllers
         // POST: Criterion/AddNewCriterion
         [HttpPost]
         public async Task<JsonResult> AddNewCriterion(List<CriterionView> criteria)
-        {
-            
+        {            
             if (ModelState.IsValid)
             {
                 var mapped = _mapper.Map<List<ICriteriaModel>>(criteria);           
@@ -49,9 +48,7 @@ namespace AHP.Controllers
             {
                 return Json("Failure");
             }
-
         }
-
         // GET: Criterion/EditCriterion
         public async Task<ActionResult> EditCriteria(Guid id)
         {
