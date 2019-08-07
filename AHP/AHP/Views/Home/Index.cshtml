@@ -7,7 +7,7 @@
     </div>
         <div class="row text-center text-md-left">
             <div class="col">
-                <input type="button" value="Learn more" onclick="location.href='@Url.Action("LearnMore","Home")'" class="btn btnLetter btn-light" />
+                <input type="button" value="Learn more" class="btn btnLetter btn-light btn-learn" />
             </div>
         </div>
         <div class="row pt-5 text-center mt-5 mr-4 float-right" style="border-radius:25px;">
@@ -22,6 +22,32 @@
     
 @section scripts {
     <script>
+        $(document).ready(function () {
+            $(".btn-learn").on("click", function () {
+                
+                $.confirm({
+                    title: 'How to use',
+                    content:                        
+                        "-  Pick a project or make a new one \n-  Set criteria & preferences \n-  Set alternatives & preferences".split('\n').join('<br>'),
+                       
+                                                               
+                   
+                    type: 'blue',
+                    typeAnimated: true,
+                    buttons: {
+                        tryAgain: {
+                            text: 'Ok',
+                            btnClass: 'btn-blue',
+                            action: function () {
+                            }
+                        }
+                        
+                    }
+                });
+            })
+        });
+
+
 
         // Wrap every letter in a span
         var textWrapper = document.querySelector('.ml3');

@@ -71,7 +71,10 @@ namespace AHP.Service
             }
             return projectInDb;
         }
-
+        public async Task<bool> DeleteProject(Guid id)
+        {
+            return await _projectRepository.DeleteProject(id);
+        }
         public async Task<int> CountProjects()
         {
             return await _projectRepository.CountProjects();

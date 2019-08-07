@@ -16,6 +16,7 @@ namespace AHP.Service.Common
         Task<IProjectModel> CompareProjects(string projectName, string userName);
         Task<IProjectModel> GetProjectsByIdWithAandC(Guid id);
         Task<IProjectModel> GetProjectByIdAsync(Guid projectId);
+        Task<bool> DeleteProject(Guid id);
         Task<int> CountProjects();
 
 

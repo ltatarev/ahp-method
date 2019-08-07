@@ -9,48 +9,50 @@
 </div>
 
 
-            <table id="projectsTable" class="table table-light m-auto table-striped text-dark table-hover" style="width:100%" >
-                <thead class="thead-light rounded">
-                    <tr class="font-weight-bold text-center">
 
-                        <th>Project</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Choose</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center"> </tbody>
-            </table>
+<table id="projectsTable" class="table table-light m-auto table-striped text-dark table-hover" style="width:100%">
+    <thead class="thead-light rounded">
+        <tr class="font-weight-bold text-center">
+
+            <th>Project</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Choose</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody class="text-center"> </tbody>
+</table>
 
 @*<div class="row mr-auto">
-    <div class="col-12">
-        <div class="row">
-            <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover">
-                <thead class="thead-light rounded">
-                    <tr class="font-weight-bold">
-                        <th scope="col" style="width: 16.66%">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Project name</th>
-                        <th scope="col">Details</th>
-                    </tr>
-                </thead>
-                <tbody id="projectBody" class="m-auto"></tbody>
-            </table>
+        <div class="col-12">
+            <div class="row">
+                <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover">
+                    <thead class="thead-light rounded">
+                        <tr class="font-weight-bold">
+                            <th scope="col" style="width: 16.66%">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Project name</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectBody" class="m-auto"></tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 @*<nav class="navbar navbar-light justify-content-center">
-    <form class="form-inline bg-light rounded">
-        <button class="btn btn-sm btn-outline-info m-1" type="button" id="first">First</button>
-        <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="prev">Prev</button>
-        <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentPrev">0</button>
-        <button class="btn btn-sm btn-outline-success m-1" type="button" id="current">0</button>
-        <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentNext">0</button>
-        <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="next">Next</button>
-        <button class="btn btn-sm btn-outline-info m-1" type="button" id="last">Last</button>
-    </form>
-</nav>*@
+        <form class="form-inline bg-light rounded">
+            <button class="btn btn-sm btn-outline-info m-1" type="button" id="first">First</button>
+            <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="prev">Prev</button>
+            <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentPrev">0</button>
+            <button class="btn btn-sm btn-outline-success m-1" type="button" id="current">0</button>
+            <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentNext">0</button>
+            <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="next">Next</button>
+            <button class="btn btn-sm btn-outline-info m-1" type="button" id="last">Last</button>
+        </form>
+    </nav>*@
 
 
 @section scripts {
@@ -58,20 +60,22 @@
 
         $(document).ready(function () {
             $("#projectsTable").DataTable({
-                
+
                 "rowCallback": function (row, data) {
                     console.log(data.status);
                     $('td', row).addClass("align-middle")
                     if (data.status == "5") {
+                       
                         $('td', row).addClass("font-weight-bold")
-                        $('td', row).css("background","#98fb98")
-
-                        $('button', row).removeClass("btn-outline-info")
-                        $('button', row).addClass("btn-outline-dark")
+                        $(row).addClass("rowhover")
+                                                
+                        $('#choose', row).removeClass("btn-outline-info")
+                        $('#choose', row).addClass("btn-outline-dark")
                     }
                 },
                 columnDefs: [
                     { "orderable": false, "targets": 3 },
+                    { "orderable": false, "targets": 4 },
                     { "width": "20%", "targets": 2 },
                     { "className": "dt-center", "targets": "_all" }
                 ],
@@ -82,32 +86,67 @@
                     "bServerSide": false,
                     "deferRender": false
                 },
-                columns: [                    
+                columns: [
                     {
                         data: "username"
                     },
                     {
-                        data : "projectName"
-                    }, 
+                        data: "projectName"
+                    },
                     {
                         data: "status",
                         render: function (data) {
-                            return (data/5)*100 + "%"
+                            return (data / 5) * 100 + "%"
                         }
                     },
                     {
                         data: "projectId",
                         render: function (data) {
-                            return "<button class='btn-js btn btn-outline-info btn-sm btnLetter' data-project-id=" + data + ">Choose</button>"
+                            return "<button id='choose' class='btn-js btn btn-outline-info btn-sm btnLetter' data-project-id=" + data + ">Choose</button>"
+                        }
+                    },
+                    {
+                        data: "projectId",
+                        render: function (data) {
+                            return "<button class='btn-dlt btn btn-outline-danger btn-sm btnLetter' data-project-id=" + data + ">Delete</button>"
                         }
                     }
                 ]
             });
             $("#projectsTable").on("click", ".btn-js", function () {
-                console.log("stiso si me" + $(this).attr("data-project-id"))
                 window.location.replace("./chooseproject/" + $(this).attr("data-project-id"));
             });
-        });      
+            $("#projectsTable").on("click", ".btn-dlt", function () {
+                var button = $(this);
+                $.confirm({
+                    title: "Delete project",
+                    content: 'Are you sure?',
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                          text: 'Delete',
+                          btnClass: 'btn-red',
+                          action:  function() {
+                                
+                                    $.ajax({
+                                        url: "/api/home/deleteproject/" + button.attr("data-project-id"),
+                                        method: "DELETE",
+
+                                        success: function () {
+                                            button.parents("tr").remove();
+                                        }
+                                    });
+                            }
+                        },
+                        cancel: function () {
+                           
+                        }                      
+                    }
+                });
+                
+            })
+        })
 
 
     @*var currentPage = @ViewBag.current;

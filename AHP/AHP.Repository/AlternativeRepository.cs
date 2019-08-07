@@ -38,7 +38,7 @@ namespace AHP.Repository
         public async Task<List<IAlternativeModel>> GetAlternativesByProjectId(Guid projectId, int pageNumber, int pageSize=10)
         {
             var alternatives = await _context.Alternatives.Where(a => a.ProjectId == projectId).
-                                                           OrderBy(a => a.DateCreated).
+                                                           OrderBy(a => a.Order).
                                                            Skip((pageNumber - 1) * pageSize).
                                                            Take(pageSize).
                                                            ToListAsync();

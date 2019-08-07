@@ -172,6 +172,9 @@
     <Compile Include="Models\CriteriaAlternativeView.cs" />
     <Compile Include="Models\CriteriaRankView.cs" />
     <Compile Include="Models\CriterionView.cs" />
+    <Compile Include="Models\Dto\AlternativeDto.cs" />
+    <Compile Include="Models\Dto\AlternativeRankDto.cs" />
+    <Compile Include="Models\Dto\CriteriaAlternativeDto.cs" />
     <Compile Include="Models\Dto\CriteriaRankDto.cs" />
     <Compile Include="Models\Dto\CriterionDto.cs" />
     <Compile Include="Models\Dto\ProjectDto.cs" />
@@ -309,6 +312,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

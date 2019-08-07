@@ -63,6 +63,11 @@ namespace AHP.Controllers.api
             }
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
+        [HttpDelete]
+        public async Task<bool> DeleteProject(Guid id)
+        {
+            return await ProjectService.DeleteProject(id);
+        }
 
     }
 }

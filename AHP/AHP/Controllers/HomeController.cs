@@ -51,24 +51,16 @@ namespace AHP.Controllers
         public async Task<ActionResult> ChooseProject(Guid id)
         {
             var project = await ProjectService.GetProjectsByIdWithAandC(id);  // Gets projects with lazy loaded criterias and alternatives
+            switch (project.Status)
+            {
+                case 1: return RedirectToAction("AddCriterion", "Criterion", new { @id = project.ProjectId });
+                case 2: return RedirectToAction("EditCriteria", "Criterion", new { @id = project.ProjectId });
+                case 3: return RedirectToAction("AddAlternative", "Alternative", new { @id = project.ProjectId });
+                case 4: return RedirectToAction("EditAlternative", "Alternative", new { @id = project.ProjectId });
+                default: return RedirectToAction("FinalResult", "Result", new { @id = project.ProjectId });
 
-            if (project.Criterias.Count == 0)
-            {
-               return RedirectToAction("AddCriterion", "Criterion", new { @id = project.ProjectId });
             }
-            else if (project.Criterias[0].CriteriaRanks.Count() == 0)
-            {
-              return  RedirectToAction("EditCriteria", "Criterion", new { @id = project.ProjectId });
-            }
-            else if (project.Alternatives.Count == 0)
-            {
-              return  RedirectToAction("AddAlternative", "Alternative", new { @id = project.ProjectId });
-            }
-            else if (project.Criterias[0].AlternativeRanks.Count() == 0)
-            {
-              return  RedirectToAction("EditAlternative", "Alternative", new { @id = project.ProjectId });
-            }
-            return RedirectToAction("FinalResult", "Result", new { @id = project.ProjectId });
+           
         }
 
         // GET: Home/LearnMore
@@ -99,6 +91,11 @@ namespace AHP.Controllers
                 }
             }
             return View();
+        }
+        [HttpDelete]
+        public async Task<bool> DeleteProject(Guid id)
+        {
+           return await ProjectService.DeleteProject(id);
         }
     }
 }
