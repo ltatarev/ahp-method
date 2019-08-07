@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { HomeComponent } from './components/home/home.component';
 import { AddCriteriaComponent } from './components/add-criteria/add-criteria.component';
 import { EditCriteriaComponent } from './components/edit-criteria/edit-criteria.component';
@@ -13,15 +14,15 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: 'home', component: HomeComponent},
-  { path: "learnMore", component: LearnMoreComponent},
-  { path: "allProjects", component: AllProjectsComponent},
-  { path: "addCriterion/:id", component: AddCriteriaComponent},
-  { path: "editCriteria", component: EditCriteriaComponent},
-  { path: "editAlternative", component: EditAlternativeComponent},
-  { path: "addAlternative", component: AddAlternativeComponent},
-  { path: "finalResult", component: FinalResultComponent},
-  { path: "newProject", component: NewProjectComponent},
-  { path: "**", redirectTo: "home" }
+  { path: 'learnMore', component: LearnMoreComponent},
+  { path: 'allProjects', component: AllProjectsComponent},
+  { path: 'addCriterion/:id', component: AddCriteriaComponent},
+  { path: 'editCriteria', component: EditCriteriaComponent},
+  { path: 'editAlternative', component: EditAlternativeComponent},
+  { path: 'addAlternative', component: AddAlternativeComponent},
+  { path: 'finalResult', component: FinalResultComponent},
+  { path: 'newProject', component: NewProjectComponent},
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

@@ -60,8 +60,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngAHP:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "ngAHP:build"
           },
           "configurations": {
             "production": {

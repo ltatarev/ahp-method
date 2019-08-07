@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormArray, FormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute } from '@angular/router';
+import { CriteriaService } from 'src/app/services/criteria.service';
 
 @Component({
   selector: "app-add-criteria",
@@ -10,9 +12,18 @@ import { FormGroup, FormArray, FormBuilder, Validators } from "@angular/forms";
 export class AddCriteriaComponent implements OnInit {
   addCriteriaForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder, 
+    private route: ActivatedRoute,
+    private criteriaService: CriteriaService
+    ) {}
 
   ngOnInit() {
+
+    // Get projectId from RouteSnapshot
+    const projectId = this.route.snapshot.url[1].path;
+    
+    // Create form
     this.addCriteriaForm = this.fb.group({
       criteriaArray: this.fb.array([], Validators.required)
     });
@@ -54,6 +65,7 @@ export class AddCriteriaComponent implements OnInit {
       criteria.push(c);
     }
 
-    console.log(criteria);
+
+
   }
 }
