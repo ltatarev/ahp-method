@@ -73,9 +73,9 @@ namespace AHP.Controllers.api
         }
         // DELETE: api/Criterion/DeleteCriterion
         [HttpDelete]
-        public async Task<HttpResponseException> DeleteCriterion(CriterionDto criterion)
+        public async Task<HttpResponseException> DeleteCriterion(Guid criterion)
         {
-            await _criteriaService.DeleteCriteriaAsync(criterion.CriteriaId);
+            await _criteriaService.DeleteCriteriaAsync(criterion);
             throw new HttpResponseException(HttpStatusCode.OK);
         }
     }

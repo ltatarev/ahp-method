@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
@@ -48,11 +48,16 @@ export class CriteriaService {
 
 
 // Delete Criteria from DB
-deleteCriteria (criteria: any): Observable<any> {
-  return this.http.delete(this.criteriaUrl + 'DeleteCriterion', criteria)
+/* deleteCriteria (criteria: any): Observable<any> {
+
+  let httpParams = new HttpParams().set('criterion', criteria.criteriaId);
+  
+  let options = { params: httpParams };
+
+  return this.http.delete<any>(this.criteriaUrl + 'DeleteCriterion', options)
     .pipe(
       catchError(this.handleError)
     );
-}
+} */
 
 }

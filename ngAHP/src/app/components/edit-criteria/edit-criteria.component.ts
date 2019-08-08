@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { CriteriaService } from 'src/app/services/criteria.service';
+import { CriteriaRank } from 'src/app/classes/criteria-rank';
 
 @Component({
   selector: 'app-edit-criteria',
@@ -20,9 +21,12 @@ export class EditCriteriaComponent implements OnInit {
   // current projectId
   private projectId: any;
 
+  // Display object for form
+  private formDisplay: [];
+
   constructor(
-    private fb: FormBuilder,
     private criteriaService: CriteriaService,
+    private fb: FormBuilder,
     private route: ActivatedRoute
     ) { }
 
@@ -60,11 +64,17 @@ export class EditCriteriaComponent implements OnInit {
 
   fillFormWithCriteria(currentCriteria: any) {
       // If project doesn't have existing criteria
-      if (!this.allCriteria){
-          console.log(1)
+      if (currentCriteria){
+        for (let i in currentCriteria) {
+          if (i < currentCriteria.length) {
+          let a = {} as CriteriaRank;
+            a.FirstCriteria = currentCriteria[i];
+            a.SecondCriteria = currentCriteria[i+1];
+        }
+      }
       } else {
       // If project already has existing criteria from before
-        console.log(this.allCriteria)
+        console.log(1)
       }
   }
 

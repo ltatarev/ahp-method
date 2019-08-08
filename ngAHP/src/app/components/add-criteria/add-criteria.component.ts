@@ -34,7 +34,7 @@ export class AddCriteriaComponent implements OnInit {
     this.projectId = this.route.snapshot.url[1].path;
     
     // Check if project already has criteria from before
-    this.criteriaService.getCriteria(this.projectId).subscribe((response : any[]) => {
+/*     this.criteriaService.getCriteria(this.projectId).subscribe((response : any[]) => {
         this.allCriteria = response;
     },
     // The 2nd callback handles errors.
@@ -42,27 +42,30 @@ export class AddCriteriaComponent implements OnInit {
     // The 3rd callback handles the "complete" event.
     () => { 
         for (let criteria of this.allCriteria) {
-          this.addCriteria(criteria.criteriaName);
+          this.addCriteria(criteria.criteriaName, true);
         }
         // Adds 2 input fields
         this.addCriteria();
         this.addCriteria();
       }
-    )
+    ) */
 
     // Create form
     this.addCriteriaForm = this.fb.group({
       criteriaArray: this.fb.array([], Validators.required)
     });
+
+    this.addCriteria();
+    this.addCriteria();
   }
 
   get criteriaForms() {
     return this.addCriteriaForm.get("criteriaArray") as FormArray;
   }
 
-  addCriteria(name?:any) {
+  addCriteria(name?:any, isDisabled?:boolean) {
     const criteria = this.fb.group({
-      criteriaName: [name, Validators.required]
+      criteriaName: [{value: name, disabled: isDisabled}, Validators.required]
     });
     this.criteriaForms.push(criteria);
   }
@@ -77,22 +80,41 @@ export class AddCriteriaComponent implements OnInit {
 
   deleteCriteria(i) {
     if (this.criteriaForms.length > 2) {
+      this.criteriaForms.removeAt(i);
+    }
+/*     if (this.criteriaForms.length > 2) {
       // If Criteria is already in DB, delete it from DB
       for (let c of this.allCriteria) {
-        if (c.criteriaName == this.criteriaForms.at(i).value) {
+        if (c.criteriaName == this.criteriaForms.at(i).value.criteriaName) {
           this.criteriaService.deleteCriteria(c).subscribe();
       }
-      this.criteriaForms.removeAt(i);
       }
-    }
+      this.criteriaForms.removeAt(i);
+    } */
   }
 
   onSubmit() {
     let formValue = this.addCriteriaForm.value;
     let criteria = [];
-    for (let c of formValue.criteriaArray) {
-      c.ProjectId = this.projectId;
-      criteria.push(c);
+
+/*     if (this.allCriteria.length != 0) {
+      for (let currentCriterion of formValue.criteriaArray) { 
+        for (let k of this.allCriteria) {
+          if (k.criteriaName == currentCriterion.criteriaName)  {
+            criteria.push(k);
+          } 
+        }
+      }
+    } else {
+      for (let currentCriterion of formValue.criteriaArray) { 
+        currentCriterion.ProjectId = this.projectId;
+        criteria.push(currentCriterion);
+      }
+    } */
+
+    for (let currentCriterion of formValue.criteriaArray) { 
+      currentCriterion.ProjectId = this.projectId;
+      criteria.push(currentCriterion);
     }
 
     this.criteriaService.addCriteria(criteria).subscribe((response : Criteria[]) => {

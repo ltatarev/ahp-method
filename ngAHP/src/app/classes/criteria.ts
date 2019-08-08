@@ -4,6 +4,7 @@ export class Criteria {
         public criteriaName: string,
         public order: any,
         public priority: any,
-        public projectId: any
+        public projectId: any,
+        public dateCreated: any
     ) {}
 }
