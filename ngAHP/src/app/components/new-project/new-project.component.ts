@@ -20,7 +20,7 @@ export class NewProjectComponent implements OnInit {
     private fb: FormBuilder, 
     private projectService: ProjectService, 
     private router: Router
-    ) {}
+    ) { }
 
   ngOnInit() {
     this.newProject = this.fb.group({

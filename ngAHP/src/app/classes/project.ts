@@ -1,7 +1,7 @@
 export class Project {
     constructor(
-        public Username: string,
-        public ProjectName: string,
+        public username: string,
+        public projectName: string,
         public projectId?: any
     ) {}
 }

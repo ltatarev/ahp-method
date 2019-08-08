@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 
-import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import { Criteria } from '../classes/criteria'
@@ -12,11 +11,7 @@ import { Criteria } from '../classes/criteria'
 })
 export class CriteriaService {
 
-  constructor(
-    private http: HttpClient, 
-    private _router: Router
-  ) { 
-  }
+  constructor(private http: HttpClient) {}
 
   private criteriaUrl = '/api/Criterion/';
 
@@ -38,12 +33,26 @@ export class CriteriaService {
     return throwError(errorMessage);
   }
 
+  // Adds new (list of) Criteria
   addCriteria(criteria: Criteria[]): Observable<any> {
-    return this.http.post<any>(this.criteriaUrl + 'AddCriteria', criteria)    
+    return this.http.post<any>(this.criteriaUrl + 'AddNewCriterion', criteria)    
       .pipe(
         catchError(this.handleError)
     );
   }
 
+  // Gets all Criteria for a given projectId
+  getCriteria(projectId: any): Observable<any> {
+    return this.http.get<Criteria[]>(this.criteriaUrl + 'EditCriteria/' + projectId, projectId);
+	}
+
+
+// Delete Criteria from DB
+deleteCriteria (criteria: any): Observable<any> {
+  return this.http.delete(this.criteriaUrl + 'DeleteCriterion', criteria)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 
 }

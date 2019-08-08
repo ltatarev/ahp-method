@@ -1,9 +1,9 @@
 export class Criteria {
     constructor(
-        public CriteriaId: any,
-        public CriteriaName: string,
-        public Order: any,
-        public Priority: any,
-        public ProjectId: any
+        public criteriaId: any,
+        public criteriaName: string,
+        public order: any,
+        public priority: any,
+        public projectId: any
     ) {}
 }

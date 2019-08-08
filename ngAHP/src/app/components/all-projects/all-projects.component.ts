@@ -12,7 +12,6 @@ export class AllProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.projectService.allProjects().subscribe((res : any[]) => {
-     
   });   
   }
 

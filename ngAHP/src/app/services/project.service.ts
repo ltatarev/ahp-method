@@ -40,7 +40,7 @@ export class ProjectService {
     return throwError(errorMessage);
   }
  
-
+  // Adds new project
   newProject(project: Project): Observable<any> {
     return this.http.post<any>(this.projectUrl + 'CreateProject', project)    
       .pipe(
@@ -48,9 +48,9 @@ export class ProjectService {
     );
   }
 
-
-  allProjects() : Observable<any> {
-    return this.http.get<Project>(this.projectUrl + 'AllProjects');
+  // Gets all projects 
+  allProjects(): Observable<any> {
+    return this.http.get<Project[]>(this.projectUrl + 'AllProjects');
   }
 
 

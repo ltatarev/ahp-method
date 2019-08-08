@@ -1,5 +1,3 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 body {
   background-image: url("../src/assets/bg.png");
   background-size: cover;
@@ -87,7 +85,7 @@ ORANGE: dd5c46
   height: 100%;
 }
 
-.row {
+.row, p {
   font-family: "Josefin Sans", sans-serif;
   font-size: 16px;
 }
