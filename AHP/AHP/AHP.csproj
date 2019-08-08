@@ -161,6 +161,7 @@
     <Compile Include="Controllers\api\AlternativeController.cs" />
     <Compile Include="Controllers\api\CriterionController.cs" />
     <Compile Include="Controllers\api\HomeController.cs" />
+    <Compile Include="Controllers\api\ResultController.cs" />
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
