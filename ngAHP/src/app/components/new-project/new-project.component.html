@@ -5,8 +5,8 @@
     <div class="loader" id="divLoader" style="display:none;"></div>
     <h3 id="SubTitle" class="text-light text-left">Add new project</h3>
 <div class="row mt-3">
-    <div class="col-5 mr-auto">
-    <form [formGroup]="newProject"(ngSubmit)="onSubmit()" #project="ngForm">
+    <div class="col-5 mr-auto animated slideInUp delay-1s">
+    <form [formGroup]="newProject" (ngSubmit)="onSubmit()" #project="ngForm">
         <div class="form-group">
             <input type="text" class="form-control" name="Username" id="Username" placeholder="Username" formControlName="Username"
                 autocomplete="off">
@@ -15,7 +15,7 @@
             <input type="text" required class="form-control" name="ProjectName" id="ProjectName" placeholder="Project name"
                 formControlName="ProjectName" autocomplete="off">
         </div>
-        <button type="submit" class="btn btn-success btnLetter float-right" [disabled]="project.form.invalid">Submit</button>
+        <button type="submit" class="btn btn-success btnLetter mr-auto" [disabled]="project.form.invalid">Submit</button>
     </form>
 </div>
 </div>
