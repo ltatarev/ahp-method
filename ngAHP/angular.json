@@ -25,6 +25,7 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/animate.css/animate.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -60,8 +61,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngAHP:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "ngAHP:build"
           },
           "configurations": {
             "production": {
