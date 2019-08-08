@@ -14,5 +14,6 @@ namespace AHP.Service.Common
         Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria);
         Task<List<ICriteriaModel>> GetCriteriasByProjectId(Guid projectId, int pageNumber, int pageSize = 10);
         Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId);
+        Task<bool> DeleteCriteriaAsync(Guid id);
     }
 }

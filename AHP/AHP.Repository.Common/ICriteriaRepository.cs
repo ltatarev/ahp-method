@@ -18,6 +18,7 @@ namespace AHP.Repository.Common
         Task<List<ICriteriaModel>> GetCriteriasByProjectIdWithCRaAR(Guid projectId);
         Task<ICriteriaModel> InsertCriteria(ICriteriaModel criteria);
         Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria);
+        Task<ICriteriaModel> UpdateCriteria(ICriteriaModel criteria);
         Task<bool> DeleteCriteriaAsync(Guid CriteriaID);
        
 

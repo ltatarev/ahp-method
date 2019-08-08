@@ -64,27 +64,40 @@ namespace AHP.Service
             var criterias = await _criteriaRepository.GetCriteriasByProjectIdWithCRaAR(projectId);
             return criterias;
         }
-
+        public async Task<bool> DeleteCriteriaAsync(Guid id)
+        {
+            return await _criteriaRepository.DeleteCriteriaAsync(id);
+        }
         public async Task<List<ICriteriaModel>> AddRange(List<ICriteriaModel> criteria)
         {
-            
+            //update status projekta
             var project = await _projectRepository.GetProjectByIdAsync(criteria[0].ProjectId);
             project.Status = 2;
             project.DateUpdated = DateTime.Now;
 
-            var order = 1;
-            foreach (var crit in criteria)
-            {
-                crit.DateCreated = DateTime.Now;
-                crit.DateUpdated = DateTime.Now;
-                crit.CriteriaId = Guid.NewGuid();
-                crit.Order = order;
-                order++;
-                
-            }
+            var criteriasInDb = await _criteriaRepository.GetCriteriasByProjectId(criteria[0].ProjectId,1,100);
+            var order = 1;           
             using (var uow = _uowFactory.CreateUnitOfWork())
             {
-                await _criteriaRepository.AddRange(criteria);
+                foreach (var crit in criteria)
+                {
+                    crit.DateUpdated = DateTime.Now;
+                    crit.DateCreated = DateTime.Now;
+                    crit.Order = order;
+                    order++;
+                    //If criteria exists, update it                   
+                    if (criteriasInDb.FindIndex(c => c.CriteriaId == crit.CriteriaId) >= 0)
+                    {
+                        await _criteriaRepository.UpdateCriteria(crit);                     
+                    }
+                    //If criteria doesn't exist, create new id and insert it to database
+                    else
+                    {
+                        crit.CriteriaId = Guid.NewGuid();
+                        crit.DateCreated = DateTime.Now;
+                        await _criteriaRepository.InsertCriteria(crit);
+                    }
+                }
                 await _projectRepository.UpdateProject(project);
                 uow.Commit();
             }

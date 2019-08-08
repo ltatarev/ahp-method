@@ -88,6 +88,15 @@ namespace AHP.Repository
             return criteria;
         }
 
+        public async Task<ICriteriaModel> UpdateCriteria(ICriteriaModel criteria)
+        {
+            var criteriaInDb = await _context.Criterias.FindAsync(criteria.CriteriaId);
+            _context.Entry(criteriaInDb).CurrentValues.SetValues(_mapper.Map<Criteria>(criteria));
+            await _context.SaveChangesAsync();
+
+            return criteria;
+        }
+
         public async Task<bool> DeleteCriteriaAsync(Guid criteriaID)
         {
             var crit = await _context.Criterias.FindAsync(criteriaID);
