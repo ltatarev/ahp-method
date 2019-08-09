@@ -83,15 +83,32 @@
                 let critTitle = document.createElement("h1");
                     critTitle.classList.add("alert");
                     critTitle.setAttribute("style", "font-weight:bold; background: rgba(102,144,238,0.4); text-transform: uppercase; letter-spacing: 2px;");
-                    critTitle.setAttribute("role", "alert");
+                     critTitle.setAttribute("role", "alert");
+                //   let a = document.createElement("a");
+                //    a.classList.add("btn")
+                //a.setAttribute("data-toggle", "collapse");
+                //a.setAttribute("role", "button");
+                //a.setAttribute("aria-expanded", "false");
+                // a.setAttribute("aria-controls", `#collapse` + idCount);
+                //a.setAttribute("href", `#collapse` + idCount);
+
+           
+                //a.innerHTML = Criteria[i].name;
+
+
                 critTitle.innerHTML = Criteria[i].name;
 
                     form.append(critTitle);
 
+                 let collapseDiv = document.createElement("div");
+                //        collapseDiv.setAttribute("id", `#collapse` + idCount)
+                //collapseDiv.classList.add("collapse");
+
+
                 for (j = 0; j < A; j++) {
-
+                    
                     for (k = j + 1; k < A; k++) {
-
+                       
                         let formRowDesc = document.createElement("div");
                             formRowDesc.classList.add("row", "pt-4");
                             formRowDesc.setAttribute("class", "text-center");
@@ -132,16 +149,18 @@
                         secondAlt.innerHTML = Alternatives[k].name;
                         formRow.append(secondAlt);
 
-                        form.append(formRowDesc);
-                        form.append(formRow);
+                        collapseDiv.append(formRowDesc);
+                        collapseDiv.append(formRow);
 
                         let line = document.createElement("hr");
-                        form.append(line);
+                        collapseDiv.append(line);
+                         form.append(collapseDiv);
+                
 
                         idCount++;
                     }
+                   
                 }
-
 
             }
 

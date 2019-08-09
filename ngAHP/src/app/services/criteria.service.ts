@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import { Criteria } from '../classes/criteria'
+import { CriteriaRank } from '../classes/criteria-rank';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +60,13 @@ export class CriteriaService {
       catchError(this.handleError)
     );
 } */
+
+  // Adds CriteriaRanks
+  addCriteriaRanks(criteriaRank: CriteriaRank[]): Observable<any> {
+    return this.http.post<any>(this.criteriaUrl + 'EditCriterionPreference', criteriaRank)    
+      .pipe(
+        catchError(this.handleError)
+    );
+  }
 
 }

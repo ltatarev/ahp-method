@@ -1,9 +1,11 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
-import { CriteriaService } from 'src/app/services/criteria.service';
+import { CriteriaPreference } from 'src/app/classes/criteria-preference';
 import { CriteriaRank } from 'src/app/classes/criteria-rank';
+import { CriteriaService } from 'src/app/services/criteria.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-edit-criteria',
@@ -12,22 +14,20 @@ import { CriteriaRank } from 'src/app/classes/criteria-rank';
 })
 export class EditCriteriaComponent implements OnInit {
   
-  // form
-  private editCriteriaForm: FormGroup;
-
   // all criteria for current projectId
   private allCriteria: any;
-
+  // form
+  private editCriteriaForm: FormGroup;
+  // Display object for form
+  private formDisplay: any = [];
   // current projectId
   private projectId: any;
-
-  // Display object for form
-  private formDisplay: [];
 
   constructor(
     private criteriaService: CriteriaService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -38,71 +38,67 @@ export class EditCriteriaComponent implements OnInit {
     this.criteriaService.getCriteria(this.projectId).subscribe((res : any[]) => {
       this.allCriteria = res;
     },
-    // The 2nd callback handles errors.
     (err) => console.error(err),
-    // The 3rd callback handles the "complete" event.
-    () => this.fillFormWithCriteria(this.allCriteria));         
+    () => { this.fillFormWithCriteria(this.allCriteria) 
+    });         
 
     // Form
     this.editCriteriaForm = this.fb.group({
       criteriaArray: this.fb.array([], Validators.required)
     });
+
   }
 
   get criteriaArrayForm() {
-    return this.editCriteriaForm.get("criteriaArray") as FormArray
+    return this.editCriteriaForm.get('criteriaArray') as FormArray
   }
 
   addNewSlider() {
     // Adding new FormGroup to FormArray
     // (newSlider <=> new form slider --- user preference)
     const newSlider = this.fb.group({
-      preference: ['', Validators.max(9), Validators.min(-8)]
+      preference: ['', [Validators.max(9), Validators.min(-8)]]
     })
-    return this.criteriaArrayForm.push(newSlider);
+    this.criteriaArrayForm.push(newSlider);
   }
 
   fillFormWithCriteria(currentCriteria: any) {
-      // If project doesn't have existing criteria
-      if (currentCriteria){
-        for (let i in currentCriteria) {
-          if (i < currentCriteria.length) {
-          let a = {} as CriteriaRank;
-            a.FirstCriteria = currentCriteria[i];
-            a.SecondCriteria = currentCriteria[i+1];
+    for (let i = 0; i < currentCriteria.length; i++) {
+      for (let j = i + 1; j < currentCriteria.length; j++) {
+        let temp = {} as CriteriaPreference;
+        temp.FirstCriteria = currentCriteria[i];
+        temp.SecondCriteria = currentCriteria[j];
+        this.formDisplay.push(temp);
+        this.addNewSlider();
         }
-      }
-      } else {
-      // If project already has existing criteria from before
-        console.log(1)
-      }
+    }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   onSubmit() {
-    console.log(this.editCriteriaForm.value)
+    // Final list for sending to DB
+    let criteriaRank = []; 
+    let count = 0;
+    for (let slider of this.editCriteriaForm.value.criteriaArray) {
+      let temp = {} as CriteriaRank;
+       if (!slider.preference) {
+        temp.Priority = 1;
+      } else {
+        if (slider.preference >= 1) {
+          temp.Priority = 1 / (slider.preference);
+        } else {
+          temp.Priority = -(slider.preference)+1;
+        }  
+      }
+      temp.CriteriaId = this.formDisplay[count].FirstCriteria.criteriaId
+      temp.Column = this.formDisplay[count].SecondCriteria.order
+      criteriaRank.push(temp);
+      count++;
+    }    
+    
+    this.criteriaService.addCriteriaRanks(criteriaRank).subscribe(
+      (response : CriteriaRank[]) => {
+      this.router.navigate(['addAlternative',this.projectId]);
+    })
   }
-
-
-  
-
 
 }

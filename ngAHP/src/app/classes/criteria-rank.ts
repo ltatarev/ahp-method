@@ -1,7 +1,7 @@
 export class CriteriaRank {
     constructor(
-        public FirstCriteria: any,
-        public Priority: number,
-        public SecondCriteria: any
+        public CriteriaId: any,
+        public Column: number,
+        public Priority: any
     ) {}
 }

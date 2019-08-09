@@ -63,9 +63,9 @@ export class AddCriteriaComponent implements OnInit {
     return this.addCriteriaForm.get("criteriaArray") as FormArray;
   }
 
-  addCriteria(name?:any, isDisabled?:boolean) {
+  addCriteria(name?:any) {
     const criteria = this.fb.group({
-      criteriaName: [{value: name, disabled: isDisabled}, Validators.required]
+      criteriaName: [name, Validators.required]
     });
     this.criteriaForms.push(criteria);
   }
