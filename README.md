@@ -8,4 +8,4 @@ The AHP generates a weight for each alternative according to the decision makerâ
 
 ---
 
-![UI mockup](https://github.com/ltatarev/screenshots/blob/master/01.png?raw=true)
+![UI mockup](https://i.imgur.com/0TacBes.png)
