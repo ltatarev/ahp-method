@@ -1,0 +1,31 @@
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
+
+<h1 id="SubTitle">Edit criteria</h1>
+<h3 class="text-light font-italic">Input your preferences</h3>
+
+<div class="container justify-content-md-center rounded shadow text-center text-dark p-4 w-75 bg-white" id="formDiv">
+
+<form [formGroup]="editCriteriaForm" (ngSubmit)="onSubmit()">
+      <div formArrayName="criteriaArray" class="p-2">
+       <div *ngFor="let c of criteriaArrayForm.controls; let i=index" [formGroupName]="i">
+            <div class="row" class="text-center">
+                    <p class="lead" style="font-size:15px; letter-spacing:1px; font-style: italic;"> 
+                    
+                    
+                    
+                    </p>
+                </div>
+           <div class="row">
+                <div class="col-3 text-center">{{formDisplay[i].FirstCriteria.criteriaName}}</div>
+                <div class="col-6"><input type="range" min="-8" max="9" step="1" value="0" formControlName="preference"></div>
+                <div class="col-3 text-center">{{formDisplay[i].SecondCriteria.criteriaName}}</div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btnLetter m-auto">Submit</button>
+   
+</form>
+</div>

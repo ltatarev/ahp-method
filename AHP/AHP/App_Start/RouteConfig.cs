@@ -12,6 +12,13 @@ namespace AHP
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("favicon.ico");
+
+            routes.MapRoute(
+            "AddCriterion", // Route name
+            "Criterion/AddCriterion", // URL 
+            new { controller = "Criterion", action = "AddCriterion" } // Parameter defaults
+            );
 
             routes.MapRoute(
                 name: "Default",

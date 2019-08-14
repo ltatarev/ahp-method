@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -48,13 +54,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AHPDbContext.cs" />
+    <Compile Include="AHPContext.cs" />
+    <Compile Include="DIModule.cs" />
+    <Compile Include="Entities\Alternative.cs" />
+    <Compile Include="Entities\AlternativeRank.cs" />
+    <Compile Include="Entities\Criteria.cs" />
+    <Compile Include="Entities\CriteriaRank.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="IAHPContext.cs" />
+    <Compile Include="Migrations\201908010631518_init.cs" />
+    <Compile Include="Migrations\201908010631518_init.Designer.cs">
+      <DependentUpon>201908010631518_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908010659505_dropPriority.cs" />
+    <Compile Include="Migrations\201908010659505_dropPriority.Designer.cs">
+      <DependentUpon>201908010659505_dropPriority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908021142384_projectStatus.cs" />
+    <Compile Include="Migrations\201908021142384_projectStatus.Designer.cs">
+      <DependentUpon>201908021142384_projectStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908010631518_init.resx">
+      <DependentUpon>201908010631518_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908010659505_dropPriority.resx">
+      <DependentUpon>201908010659505_dropPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908021142384_projectStatus.resx">
+      <DependentUpon>201908021142384_projectStatus.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

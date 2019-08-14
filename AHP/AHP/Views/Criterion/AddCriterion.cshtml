@@ -1,0 +1,146 @@
+﻿
+@model AHP.Models.CriterionView
+
+@{
+    ViewBag.Title = "AddCriterion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<button class="btn btnLetter btn-light" onclick="location.href='@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Home</button>
+
+<!-- LOADER -->
+<div class="loader" id="divLoader" style="display:none;"></div>
+<h1 id="SubTitle">Add criteria</h1>
+
+@using (Html.BeginForm("AddNewCriterion", "Criterion", FormMethod.Post, new { id = "AddCriterionForm" }))
+{
+    <div class="row p-2">
+        <div class="col-6 col-md-4">
+            @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+
+        </div>
+        <div class="col-3 col-md-2 justify-content-around">
+            <button type="button" class="btn btnPlus btn-success btn-sm" onclick="addCriterion()"><i class="fas fa-plus-circle fa-lg pt-1"></i></button>
+            <button type="button" class="btn btnPlus btn-danger btn-sm" onclick="removeCriterion()"><i class="fas fa-minus-circle fa-lg pt-1"></i></button>
+        </div>
+        <div class="col-3 float-left">
+            <button type="submit" id="submitBtn" class="btn btnLetter btn-success">Submit</button>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-6 col-md-4 pb-2" id="criteria">
+            @Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete = "off" })
+        </div>
+    </div>
+}
+
+
+@section scripts {
+    <script>
+    // Adding new criterions to form
+    let warning = document.createElement("div");
+    warning.setAttribute("style", "display:none");
+    warning.setAttribute("id","warning")
+    warning.setAttribute("class", "alert alert-danger");
+    warning.setAttribute("role", "alert");
+    warning.setAttribute("style","display:none; border: 2px solid red; font-weight: bold;")
+
+    let subtitle = document.getElementById("SubTitle");
+        subtitle.after(warning);
+
+//dodavanje inputa za kriterij
+        let numOfCriteria = 2;
+
+    function addCriterion() {
+        if (numOfCriteria < 10) {
+            let formRow = document.createElement("div");
+            formRow.classList.add("row","pl-2","pr-1");
+            let formCol = document.createElement("div");
+            formCol.classList.add("col-6", "col-md-4");
+            let formGroup = document.createElement("div");
+            formGroup.classList.add("form-group")
+            formGroup.innerHTML = `@Html.TextBoxFor(m => m.CriteriaName, new { @class = "form-control shadow", placeholder = "Criterion name", required = "required", autocomplete="off" })`;
+            formCol.appendChild(formGroup);
+            formRow.appendChild(formCol);
+            $("#AddCriterionForm").append(formRow);
+            numOfCriteria++;
+        }
+        else {
+            warning.innerHTML = "Number of max. criteria reached!";
+            warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+            $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
+        }
+    }
+
+    let form = document.getElementById("AddCriterionForm");
+        function removeCriterion() {
+            if (numOfCriteria > 2) {
+                form.removeChild(form.lastChild);
+                numOfCriteria--;
+            } else {
+                 warning.innerHTML = "Number of min. criteria reached!";
+                 warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+                $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
+            }
+    }
+
+    function checkIfDuplicateExists(w){
+        return new Set(w).size !== w.length
+    }
+
+    $("#AddCriterionForm").on("submit", function () {
+        event.preventDefault();
+         var url = '@Url.Action("AddNewCriterion", "Criterion")';
+         var data = [];
+
+         // Find all input fields
+        var text = $('#AddCriterionForm').find('input[name="CriteriaName"]');
+
+        let inputText = [];
+        let flag = false;
+        for (let t of text) {
+            inputText.push(t.value);
+        }
+        if (checkIfDuplicateExists(inputText)) {
+            warning.innerHTML = "Duplicate criteria names!";
+            warning.setAttribute("style", "display:inline; letter-spacing:2px; font-size: 12px;")
+            $('#warning').fadeIn('fast').delay(3000).fadeOut('slow');
+            flag = true;
+        }
+        console.log(checkIfDuplicateExists(inputText));
+
+         var id = @Html.Raw(Json.Encode(@ViewBag.id));
+         for (let t of text) {
+              // Values of each input field
+             console.log(t.value);
+             data.push({
+                 CriteriaName: t.value,
+                 ProjectId: id
+             })
+         };
+
+        console.log(JSON.stringify(data));
+        if (!flag) {
+       $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(data),
+            beforeSend: function () {
+                $("#divLoader").show("slow");
+                $("#AddCriterionForm").hide()
+                $('.container').css("filter", "blur(1px)");
+                },
+            success: function (response) {
+                console.log(response);
+                window.location.href = '@Url.Action("EditCriteria", "Criterion", new { id = ViewBag.id })';
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+            }
+    });
+
+    </script>
+}

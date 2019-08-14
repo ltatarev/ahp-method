@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>eba47e6b-d9b0-4612-aeab-69e80dc9d817</ProjectGuid>
+    <ProjectGuid>{EBA47E6B-D9B0-4612-AEAB-69E80DC9D817}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AHP.Service</RootNamespace>
@@ -31,24 +31,51 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AlternativeRankService.cs" />
+    <Compile Include="AlternativeService.cs" />
+    <Compile Include="CalculationClasses\DataPreparation.cs" />
+    <Compile Include="CalculationClasses\FinalResultCalculator.cs" />
+    <Compile Include="CalculationClasses\MatrixCreator.cs" />
+    <Compile Include="CalculationClasses\PriorityCalculator.cs" />
+    <Compile Include="CriteriaRankService.cs" />
+    <Compile Include="CriteriaService.cs" />
+    <Compile Include="DIModule.cs" />
+    <Compile Include="ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AHP.DAL\AHP.DAL.csproj">
+      <Project>{A8E24914-3505-42F8-8107-0DE22129E61E}</Project>
+      <Name>AHP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Model.Common\AHP.Model.Common.csproj">
+      <Project>{59A56BBC-72E7-4D07-B218-BDA9D97ED662}</Project>
+      <Name>AHP.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Repository.Common\AHP.Repository.Common.csproj">
+      <Project>{515c59cf-af01-4a28-9586-1a66297569cb}</Project>
+      <Name>AHP.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AHP.Service.Common\AHP.Service.Common.csproj">
+      <Project>{4aeee877-ae10-412e-92f9-60d0a4166013}</Project>
+      <Name>AHP.Service.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>

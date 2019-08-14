@@ -1,24 +1,110 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+/* 
+BLUE: 03aad6
+DARK-BLUE: 2477ab
+GREEN: afc74b
+ORANGE: dd5c46
+
+    120a4c
+    9147ea
+    51e0d9
+    fbe8ff
+    f9da9f
+
+    background-color: #21D4FD;  
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+
+*/
+.rowhover {
+    background: #98fb98 !important;
+}
+.rowhover:hover {
+    background: #83d683 !important;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
+::selection {
+    background: #116196;
+}
+
+.container {
+    height: 100%;
+}
+
+.row {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+}
+
+/*.row, .container, .col {
+    border: 2px double red;
+}*/
+
+#MainTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80px;
+    font-weight: bolder;
+    text-shadow: 4px 3px 7px rgba(52,52,52,0.5);
+}
+
+#SubTitle {
+    margin-top: 40px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 65px;
+    letter-spacing: 5px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    text-shadow: 4px 3px 7px rgba(52,52,52,0.5);
+}
+
+
+.form-control, input[type=text] {
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 15px;
+    border: none;
+}
+
+.btnLetter {
+    border-radius: 25px;
+    text-transform: uppercase;
+    font-size: 12px;
     padding-left: 15px;
     padding-right: 15px;
+    letter-spacing: 2px;
+    font-family: 'Josefin Sans', sans-serif;
+    -webkit-box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 12px -1px rgba(0,0,0,0.3);
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.btnPlus {
+    border-radius: 35px;
+    -webkit-box-shadow: 1px 3px 12px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 3px 12px -1px rgba(0,0,0,0.3);
+    box-shadow: 1px 3px 12px -1px rgba(0,0,0,0.3);
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.btnLetter:first-child, .btn-outline-light {
+    padding-top: 9px;
 }
+
+ol li {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+thead {
+    letter-spacing: 2px;
+}
+
+.final tr:first-child {
+    background: rgba(92,184,92,1) !important;
+    font-weight: bold;
+}
+
+    .final tr:first-child:hover {
+        background: rgba(92,184,92,0.7) !important;
+    }

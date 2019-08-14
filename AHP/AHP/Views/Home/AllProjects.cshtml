@@ -1,0 +1,330 @@
+﻿@model  List<AHP.Models.ProjectView>
+
+<button class="btn btnLetter btn-light" onclick="location.href = '@Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Back</button>
+<div class="row pt-5 mt-2">
+    <div class="col text-md-left text-sm-center">
+        <h1 id="MainTitle">AHP METHOD</h1>
+        <h3 class="font-italic">All projects</h3>
+    </div>
+</div>
+
+
+
+<table id="projectsTable" class="table table-light m-auto table-striped text-dark table-hover" style="width:100%">
+    <thead class="thead-light rounded">
+        <tr class="font-weight-bold text-center">
+
+            <th>Project</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Choose</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody class="text-center"> </tbody>
+</table>
+
+@*<div class="row mr-auto">
+        <div class="col-12">
+            <div class="row">
+                <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover">
+                    <thead class="thead-light rounded">
+                        <tr class="font-weight-bold">
+                            <th scope="col" style="width: 16.66%">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Project name</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectBody" class="m-auto"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
+
+@*<nav class="navbar navbar-light justify-content-center">
+        <form class="form-inline bg-light rounded">
+            <button class="btn btn-sm btn-outline-info m-1" type="button" id="first">First</button>
+            <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="prev">Prev</button>
+            <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentPrev">0</button>
+            <button class="btn btn-sm btn-outline-success m-1" type="button" id="current">0</button>
+            <button class="btn btn-sm btn-outline-primary m-1" type="button" id="currentNext">0</button>
+            <button class="btn btn-sm btn-outline-secondary m-1" type="button" id="next">Next</button>
+            <button class="btn btn-sm btn-outline-info m-1" type="button" id="last">Last</button>
+        </form>
+    </nav>*@
+
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            $("#projectsTable").DataTable({
+
+                "rowCallback": function (row, data) {
+                    console.log(data.status);
+                    $('td', row).addClass("align-middle")
+                    if (data.status == "5") {
+                       
+                        $('td', row).addClass("font-weight-bold")
+                        $(row).addClass("rowhover")
+                                                
+                        $('#choose', row).removeClass("btn-outline-info")
+                        $('#choose', row).addClass("btn-outline-dark")
+                    }
+                },
+                columnDefs: [
+                    { "orderable": false, "targets": 3 },
+                    { "orderable": false, "targets": 4 },
+                    { "width": "20%", "targets": 2 },
+                    { "className": "dt-center", "targets": "_all" }
+                ],
+                ajax: {
+                    url: "/api/home/allprojects",
+                    dataSrc: "",
+                    "bProcessing": false,
+                    "bServerSide": false,
+                    "deferRender": false
+                },
+                columns: [
+                    {
+                        data: "projectName"
+                    },
+                    {
+                        data: "username"
+                    },
+                    {
+                        data: "status",
+                        render: function (data) {
+                            return (data / 5) * 100 + "%"
+                        }
+                    },
+                    {
+                        data: "projectId",
+                        render: function (data) {
+                            return "<button id='choose' class='btn-js btn btn-outline-info btn-sm btnLetter' data-project-id=" + data + ">Choose</button>"
+                        }
+                    },
+                    {
+                        data: "projectId",
+                        render: function (data) {
+                            return "<button class='btn-dlt btn btn-outline-danger btn-sm btnLetter' data-project-id=" + data + ">Delete</button>"
+                        }
+                    }
+                ]
+            });
+            $("#projectsTable").on("click", ".btn-js", function () {
+                window.location.replace("./chooseproject/" + $(this).attr("data-project-id"));
+            });
+            $("#projectsTable").on("click", ".btn-dlt", function () {
+                var button = $(this);
+                $.confirm({
+                    title: "Delete project",
+                    content: 'Are you sure?',
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                          text: 'Delete',
+                          btnClass: 'btn-red',
+                          action:  function() {
+                                
+                                    $.ajax({
+                                        url: "/api/home/deleteproject/" + button.attr("data-project-id"),
+                                        method: "DELETE",
+                                        success: function () {
+                                            button.parents("tr")
+                                                .children('td')
+                                                .animate({ padding: 0 })
+                                                .wrapInner('<div />')
+                                                .children()
+                                                .slideUp(function () { $(this).closest('tr').remove(); });
+                                            
+                                        }
+                                    });
+                            }
+                        },
+                        cancel: function () {
+                           
+                        }                      
+                    }
+                });
+                
+            })
+        })
+
+
+    @*var currentPage = @ViewBag.current;
+    console.log("CURRENT PAGE", currentPage)
+
+    var perPage = 10;
+
+    let projectLen = @ViewBag.numOfProj;
+    console.log("projectLen", projectLen)
+
+    let paginationLast = Math.ceil(projectLen / perPage);
+    console.log("paginationLast", paginationLast)*@
+            @*//// P A G I N A T I O N
+if (projectLen < 10) {
+    $("#first").addClass("disabled");
+    $("#first").css("cursor", "not-allowed");
+    $("#prev").addClass("disabled");
+    $("#prev").css("cursor", "not-allowed");
+
+
+    $("#current").html(currentPage);
+    $("#current").addClass("active");
+
+    $("#currentPrev").css("display","none");
+    $("#currentNext").css("display","none");
+
+    $("#next").addClass("disabled");
+    $("#next").css("cursor", "not-allowed");
+    $("#last").addClass("disabled");
+    $("#last").css("cursor", "not-allowed");
+} else {
+    if(currentPage == 1) {
+        $("#first").addClass("disabled");
+        $("#first").css("cursor", "not-allowed");
+        $("#prev").addClass("disabled");
+        $("#prev").css("cursor", "not-allowed");
+
+        $("#current").html(currentPage);
+        $("#current").addClass("active");
+
+        $("#currentPrev").css("display","none");
+        $("#currentNext").html(currentPage + 1);
+        $("#currentNext").click(function() {
+            let cne = currentPage + 1;
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", cne);
+          });
+
+        $("#next").click(function() {
+            let cne = currentPage + 1;
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", cne);
+          });
+        $("#last").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", paginationLast);
+          });
+    }
+    else if (currentPage == paginationLast) {
+        $("#first").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", 1);
+          });
+        $("#prev").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", currentPage - 1);
+          });
+
+        $("#current").html(currentPage);
+        $("#current").addClass("active");
+
+        $("#currentPrev").html(currentPage-1)
+        $("#currentPrev").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", currentPage - 1);
+          });
+
+        $("#currentNext").css("display","none");
+
+        $("#next").addClass("disabled");
+        $("#next").css("cursor", "not-allowed");
+        $("#last").addClass("disabled");
+        $("#last").css("cursor", "not-allowed");
+    } else {
+        $("#first").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", 1);
+          });
+        $("#prev").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", currentPage - 1);
+          });
+
+        $("#current").html(currentPage);
+        $("#current").addClass("active");
+
+        $("#currentPrev").html(currentPage-1)
+        $("#currentPrev").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", currentPage - 1);
+          });
+        $("#currentNext").html(currentPage + 1);
+        $("#currentNext").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", currentPage + 1);
+          });
+
+        $("#next").click(function() {
+            let cne = currentPage + 1;
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", cne);
+          });
+        $("#last").click(function() {
+            var url = '@Url.Action("AllProjects", "Home", new { page = "__page__" })';
+            window.location.href = url.replace("__page__", paginationLast);
+          });
+    }
+}*@
+            //------------------------------------------------------------------------------------
+            @*var uploadedListProjects = @Html.Raw(Json.Encode(@Model));
+            //console.log(uploadedListProjects)
+
+            let body = document.getElementById("projectBody");
+
+    for (let i = 0; i < 10; i++) {
+        let page = (i + 1) + (currentPage - 1) * perPage;
+        if (page <= projectLen) {
+                let row = document.createElement("tr");
+
+                let head = document.createElement("th");
+                head.setAttribute("scope", "row");
+                head.innerHTML = (i + 1) + (currentPage - 1) * perPage;
+                row.append(head);
+
+                let username = document.createElement("td");
+                username.innerHTML = uploadedListProjects[i].Username;
+                row.append(username);
+                let projectName = document.createElement("td");
+                projectHref = document.createElement("a");
+                projectHref.setAttribute("href", `./ChooseProject/` + uploadedListProjects[i].ProjectId);
+                projectHref.innerHTML = uploadedListProjects[i].ProjectName;
+                projectName.append(projectHref);
+                row.append(projectName);
+
+                let details = document.createElement("td");
+                let detailsButton = document.createElement("button");
+                detailsButton.classList.add("btn", "btn-outline-info", "btn-sm", "btnLetter");
+                detailsButton.setAttribute("id", i);
+                detailsButton.innerHTML = "Details";
+                details.append(detailsButton);
+                row.append(details);
+
+                body.append(row);
+
+                let detailsRow = document.createElement("tr");
+                let tempId = `desc` + i;
+                detailsRow.setAttribute("id", tempId);
+
+            let detailsDesc = document.createElement("td");
+                detailsDesc.setAttribute("colspan", 100);
+                detailsDesc.classList.add("text-center");
+                detailsDesc.innerHTML = uploadedListProjects[i].Description;
+                detailsRow.append(detailsDesc);
+                detailsRow.setAttribute("style", "display: none;");
+                body.append(detailsRow);
+            }
+        }
+
+    $('button').click(function () {
+        let id = parseInt(this.id);
+        let descId = `#desc` + (id.toString());
+        $(descId).toggle();
+    })*@
+
+    </script>
+}

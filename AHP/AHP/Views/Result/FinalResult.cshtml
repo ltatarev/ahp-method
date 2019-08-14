@@ -1,0 +1,61 @@
+﻿@model  List<AHP.Models.AlternativeView>
+
+    <button class="btn btnLetter btn-light" onclick="location.href=' @Url.Action("Index","Home")'"><i class="fas fa-arrow-left"></i> Home</button>
+
+    <div class="row text-light pt-5 mt-2 text-left">
+        <div class="col">
+            <h1 id="MainTitle">AHP METHOD</h1>
+            <h3 class="font-italic">Final decision</h3>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="row">
+            <table class="table w-50 m-auto text-center shadow table-striped table-light rounded table-borderless table-hover table-sm">
+                <thead class="thead-light">
+                    <tr class="font-weight-bold">
+                        <th scope="col" style="width: 16.66%">#</th>
+                        <th scope="col">Alternative name</th>
+                        <th scope="col">Overall priority</th>
+                    </tr>
+                </thead>
+                <tbody id="alternativeBody" class="final">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+@section scripts {
+    <script>
+
+        let alternativeLen = @Model.Count;
+
+        let Alternatives = [];
+
+        var uploadedListAlternative = @Html.Raw(Json.Encode(@Model));
+        console.log(uploadedListAlternative);
+
+        let body = document.getElementById("alternativeBody");
+
+        for (let i = 0; i < alternativeLen; i++ ) {
+            let row = document.createElement("tr");
+
+            let head = document.createElement("th");
+                head.setAttribute("scope", "row");
+                head.innerHTML = i + 1;
+            row.append(head);
+
+            let name = document.createElement("td");
+                name.innerHTML = uploadedListAlternative[i].AlternativeName;
+            row.append(name);
+            let priority = document.createElement("td");
+            priority.innerHTML = String(parseFloat(uploadedListAlternative[i].FinalPriority * 100).toFixed(2)) + `%`;
+            row.append(priority);
+
+
+            body.append(row);
+            }
+
+    </script>
+}

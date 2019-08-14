@@ -1,31 +1,84 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+    <div class="row text-light pt-5 mt-2 text-left">
+        <div class="col text-center text-md-left">
+            <h1 class="ml3" id="MainTitle">AHP METHOD</h1>
+            <p class="lead font-italic" style="letter-spacing:2px; font-size:18px;"></p>
+        </div>
+    </div>
+        <div class="row text-center text-md-left">
+            <div class="col">
+                <input type="button" value="Learn more" class="btn btnLetter btn-light btn-learn" />
+            </div>
+        </div>
+        <div class="row pt-5 text-center mt-5 mr-4 float-right" style="border-radius:25px;">
+            <div class="col">
+                <!-- should redirect to "Login" -->
+                <input type="button" value="New Project" onclick="location.href='@Url.Action("Login","Home")'" class="btn btnLetter btn-success" />
+
+                <!-- should redirect to "AllProjects" -->
+                <input type="button" value="Open existing project" onclick="location.href=' @Url.Action("AllProjects","Home")'" class="btn btnLetter btn-outline-light  ml-2" />
+            </div>
+        </div>
+    
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".btn-learn").on("click", function () {
+                
+                $.confirm({
+                    title: 'How to use',
+                    content:                        
+                        `&#9679; <strong> Create a new <em>project</em> you need a decision on, or pick an existing one</strong> (20%)
+                         &#9679; <strong> Set <em>criteria</em> on which you'll rank your alternatives </strong> (40%)
+                         &#9679; <strong> <em>Rank</em> your <em>criteria</em> based on importance </strong> (60%)
+                         &#9679; <strong> Set your <em>alternatives</em> as options between which you wanna choose the best one </strong> (80%)
+                         &#9679; <strong> <em>Rank</em> your alternatives based on each criterion </strong> (80%) 
+                         &#9679; <strong> Get your <em>final decision</em> on which alternative is the best choice </strong> (100%)`.split('\n').join('<br>'),
+                       
+                                                               
+                   
+                    type: 'blue',
+                    typeAnimated: true,
+                    buttons: {
+                        tryAgain: {
+                            text: 'Ok',
+                            btnClass: 'btn-blue',
+                            action: function () {
+                            }
+                        }
+                        
+                    }
+                });
+            })
+        });
+
+
+
+        // Wrap every letter in a span
+        var textWrapper = document.querySelector('.ml3');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+
+    anime.timeline({ loop: false })
+            .add({
+                targets: '.ml3 .letter',
+                opacity: [0, 1],
+                easing: "easeInOutQuad",
+                duration: 1200,
+            })
+                //.add({
+            //    targets: '.hidden',
+            //    opacity: '100',
+            //    easing: 'easeInOutQuad',
+            //    duration: 1200
+            //})
+    
+
+  //  .add({
+  //  targets: '.ml3',
+  //  opacity: 0,
+  //  duration: 1000,
+  //  easing: "easeOutExpo",
+  //  delay: 1000
+  //});
+    </script>
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>

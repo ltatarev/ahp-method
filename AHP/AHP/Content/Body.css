@@ -1,0 +1,13 @@
+﻿body {
+    background-image: url('bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 25px;
+    text-shadow: 2px 2px 5px rgba(52,52,52,0.2);
+}
+
+.ml3 {
+    font-weight: 900;
+    font-size: 3.5em;
+}
